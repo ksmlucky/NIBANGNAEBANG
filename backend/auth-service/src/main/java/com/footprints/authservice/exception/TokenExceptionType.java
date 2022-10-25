@@ -1,6 +1,5 @@
 package com.footprints.authservice.exception;
 
-import com.artrend.authservice.global.exception.BaseExceptionType;
 import com.footprints.authservice.global.exception.BaseExceptionType;
 import org.springframework.http.HttpStatus;
 
