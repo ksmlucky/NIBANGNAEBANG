@@ -1,3 +1,6 @@
+server:
+  port: 0
+
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -5,7 +8,7 @@ spring:
     username: root
     password: ssafy
   jpa:
-    show-sql: false
+    show-sql: true
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop
