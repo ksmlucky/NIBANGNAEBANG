@@ -1,0 +1,25 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://lab.ssafy.com/s07-final/S07P31C109.git
+          search-paths:
+            - configuration
+          username: delpho
+          password: qoP7wL6tpFskzyvGzHtB
+        default-label: backend
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
