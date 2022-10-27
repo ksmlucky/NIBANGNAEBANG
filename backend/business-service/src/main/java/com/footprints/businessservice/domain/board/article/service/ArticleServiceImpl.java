@@ -1,6 +1,7 @@
 package com.footprints.businessservice.domain.board.article.service;
 
 import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
+import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.article.repository.ArticleRepository;
@@ -36,5 +37,20 @@ public class ArticleServiceImpl implements ArticleService {
                 .collect(Collectors.toList());
 
         return result;
+    }
+
+    @Override
+    @Transactional
+    public void saveArticle(ArticleRequest request) {
+        Article article = Article.builder()
+                .title(request.getTitle())
+                .writer(request.getWriter())
+                .content(request.getContent())
+                .hits(0)
+                .likes(0)
+                .category(request.getCategory())
+                .build();
+
+        articleRepository.save(article);
     }
 }

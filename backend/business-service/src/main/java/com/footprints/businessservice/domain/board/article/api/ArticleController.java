@@ -1,18 +1,19 @@
 package com.footprints.businessservice.domain.board.article.api;
 
 import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
+import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.article.service.ArticleService;
+import com.footprints.businessservice.domain.message.entity.Message;
 import com.footprints.businessservice.global.common.DataResponse;
+import com.footprints.businessservice.global.common.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,5 +36,11 @@ public class ArticleController {
     public ResponseEntity<? extends DataResponse> getArticleList(SortCondition condition, Pageable pageable) {
         List<ArticleDto> list = articleService.getArticleList(condition, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(list));
+    }
+
+    @PostMapping
+    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody ArticleRequest request) {
+        articleService.saveArticle(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
 }

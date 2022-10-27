@@ -1,15 +1,15 @@
 package com.footprints.businessservice.domain.board.article.entity;
 
 import com.footprints.businessservice.global.common.BaseEntity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
+@Builder
 public class Article extends BaseEntity {
 
     @Id
@@ -19,7 +19,7 @@ public class Article extends BaseEntity {
 
     private String title;
 
-    private Long memberId;
+    private String writer;
 
     @Column(length = 1500)
     private String content;

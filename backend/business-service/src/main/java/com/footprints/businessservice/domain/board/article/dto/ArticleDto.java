@@ -11,7 +11,7 @@ public class ArticleDto {
 
     private String title;
 
-    private Long memberId;
+    private String writer;
 
     private String content;
 
@@ -25,7 +25,7 @@ public class ArticleDto {
     public ArticleDto(Article article) {
         this.id = article.getId();
         this.title = article.getTitle();
-        this.memberId = article.getMemberId();
+        this.writer = article.getWriter();
         this.content = article.getContent();
         this.hits = article.getHits();
         this.likes = article.getLikes();
