@@ -49,4 +49,10 @@ public class ArticleController {
         ArticleDto response = articleService.getArticle(articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
+
+    @PostMapping("/{article-id}/like")
+    public ResponseEntity<? extends MessageResponse> likeArticle(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "article-id") Long articleId) {
+        articleService.likeArticle(token, articleId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
 }

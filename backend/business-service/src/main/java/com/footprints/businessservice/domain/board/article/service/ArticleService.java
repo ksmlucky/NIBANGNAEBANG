@@ -14,4 +14,6 @@ public interface ArticleService {
     void saveArticle(ArticleRequest request);
 
     ArticleDto getArticle(Long articleId);
+
+    void likeArticle(String token, Long articleId);
 }
