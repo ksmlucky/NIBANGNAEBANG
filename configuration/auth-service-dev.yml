@@ -54,7 +54,6 @@ spring:
 
 logging:
   level:
-    com.artrend.authservice: debug
     org.hibernate.sql: debug
 
 eureka:
