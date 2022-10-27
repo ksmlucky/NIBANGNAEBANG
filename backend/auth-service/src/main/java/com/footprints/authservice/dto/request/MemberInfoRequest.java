@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class MemberInfoRequest {
-//    private String oAuthName;
-    private String name;
-    private String birth;
+
+    private String di;
     private String provider;
     private String providerId;
+    private String nickname;
 }
