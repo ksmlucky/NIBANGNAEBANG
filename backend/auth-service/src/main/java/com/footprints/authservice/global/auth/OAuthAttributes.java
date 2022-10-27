@@ -42,7 +42,6 @@ public class OAuthAttributes {
             CustomAttributes.put(key, attributes.get(key));
         }
 
-
         return OAuthAttributes.builder()
                 .name((String) kakaoProfile.get("nickname"))
                 .attributes(CustomAttributes)
@@ -67,11 +66,21 @@ public class OAuthAttributes {
 
     public Member toKakaoEntity(){
         return Member.builder()
-                .name(name)
+                .kakaoProvider(provider)
                 .kakaoProviderId(providerId)
                 .build();
     }
 
+    public Member toGoogleEntity(){
+        return Member.builder()
+                .googleProvider(provider)
+                .googleProviderId(providerId)
+                .build();
+    }
+
+    public void putIsAddNickname (boolean isAddNickname){
+        this.attributes.put("isAddNickname", isAddNickname);
+    }
 
     public void putProvider (String provider){
         this.attributes.put("provider", provider);
