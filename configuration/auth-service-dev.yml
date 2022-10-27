@@ -2,11 +2,11 @@ server:
   port: 0
 
 spring:
-  redis:
-   host: localhost
-    # host: redis
-    port: 6379
-    password: c109
+  # redis:
+  #  host: localhost
+  #   # host: redis
+  #   port: 6379
+  #   password: c109
   cloud:
     gateway:
       globalcors:
