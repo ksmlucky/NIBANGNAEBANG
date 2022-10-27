@@ -23,17 +23,21 @@ public class TokenProvider implements InitializingBean {
 
     private final String secret;
 
-    private final long tokenValidityInSeconds;
+    private final long accessTokenValidityInSeconds;
+
+    private final long refreshTokenValidityInSeconds;
 
     private Key key;
     private final UserDetailsService userDetailsService;
 
     public TokenProvider(
             @Value("${jwt.secret}") String secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds,
+            @Value("${jwt.access-token-validity-in-seconds}") long accessTokenValidityInSeconds,
+            @Value("${jwt.refresh-token-validity-in-seconds}") long refreshTokenValidityInSeconds,
             UserDetailsService userDetailsService) {
         this.secret = secret;
-        this.tokenValidityInSeconds = tokenValidityInSeconds * 1000;
+        this.accessTokenValidityInSeconds = accessTokenValidityInSeconds * 1000;
+        this.refreshTokenValidityInSeconds = refreshTokenValidityInSeconds * 1000;
         this.userDetailsService = userDetailsService;
     }
 
@@ -44,14 +48,27 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(String providerId, Long memberId) {
+    public String createAccessToken(Long memberId) {
         // 토큰 만료시간 설정
         Date now = new Date();
-        Date validity = new Date(now.getTime() + this.tokenValidityInSeconds);
-        System.out.println("key.toString()  " + key.toString());
-        // jwt 생성하여 리턴턴
+        Date validity = new Date(now.getTime() + this.accessTokenValidityInSeconds);
+
+        // jwt 생성하여 리턴
         return Jwts.builder()
-                .setSubject(providerId)
+//                .setSubject(providerId)
+                .claim("id",memberId)
+                .setIssuedAt(now)
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(validity)
+                .compact();
+    }
+
+    public String createRefreshToken(Long memberId) {
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + this.refreshTokenValidityInSeconds);
+
+        return Jwts.builder()
+//                .setSubject(providerId)
                 .claim("id",memberId)
                 .setIssuedAt(now)
                 .signWith(key, SignatureAlgorithm.HS512)

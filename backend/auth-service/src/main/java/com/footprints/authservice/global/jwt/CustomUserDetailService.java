@@ -24,7 +24,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
         return CustomUserDetails.builder()
                 .id(String.valueOf(findMember.getId()))
-                .name(findMember.getName())
                 .build();
     }
 }
