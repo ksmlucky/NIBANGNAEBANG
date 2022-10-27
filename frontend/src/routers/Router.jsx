@@ -15,7 +15,7 @@ import Home from "@screens/Home";
 // import FindPwFinish from "@screens/user/FindPwFinish";
 import KakaoLogin from "@screens/oauth/KakaoLogin";
 // import NaverLogin from "@screens/oauth/NaverLogin";
-// import GoogleLogin from "@screens/oauth/GoogleLogin";
+import GoogleLogin from "@screens/oauth/GoogleLogin";
 // mypage
 // import Drop from "@screens/mypage/Drop";
 // import DropFinish from "@screens/mypage/DropFinish";
@@ -26,6 +26,9 @@ import KakaoLogin from "@screens/oauth/KakaoLogin";
 
 // others
 import NotFound from "@screens/NotFound";
+
+// room
+import RoomRegister from "@screens/room/RoomRegister";
 
 // Community
 // import Community from "./Community";
@@ -39,6 +42,7 @@ function Router() {
         <Route path="/" element={<Home />} />
         {/* login */}
         <Route path="/kakao" element={<KakaoLogin />} />
+        <Route path="/google" element={<GoogleLogin />} />
         {/* join */}
         <Route path="/join/*">
           <Route path="*" element={<NotFound />} />
@@ -58,6 +62,11 @@ function Router() {
         {/* Drop */}
         <Route path="/drop/*">
           <Route path="*" element={<NotFound />} />
+        </Route>
+
+        {/* Room */}
+        <Route path="/room/*">
+          <Route path="register" element={<RoomRegister />} />
         </Route>
 
         {/* camping */}
