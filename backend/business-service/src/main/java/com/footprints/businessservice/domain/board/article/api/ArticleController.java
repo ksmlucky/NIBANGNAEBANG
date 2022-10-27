@@ -34,13 +34,19 @@ public class ArticleController {
 
     @GetMapping
     public ResponseEntity<? extends DataResponse> getArticleList(SortCondition condition, Pageable pageable) {
-        List<ArticleDto> list = articleService.getArticleList(condition, pageable);
-        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(list));
+        List<ArticleDto> response = articleService.getArticleList(condition, pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
 
     @PostMapping
     public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody ArticleRequest request) {
         articleService.saveArticle(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
+    }
+
+    @GetMapping("/{article-id}")
+    public ResponseEntity<? extends DataResponse> getArticle(@PathVariable(name = "article-id") Long articleId) {
+        ArticleDto response = articleService.getArticle(articleId);
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
 }

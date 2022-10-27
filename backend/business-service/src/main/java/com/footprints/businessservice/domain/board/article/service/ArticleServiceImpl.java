@@ -53,4 +53,10 @@ public class ArticleServiceImpl implements ArticleService {
 
         articleRepository.save(article);
     }
+
+    @Override
+    public ArticleDto getArticle(Long articleId) {
+        Article article = articleRepository.getArticle(articleId);
+        return new ArticleDto(article);
+    }
 }
