@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.cloud:spring-cloud-sleuth-instrumentation:3.1.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-sleuth-instrumentation/3.1.4/4399ef02a8339ad4e116901290f4c8c48e8f10d4/spring-cloud-sleuth-instrumentation-3.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-sleuth-instrumentation/3.1.4/e41e60bf25d1052773e59c3f3ca95c724388991d/spring-cloud-sleuth-instrumentation-3.1.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

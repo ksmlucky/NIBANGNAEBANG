@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j:2.1.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-circuitbreaker-resilience4j/2.1.4/608fc55c3dfa07df7b069b77c1f9652db8faefba/spring-cloud-starter-circuitbreaker-resilience4j-2.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-starter-circuitbreaker-resilience4j/2.1.4/3fc52e6b70e1ac89f7cf8157e6582fe0c8bd1d52/spring-cloud-starter-circuitbreaker-resilience4j-2.1.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

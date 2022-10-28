@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.cloud:spring-cloud-sleuth-autoconfigure:3.1.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-sleuth-autoconfigure/3.1.4/934755fba11466a992536cdc7884eb5d958e0ef6/spring-cloud-sleuth-autoconfigure-3.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-sleuth-autoconfigure/3.1.4/1e0d49268a38ed635022889290ae5b5e48e92d9e/spring-cloud-sleuth-autoconfigure-3.1.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

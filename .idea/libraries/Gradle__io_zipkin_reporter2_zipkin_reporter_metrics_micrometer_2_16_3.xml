@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.zipkin.reporter2:zipkin-reporter-metrics-micrometer:2.16.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.zipkin.reporter2/zipkin-reporter-metrics-micrometer/2.16.3/15fd507b05c318cc2eaffa881bdab2386bf2015e/zipkin-reporter-metrics-micrometer-2.16.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.zipkin.reporter2/zipkin-reporter-metrics-micrometer/2.16.3/5e05fac4b5187be7bf4904844bce5979f22e7adc/zipkin-reporter-metrics-micrometer-2.16.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="apigateway-service" target="11" />
+      <module name="apigateway-service.main" target="11" />
+      <module name="apigateway-service.test" target="11" />
+      <module name="auth-service" target="11" />
+      <module name="auth-service.main" target="11" />
+      <module name="auth-service.test" target="11" />
+      <module name="config-service" target="11" />
+      <module name="config-service.main" target="11" />
+      <module name="config-service.test" target="11" />
+      <module name="discovery-service" target="11" />
+      <module name="discovery-service.main" target="11" />
+      <module name="discovery-service.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.cloud:spring-cloud-sleuth-brave:3.1.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-sleuth-brave/3.1.4/af4d0b70cca8cac13313d6db41e51baf38b70926/spring-cloud-sleuth-brave-3.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.cloud/spring-cloud-sleuth-brave/3.1.4/fa9dd8fc1747c0477205f2dbe02c24024a775e96/spring-cloud-sleuth-brave-3.1.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

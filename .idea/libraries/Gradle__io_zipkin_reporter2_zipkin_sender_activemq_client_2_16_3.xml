@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.zipkin.reporter2:zipkin-sender-activemq-client:2.16.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.zipkin.reporter2/zipkin-sender-activemq-client/2.16.3/933997c52ec0d24b7e1ff518a6c0e99ea4799026/zipkin-sender-activemq-client-2.16.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.zipkin.reporter2/zipkin-sender-activemq-client/2.16.3/7b41cf885b17d70c121621903ddf8de9f48d04cf/zipkin-sender-activemq-client-2.16.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
