@@ -2,6 +2,7 @@ package com.footprints.businessservice.domain.board.article.api;
 
 import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
 import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
+import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.article.service.ArticleService;
 import com.footprints.businessservice.domain.message.entity.Message;
@@ -56,9 +57,15 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
-    @PostMapping("/{article-id}/unlike")
+    @DeleteMapping("/{article-id}/unlike")
     public ResponseEntity<? extends MessageResponse> unlikeArticle(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "article-id") Long articleId) {
         articleService.unlikeArticle(token, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<? extends DataResponse> searchArticle(SearchCondition condition, Pageable pageable) {
+        List<ArticleDto> response = articleService.searchArticle(condition, pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
 }

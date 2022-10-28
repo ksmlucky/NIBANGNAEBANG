@@ -2,6 +2,7 @@ package com.footprints.businessservice.domain.board.article.service;
 
 import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
 import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
+import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +19,6 @@ public interface ArticleService {
     void likeArticle(String token, Long articleId);
 
     void unlikeArticle(String token, Long articleId);
+
+    List<ArticleDto> searchArticle(SearchCondition condition, Pageable pageable);
 }
