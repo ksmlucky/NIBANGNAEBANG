@@ -25,13 +25,7 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final Environment env;
 
-    @GetMapping("/health_check")
-    public String check() {
-        log.info("Server port={}", env.getProperty("local.server.port"));
-        return String.format("This Service port is %s", env.getProperty("local.server.port"));
-    }
 
     @GetMapping
     public ResponseEntity<? extends DataResponse> getArticleList(SortCondition condition, Pageable pageable) {
