@@ -2,6 +2,7 @@ package com.footprints.businessservice.domain.board.article.service;
 
 import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
 import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
+import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.article.entity.LikedArticle;
@@ -99,6 +100,17 @@ public class ArticleServiceImpl implements ArticleService {
 
         LikedArticle likedArticle = likedArticleRepository.findArticle(articleId);
         likedArticleRepository.delete(likedArticle);
+    }
+
+    @Override
+    public List<ArticleDto> searchArticle(SearchCondition condition, Pageable pageable) {
+        Page<Article> articles = articleRepository.searchArticle(condition, pageable);
+
+        List<ArticleDto> result = articles.stream()
+                .map(article -> new ArticleDto(article))
+                .collect(Collectors.toList());
+
+        return result;
     }
 
     private Article updateLikeCount(Long articleId, int count) {
