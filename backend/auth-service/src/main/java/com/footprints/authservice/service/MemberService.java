@@ -147,7 +147,7 @@ public class MemberService {
         String accessToken = tokenProvider.createAccessToken(memberId);
         String refreshToken = tokenProvider.createRefreshToken(memberId);
 
-        redisService.setValues(memberId, refreshToken, Duration.ofDays(7));
+        redisService.setValues(String.valueOf(memberId), refreshToken, Duration.ofDays(7));
 
         tokens.put("accessToken", accessToken);
         tokens.put("refreshToken", refreshToken);

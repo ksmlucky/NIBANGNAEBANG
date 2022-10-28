@@ -128,9 +128,9 @@ public class MemberController {
     })
     @PostMapping("/{memberId}/di")
     public ResponseEntity getDi(@RequestBody MemberInfoForDiRequest memberInfoForDiRequest) throws NoSuchAlgorithmException {
-        memberService.getDi(memberInfoForDiRequest);
+        String di = memberService.getDi(memberInfoForDiRequest);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("본인 인증 완료"));
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("본인 인증 완료",di));
     }
 
     @Operation(summary = "닉네임 조회하기", description = "해당 회원의 닉네임을 조회합니다.")
