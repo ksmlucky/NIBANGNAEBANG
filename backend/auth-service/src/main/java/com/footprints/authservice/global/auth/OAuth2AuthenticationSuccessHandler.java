@@ -1,11 +1,11 @@
 package com.footprints.authservice.global.auth;
 
+import com.footprints.authservice.client.BusinessServiceClient;
 import com.footprints.authservice.domain.Member;
 import com.footprints.authservice.global.jwt.TokenProvider;
 import com.footprints.authservice.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -24,7 +24,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private final TokenProvider tokenProvider;
     private final MemberRepository memberRepository;
-    private final Environment env;
+    private final BusinessServiceClient businessServiceClient;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -39,7 +39,14 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         // 토큰 발급하기위해서는 memberId를 알아야하지만, 카카오로 로그인했는지, 구글로 로그인했는지 모르기때문에 if문으로 나누기
         // 카카오로 로그인했을때
-        providerId = oAuth2User.getAttributes().get("id").toString();
+        if (oAuth2User.getAttributes().get("id") == null) {
+            providerId = oAuth2User.getAttributes().get("sub").toString();
+            findMember = memberRepository.findByGoogleProviderId(providerId);
+        } else {
+            providerId = oAuth2User.getAttributes().get("id").toString();
+            findMember = memberRepository.findByKakaoProviderId(providerId);
+        }
+
 
         String url = makeRedirectUrl(provider, providerId, findMember);
 
@@ -52,14 +59,12 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private String makeRedirectUrl(String provider, String providerId, Optional<Member> findMember) {
 
-        String accessToken = tokenProvider.createToken(providerId, findMember.get().getId());
+//        String accessToken = tokenProvider.createToken(providerId, findMember.get().getId());
 
-        // sub키만 담아서 ?
-        return UriComponentsBuilder.fromUriString("http://localhost:3002/auth")
-//                .queryParam("provider", provider)
-//                .queryParam("providerId", providerId)
-                .queryParam("accessToken", accessToken)
+        return UriComponentsBuilder.fromUriString("http://localhost:3002/oauth")
+                .queryParam("provider", provider)
+                .queryParam("providerId", providerId)
+//                .queryParam("accessToken", accessToken)
                 .build().toUriString();
     }
-
 }

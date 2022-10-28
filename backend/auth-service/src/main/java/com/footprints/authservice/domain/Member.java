@@ -11,23 +11,35 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString
 //public class Member extends BaseEntity {
-    public class Member  {
+    public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+
     private String nickname;
+
+    private String kakaoProvider;
+
     private String kakaoProviderId;
+
+    private String googleProvider;
+
+    private String googleProviderId;
+
     private String region;
+    private String di;
 
 
-    public void updateProviderId(String provider, String providerId){
+    public void updateProviderAndProviderId(String provider, String providerId){
 
         if(provider.equals("kakao")){
+            this.kakaoProvider= provider;
             this.kakaoProviderId = providerId;
+        }else{
+            this.googleProvider =provider;
+            this.googleProviderId = providerId;
         }
     }
 
