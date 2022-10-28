@@ -52,7 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/ccccccc",
             "/swagger-ui/index.html",
             "/auth-service/swagger-ui/index.html",
-            "signup/members/info"
+            "signup/members/info",
+            "/auth-service/actuator/busrefresh",
+            "/actuator/busrefresh"
+
     };
 
 

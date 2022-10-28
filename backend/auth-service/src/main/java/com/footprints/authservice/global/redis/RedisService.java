@@ -11,25 +11,26 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class RedisService {
 
-    private final RedisTemplate<Long, String> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
 
-    public void setValues(Long key, String data) {
-        ValueOperations<Long, String> values = redisTemplate.opsForValue();
+    public void setValues(String key, String data) {
+        ValueOperations<String, String> values = redisTemplate.opsForValue();
         values.set(key, data);
     }
 
-    public void setValues(Long key, String data, Duration duration) {
-        ValueOperations<Long, String> values = redisTemplate.opsForValue();
+    public void setValues(String key, String data, Duration duration) {
+        ValueOperations<String, String> values = redisTemplate.opsForValue();
         values.set(key, data, duration);
     }
 
-    public String getValue(Long key) {
-        ValueOperations<Long, String> values = redisTemplate.opsForValue();
+    public String getValue(String key) {
+        ValueOperations<String, String> values = redisTemplate.opsForValue();
         return values.get(key);
     }
 
-    public void deleteValues(Long key) {
+    public void deleteValues(String key) {
         redisTemplate.delete(key);
     }
 
 }
+
