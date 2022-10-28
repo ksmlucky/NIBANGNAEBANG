@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CommentRepositoryCustom {
-    Page<Comment> getCommentList(Article articleId, Pageable pageable);
+    Page<Comment> getCommentList(Long articleId, Pageable pageable);
 }

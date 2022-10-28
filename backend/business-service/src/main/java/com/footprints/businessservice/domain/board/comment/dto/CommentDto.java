@@ -4,7 +4,6 @@ import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +15,7 @@ public class CommentDto {
     private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
     private String updatedAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
     private String writer;
-    private Article boardId;     /* Entity -> Dto*/
+    private Article articleId;
 
     @QueryProjection
     public CommentDto(Comment comment) {
@@ -25,6 +24,6 @@ public class CommentDto {
         this.createdAt = comment.getCreateAt();
         this.updatedAt = comment.getUpdatedAt();
         this.writer = comment.getWriter();
-        this.boardId = comment.getArticleId();
+        this.articleId = comment.getArticleId();
     }
 }

@@ -12,11 +12,10 @@ import java.time.format.DateTimeFormatter;
 
 @Data
 public class CommentRequest {
-    private Long id;
     private String content;
-    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
-    private String updatedAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
-    private Article articleId;
+    private String writer;
+//    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+//    private String updatedAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
 
 //    public Comment toEntity() {
 //        Comment comment = Comment.builder()
