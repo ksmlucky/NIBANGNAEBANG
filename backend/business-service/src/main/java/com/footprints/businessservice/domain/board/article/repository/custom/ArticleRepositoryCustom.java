@@ -7,4 +7,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface ArticleRepositoryCustom {
     Page<Article> getArticleList(SortCondition condition, Pageable pageable);
+    Article getArticle(Long articleId);
 }

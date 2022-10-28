@@ -29,4 +29,12 @@ public class Article extends BaseEntity {
     private Integer likes;
 
     private String category;
+
+    public void updateLikes(Integer count) {
+        this.likes += count;
+    }
+
+    public void updateHits() {
+        this.hits++;
+    }
 }
