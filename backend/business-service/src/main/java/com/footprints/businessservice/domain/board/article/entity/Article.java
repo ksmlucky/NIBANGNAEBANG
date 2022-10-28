@@ -1,9 +1,12 @@
 package com.footprints.businessservice.domain.board.article.entity;
 
+import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -14,7 +17,7 @@ public class Article extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_id")
+    @Column(name = "article_id")
     private Long id;
 
     private String title;
@@ -29,4 +32,7 @@ public class Article extends BaseEntity {
     private Integer likes;
 
     private String category;
+
+//    @OneToMany(mappedBy = "article")
+//    private List<Comment> comments = new ArrayList<>();
 }

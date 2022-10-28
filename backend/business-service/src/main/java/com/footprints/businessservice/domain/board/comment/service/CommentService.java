@@ -1,16 +1,16 @@
 package com.footprints.businessservice.domain.board.comment.service;
 
 import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
-import com.footprints.businessservice.domain.board.comment.dto.CommentReqDto;
-import com.footprints.businessservice.domain.board.comment.dto.CommentResDto;
+import com.footprints.businessservice.domain.board.article.entity.Article;
+import com.footprints.businessservice.domain.board.comment.dto.CommentRequest;
+import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface CommentService {
 
-    List<CommentResDto> getCommentList(ArticleDto id);
+    List<CommentDto> getCommentList(Article articleId, Pageable pageable);
 
-    void commentSave(String writer, Long id, CommentReqDto dto);
-
-
+    void saveComment(CommentRequest request);
 }
