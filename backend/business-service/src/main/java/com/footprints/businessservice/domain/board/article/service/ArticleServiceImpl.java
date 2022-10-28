@@ -63,10 +63,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleDto getArticle(Long articleId) {
         Article article = articleRepository.getArticle(articleId);
+        article.updateHits();
         return new ArticleDto(article);
     }
 
     @Override
+    @Transactional
     public void likeArticle(String token, Long articleId) {
         Long memberId = tokenDecoder.extractMember(token);
         if (findLikedArticleWithMemberIdAndArticleId(memberId, articleId) != null) {
@@ -83,15 +85,24 @@ public class ArticleServiceImpl implements ArticleService {
                 .memberId(memberId)
                 .build();
 
+        article.updateLikes(1);
+
         likedArticleRepository.save(likedArticle);
     }
 
     @Override
+    @Transactional
     public void unlikeArticle(String token, Long articleId) {
         Long memberId = tokenDecoder.extractMember(token);
         if (findLikedArticleWithMemberIdAndArticleId(memberId, articleId) == null) {
             throw new RuntimeException("예외 처리 만들기 !!");
         }
+
+        Article article = articleRepository.getArticle(articleId);
+        if (article == null) {
+            throw new RuntimeException("예외 처리 만들기 !!");
+        }
+        article.updateLikes(-1);
 
         LikedArticle likedArticle = likedArticleRepository.findArticle(articleId);
         likedArticleRepository.delete(likedArticle);
