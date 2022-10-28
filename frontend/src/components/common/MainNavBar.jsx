@@ -185,21 +185,21 @@ function MainNavBar() {
               {/* <Weather /> */}
               {Profile.email === null ? (
                 <>
-                  {/* <NavLink
+                  <NavLink
                     className="right_nav__link_none_login fs-16"
                     to="/login"
                   >
                     로그인
-                  </NavLink> */}
-                  <a
+                  </NavLink>
+                  {/* <a
                     href={`${process.env.REACT_APP_KAKAO_AUTH_URL}`}
                     className="right_nav__link_none_login fs-16"
                   >
                     로그인
-                  </a>
+                  </a> */}
                   <NavLink
                     className="right_nav__link_none_join fs-16"
-                    to="/join"
+                    to="/login"
                   >
                     회원가입
                   </NavLink>

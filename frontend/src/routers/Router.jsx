@@ -5,17 +5,15 @@ import MainNavBar from "@components/common/MainNavBar";
 import Home from "@screens/Home";
 
 // user
-// import Login from "@screens/user/Login";
-// import Join from "@screens/user/Join";
-// import JoinFinish from "@screens/user/JoinFinish";
 // import FindId from "@screens/user/FindId";
 // import FindIdFinish from "@screens/user/FindIdFinish";
 // import FindPw from "@screens/user/FindPw";
 // import FindPwCh from "@screens/user/FindPwCh";
 // import FindPwFinish from "@screens/user/FindPwFinish";
+import Login from "@screens/oauth/Login";
 import KakaoLogin from "@screens/oauth/KakaoLogin";
-// import NaverLogin from "@screens/oauth/NaverLogin";
 import GoogleLogin from "@screens/oauth/GoogleLogin";
+import Join from "@screens/oauth/Join";
 // mypage
 // import Drop from "@screens/mypage/Drop";
 // import DropFinish from "@screens/mypage/DropFinish";
@@ -41,12 +39,16 @@ function Router() {
         {/* main */}
         <Route path="/" element={<Home />} />
         {/* login */}
+        <Route path="/login/*">
+          <Route path="" element={<Login />} />
+          <Route path="join" element={<Join />} />
+        </Route>
         <Route path="/kakao" element={<KakaoLogin />} />
         <Route path="/google" element={<GoogleLogin />} />
         {/* join */}
-        <Route path="/join/*">
+        {/* <Route path="/join/*">
           <Route path="*" element={<NotFound />} />
-        </Route>
+        </Route> */}
         {/* find ID/PW  */}
         <Route path="/findid/*">
           <Route path="*" element={<NotFound />} />
