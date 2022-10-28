@@ -4,6 +4,8 @@ import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class ArticleDto {
 
@@ -21,6 +23,8 @@ public class ArticleDto {
 
     private String category;
 
+    private LocalDateTime createdAt;
+
     @QueryProjection
     public ArticleDto(Article article) {
         this.id = article.getId();
@@ -30,5 +34,6 @@ public class ArticleDto {
         this.hits = article.getHits();
         this.likes = article.getLikes();
         this.category = article.getCategory();
+        this.createdAt = article.getCreatedAt();
     }
 }

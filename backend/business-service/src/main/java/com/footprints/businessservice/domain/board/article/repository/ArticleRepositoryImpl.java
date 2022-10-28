@@ -2,6 +2,7 @@ package com.footprints.businessservice.domain.board.article.repository;
 
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.article.entity.Article;
+import com.footprints.businessservice.domain.board.article.entity.QArticle;
 import com.footprints.businessservice.domain.board.article.repository.custom.ArticleRepositoryCustom;
 import com.footprints.businessservice.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.querydsl.core.types.Order;
@@ -31,6 +32,13 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                         .where(categoryEq(condition.getCategory()))
                         .orderBy(sort(pageable))
         );
+    }
+
+    @Override
+    public Article getArticle(Long articleId) {
+        return selectFrom(QArticle.article)
+                .where(QArticle.article.id.eq(articleId))
+                .fetchOne();
     }
 
     private BooleanExpression categoryEq(String category) {
