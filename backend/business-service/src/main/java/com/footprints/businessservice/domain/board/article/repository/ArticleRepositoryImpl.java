@@ -1,7 +1,9 @@
 package com.footprints.businessservice.domain.board.article.repository;
 
+import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.article.entity.Article;
+import com.footprints.businessservice.domain.board.article.entity.QArticle;
 import com.footprints.businessservice.domain.board.article.repository.custom.ArticleRepositoryCustom;
 import com.footprints.businessservice.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.querydsl.core.types.Order;
@@ -33,8 +35,50 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
         );
     }
 
+    @Override
+    public Article getArticle(Long articleId) {
+        return selectFrom(QArticle.article)
+                .where(QArticle.article.id.eq(articleId))
+                .fetchOne();
+    }
+
+    @Override
+    public Page<Article> searchArticle(SearchCondition condition, Pageable pageable) {
+        return applyPagination(pageable, contentQuery -> contentQuery
+                        .selectFrom(article)
+                        .where(
+                                categoryEq(condition.getCategory()),
+                                titleContains(condition.getTitle()),
+                                writerContains(condition.getWriter()),
+                                contentContains(condition.getContent())
+                        )
+                        .orderBy(article.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           createdAt.desc()),
+                countQuery -> countQuery
+                        .selectFrom(article)
+                        .where(
+                                categoryEq(condition.getCategory()),
+                                titleContains(condition.getTitle()),
+                                writerContains(condition.getWriter()),
+                                contentContains(condition.getContent())
+                        )
+                        .orderBy(article.createdAt.desc())
+        );
+    }
+
     private BooleanExpression categoryEq(String category) {
         return StringUtils.hasText(category) ? article.category.eq(category) : null;
+    }
+
+    private BooleanExpression titleContains(String title) {
+        return StringUtils.hasText(title) ? article.title.contains(title) : null;
+    }
+
+    private BooleanExpression writerContains(String writer) {
+        return StringUtils.hasText(writer) ? article.writer.contains(writer) : null;
+    }
+
+    private BooleanExpression contentContains(String content) {
+        return StringUtils.hasText(content) ? article.content.contains(content) : null;
     }
 
     private OrderSpecifier<?> sort(Pageable pageable) {
