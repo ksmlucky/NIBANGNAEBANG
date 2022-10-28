@@ -40,7 +40,7 @@ public class CommentController {
     }
 
     // 댓글 등록
-    @PostMapping("{article-id}")
+    @PostMapping("/{article-id}")
     public ResponseEntity<? extends MessageResponse> saveComment(@RequestBody CommentRequest request, @PathVariable("article-id") Long articleId) {
         commentService.saveComment(request, articleId);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());

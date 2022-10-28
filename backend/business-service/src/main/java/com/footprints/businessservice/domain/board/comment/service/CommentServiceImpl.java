@@ -1,6 +1,5 @@
 package com.footprints.businessservice.domain.board.comment.service;
 
-import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.domain.board.comment.dto.CommentRequest;
@@ -8,11 +7,9 @@ import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.comment.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,13 +41,13 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     public void saveComment(CommentRequest request, Long articleId) {
-        articleRepository
+        Article article = articleRepository.getArticle(articleId);
         Comment comment = Comment.builder()
                 .content(request.getContent())
                 .writer(request.getWriter())
                 .createAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")))
                 .updatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")))
-                .articleId()
+                .articleId(article)
                 .build();
 
         commentRepository.save(comment);
