@@ -13,8 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,9 +43,7 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = Comment.builder()
                 .content(request.getContent())
                 .writer(request.getWriter())
-                .createAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")))
-                .updatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")))
-                .articleId(article)
+                .article(article)
                 .build();
 
         commentRepository.save(comment);

@@ -1,6 +1,7 @@
 package com.footprints.businessservice.domain.board.comment.entity;
 
 import com.footprints.businessservice.domain.board.article.entity.Article;
+import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Builder
-public class Comment {
+public class Comment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
@@ -20,11 +21,7 @@ public class Comment {
 
     private String writer;
 
-    private String createAt;
-
-    private String updatedAt;
-
     @JoinColumn(name = "article_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Article articleId;
+    private Article article;
 }

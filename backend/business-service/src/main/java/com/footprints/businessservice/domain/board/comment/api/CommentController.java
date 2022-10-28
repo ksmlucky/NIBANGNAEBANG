@@ -1,6 +1,5 @@
 package com.footprints.businessservice.domain.board.comment.api;
 
-import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.domain.board.comment.dto.CommentRequest;
 import com.footprints.businessservice.domain.board.comment.service.CommentService;
@@ -23,7 +22,6 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;
-
     private final Environment env;
 
     @GetMapping("/health_check")
@@ -47,5 +45,7 @@ public class CommentController {
     }
 
     // 댓글 수정
+
+    // 댓글 삭제
 
 }

@@ -17,10 +17,10 @@ public class CommentRepositoryImpl extends QuerydslRepositorySupport implements 
     public Page<Comment> getCommentList(Long articleId, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(comment)
-                        .where(comment.articleId.id.eq(articleId)),
+                        .where(comment.article.id.eq(articleId)),
                 countQuery -> countQuery
                         .selectFrom(comment)
-                        .where(comment.articleId.id.eq(articleId))
+                        .where(comment.article.id.eq(articleId))
         );
     }
 }
