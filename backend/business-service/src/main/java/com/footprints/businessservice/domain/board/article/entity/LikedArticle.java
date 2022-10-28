@@ -1,9 +1,6 @@
 package com.footprints.businessservice.domain.board.article.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,6 +10,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 public class LikedArticle {
 
     @Id

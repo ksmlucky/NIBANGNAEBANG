@@ -69,16 +69,32 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void likeArticle(String token, Long articleId) {
         Long memberId = tokenDecoder.extractMember(token);
-        if (findLikedArticleWithMemberIdAndArticleId(memberId, articleId) == null) {
-            throw new RuntimeException("예외 처리");
+        if (findLikedArticleWithMemberIdAndArticleId(memberId, articleId) != null) {
+            throw new RuntimeException("예외 처리 만들기 !!");
         }
 
-        LikedArticle article = likedArticleRepository.findArticle(articleId);
+        Article article = articleRepository.getArticle(articleId);
         if (article == null) {
-            throw new RuntimeException("예외 처리");
+            throw new RuntimeException("예외 처리 만들기 !!");
         }
 
-        article.update(articleId);
+        LikedArticle likedArticle = LikedArticle.builder()
+                .article(article)
+                .memberId(memberId)
+                .build();
+
+        likedArticleRepository.save(likedArticle);
+    }
+
+    @Override
+    public void unlikeArticle(String token, Long articleId) {
+        Long memberId = tokenDecoder.extractMember(token);
+        if (findLikedArticleWithMemberIdAndArticleId(memberId, articleId) == null) {
+            throw new RuntimeException("예외 처리 만들기 !!");
+        }
+
+        LikedArticle likedArticle = likedArticleRepository.findArticle(articleId);
+        likedArticleRepository.delete(likedArticle);
     }
 
     private LikedArticle findLikedArticleWithMemberIdAndArticleId(Long memberId, Long articleId) {

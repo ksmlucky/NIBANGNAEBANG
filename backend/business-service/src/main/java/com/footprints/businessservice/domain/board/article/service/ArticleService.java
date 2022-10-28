@@ -16,4 +16,6 @@ public interface ArticleService {
     ArticleDto getArticle(Long articleId);
 
     void likeArticle(String token, Long articleId);
+
+    void unlikeArticle(String token, Long articleId);
 }

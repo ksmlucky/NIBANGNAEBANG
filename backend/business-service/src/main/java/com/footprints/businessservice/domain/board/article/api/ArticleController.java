@@ -55,4 +55,10 @@ public class ArticleController {
         articleService.likeArticle(token, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
+
+    @PostMapping("/{article-id}/unlike")
+    public ResponseEntity<? extends MessageResponse> unlikeArticle(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "article-id") Long articleId) {
+        articleService.unlikeArticle(token, articleId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
 }
