@@ -33,6 +33,11 @@ public class Article extends BaseEntity {
 
     private String category;
 
-//    @OneToMany(mappedBy = "article")
-//    private List<Comment> comments = new ArrayList<>();
+    public void updateLikes(Integer count) {
+        this.likes += count;
+    }
+
+    public void updateHits() {
+        this.hits++;
+    }
 }

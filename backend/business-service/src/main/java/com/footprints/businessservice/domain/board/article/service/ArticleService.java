@@ -12,4 +12,10 @@ public interface ArticleService {
     List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable);
 
     void saveArticle(ArticleRequest request);
+
+    ArticleDto getArticle(Long articleId);
+
+    void likeArticle(String token, Long articleId);
+
+    void unlikeArticle(String token, Long articleId);
 }
