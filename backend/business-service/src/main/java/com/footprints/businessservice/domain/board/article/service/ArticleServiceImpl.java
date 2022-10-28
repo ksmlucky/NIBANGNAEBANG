@@ -5,6 +5,8 @@ import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.article.entity.LikedArticle;
+import com.footprints.businessservice.domain.board.article.exception.ArticleException;
+import com.footprints.businessservice.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.domain.board.article.repository.LikedArticleRepository;
 import com.footprints.businessservice.domain.board.util.TokenDecoder;
@@ -72,12 +74,12 @@ public class ArticleServiceImpl implements ArticleService {
     public void likeArticle(String token, Long articleId) {
         Long memberId = tokenDecoder.extractMember(token);
         if (findLikedArticleWithMemberIdAndArticleId(memberId, articleId) != null) {
-            throw new RuntimeException("예외 처리 만들기 !!");
+            throw new ArticleException(ArticleExceptionType.ALREADY_LIKED_ARTICLE);
         }
 
         Article article = articleRepository.getArticle(articleId);
         if (article == null) {
-            throw new RuntimeException("예외 처리 만들기 !!");
+            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
         }
 
         LikedArticle likedArticle = LikedArticle.builder()
@@ -95,12 +97,12 @@ public class ArticleServiceImpl implements ArticleService {
     public void unlikeArticle(String token, Long articleId) {
         Long memberId = tokenDecoder.extractMember(token);
         if (findLikedArticleWithMemberIdAndArticleId(memberId, articleId) == null) {
-            throw new RuntimeException("예외 처리 만들기 !!");
+            throw new ArticleException(ArticleExceptionType.NOT_LIKED_ARTICLE);
         }
 
         Article article = articleRepository.getArticle(articleId);
         if (article == null) {
-            throw new RuntimeException("예외 처리 만들기 !!");
+            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
         }
         article.updateLikes(-1);
 
