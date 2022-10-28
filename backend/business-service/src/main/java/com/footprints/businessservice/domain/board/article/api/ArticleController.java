@@ -63,7 +63,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
-    @PostMapping
+    @GetMapping("/search")
     public ResponseEntity<? extends DataResponse> searchArticle(SearchCondition condition, Pageable pageable) {
         List<ArticleDto> response = articleService.searchArticle(condition, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
