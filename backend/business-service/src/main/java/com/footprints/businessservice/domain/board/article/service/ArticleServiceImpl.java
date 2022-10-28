@@ -77,17 +77,12 @@ public class ArticleServiceImpl implements ArticleService {
             throw new ArticleException(ArticleExceptionType.ALREADY_LIKED_ARTICLE);
         }
 
-        Article article = articleRepository.getArticle(articleId);
-        if (article == null) {
-            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
-        }
+        Article article = updateLikeCount(articleId, 1);
 
         LikedArticle likedArticle = LikedArticle.builder()
                 .article(article)
                 .memberId(memberId)
                 .build();
-
-        article.updateLikes(1);
 
         likedArticleRepository.save(likedArticle);
     }
@@ -100,14 +95,21 @@ public class ArticleServiceImpl implements ArticleService {
             throw new ArticleException(ArticleExceptionType.NOT_LIKED_ARTICLE);
         }
 
-        Article article = articleRepository.getArticle(articleId);
-        if (article == null) {
-            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
-        }
-        article.updateLikes(-1);
+        updateLikeCount(articleId, -1);
 
         LikedArticle likedArticle = likedArticleRepository.findArticle(articleId);
         likedArticleRepository.delete(likedArticle);
+    }
+
+    private Article updateLikeCount(Long articleId, int count) {
+        Article article = articleRepository.getArticle(articleId);
+
+        if (article == null) {
+            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
+        }
+
+        article.updateLikes(count);
+        return article;
     }
 
     private LikedArticle findLikedArticleWithMemberIdAndArticleId(Long memberId, Long articleId) {
