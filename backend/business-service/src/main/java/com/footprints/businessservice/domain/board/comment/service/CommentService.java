@@ -11,4 +11,8 @@ public interface CommentService {
     List<CommentDto> getCommentList(Long articleId, Pageable pageable);
 
     void saveComment(CommentRequest request, Long articleId);
+
+//    void update(CommentRequest request, Long commentId);
+
+    void deleteComment(String token, Long commentId);
 }

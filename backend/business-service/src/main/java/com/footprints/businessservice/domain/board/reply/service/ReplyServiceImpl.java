@@ -6,6 +6,7 @@ import com.footprints.businessservice.domain.board.reply.dto.ReplyDto;
 import com.footprints.businessservice.domain.board.reply.dto.ReplyRequest;
 import com.footprints.businessservice.domain.board.reply.entity.Reply;
 import com.footprints.businessservice.domain.board.reply.repository.ReplyRepository;
+import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class ReplyServiceImpl implements ReplyService{
     private final ReplyRepository replyRepository;
     private final CommentRepository commentRepository;
+    private final TokenDecoder tokenDecoder;
 
 
     @Override
@@ -47,5 +49,14 @@ public class ReplyServiceImpl implements ReplyService{
                 .build();
 
         replyRepository.save(reply);
+    }
+
+    @Override
+    @Transactional
+    public void deleteReply(String token, Long replyId) {
+        Long memberId = tokenDecoder.extractMember(token);
+
+        Reply reply = replyRepository.getReply(replyId);
+        replyRepository.delete(reply);
     }
 }

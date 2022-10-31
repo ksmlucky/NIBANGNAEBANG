@@ -10,4 +10,6 @@ public interface ReplyService {
     List<ReplyDto> getReplyList(Long commentId, Pageable pageable);
 
     void saveReply(ReplyRequest request, Long CommentId);
+
+    void deleteReply(String token, Long replyId);
 }

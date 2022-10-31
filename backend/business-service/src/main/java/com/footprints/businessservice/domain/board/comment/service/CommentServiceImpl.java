@@ -6,6 +6,7 @@ import com.footprints.businessservice.domain.board.comment.dto.CommentRequest;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.comment.repository.CommentRepository;
+import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,8 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
 
     private final ArticleRepository articleRepository;
+
+    private final TokenDecoder tokenDecoder;
 
     @Override
     public List<CommentDto> getCommentList(Long articleId, Pageable pageable) {
@@ -47,5 +50,23 @@ public class CommentServiceImpl implements CommentService{
                 .build();
 
         commentRepository.save(comment);
+    }
+
+//    @Override
+//    @Transactional
+//    public void update(CommentRequest request, Long commentId) {
+//        Comment comment = Comment.builder()
+//                .content(request.getContent())
+//                .writer(request.getWriter())
+//                .build();
+//    }
+
+    @Override
+    @Transactional
+    public void deleteComment(String token, Long commentId) {
+        Long memberId = tokenDecoder.extractMember(token);
+
+        Comment comment = commentRepository.getComment(commentId);
+        commentRepository.delete(comment);
     }
 }

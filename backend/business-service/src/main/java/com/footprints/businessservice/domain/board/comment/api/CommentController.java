@@ -45,11 +45,15 @@ public class CommentController {
     }
 
     // 댓글 수정
+//    @PutMapping("/{comment-id}")
+//    public ResponseEntity<? extends DataResponse> updateComment(@RequestBody CommentRequest request, @PathVariable("comment-id") Long commentId) {
+//
+//    }
 
     // 댓글 삭제
-//    @DeleteMapping("/{comment-id}")
-//    public ResponseEntity<? extends MessageResponse> deleteComment(@PathVariable("comment-id") Long commentId) {
-//        commentService.deleteComment(commentId);
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
-//    }
+    @DeleteMapping("/{comment-id}")
+    public ResponseEntity<? extends MessageResponse> deleteComment(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "comment-id") Long commentId) {
+        commentService.deleteComment(token, commentId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
 }

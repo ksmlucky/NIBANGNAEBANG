@@ -42,4 +42,13 @@ public class ReplyController {
         replyService.saveReply(request, commentId);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
+
+    // 대댓글 수정
+
+    // 대댓글 삭제
+    @DeleteMapping("{reply-id}")
+    public ResponseEntity<? extends MessageResponse> deleteReply(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "reply-id") Long replyId) {
+        replyService.deleteReply(token, replyId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
 }
