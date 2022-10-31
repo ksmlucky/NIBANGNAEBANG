@@ -22,6 +22,7 @@ public class ImageServiceImpl implements ImageService {
     private final ImageStore imageStore;
 
     @Override
+    @Transactional
     public List<Image> saveImage(List<MultipartFile> multipartFileList) throws IOException {
         return imageStore.storeImages(multipartFileList);
     }
