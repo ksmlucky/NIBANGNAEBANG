@@ -2,6 +2,7 @@ package com.footprints.businessservice.domain.board.comment.repository;
 
 import com.footprints.businessservice.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.footprints.businessservice.domain.board.comment.entity.Comment;
+import com.footprints.businessservice.domain.board.comment.entity.QComment;
 import com.footprints.businessservice.domain.board.comment.repository.custom.CommentRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,5 +23,12 @@ public class CommentRepositoryImpl extends QuerydslRepositorySupport implements 
                         .selectFrom(comment)
                         .where(comment.article.id.eq(articleId))
         );
+    }
+
+    @Override
+    public Comment getComment(Long commentId) {
+        return selectFrom(QComment.comment)
+                .where(QComment.comment.id.eq(commentId))
+                .fetchOne();
     }
 }
