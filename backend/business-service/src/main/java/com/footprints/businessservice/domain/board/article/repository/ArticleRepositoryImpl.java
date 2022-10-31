@@ -90,6 +90,8 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                         return new OrderSpecifier(direction, article.hits);
                     case "likes":
                         return new OrderSpecifier(direction, article.likes);
+                    case "createdAt":
+                        return new OrderSpecifier(direction, article.createdAt);
                 }
             }
         }
