@@ -5,6 +5,7 @@ import com.footprints.authservice.dto.request.MemberInfoForDiRequest;
 import com.footprints.authservice.dto.request.MemberInfoRequest;
 import com.footprints.authservice.dto.request.NicknameRequest;
 import com.footprints.authservice.dto.response.SelectNicknameResponse;
+import com.footprints.authservice.dto.response.diResponse;
 import com.footprints.authservice.global.common.CountDataResponse;
 import com.footprints.authservice.global.common.CountResponse;
 import com.footprints.authservice.global.common.DataResponse;
@@ -65,6 +66,39 @@ public class MemberController {
         }
     }
 
+    @Operation(summary = "이름, 생년월일로 DI 발급", description = "해당 회원의 이름, 생년월일로 DI를 발급합니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "DI 발급 완료"),
+            @ApiResponse(responseCode = "400", description = "잘못된 접근입니다."),
+            @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
+            @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
+    })
+    @PostMapping("/{memberId}/di")
+    public ResponseEntity getDi(@RequestBody MemberInfoForDiRequest memberInfoForDiRequest) throws NoSuchAlgorithmException {
+        String di = memberService.getDi(memberInfoForDiRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("본인 인증 완료", new diResponse(di)));
+    }
+
+    @Operation(summary = "회원 정보 추가하기", description = "회원의 닉네임, provider, providerId, di를 기반으로 소셜로그인 회원가입/통합처리/로그인을 진행한 후 jwt를 발급합니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 접근입니다."),
+            @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
+            @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
+    })
+    @PostMapping("members")
+    public ResponseEntity signUpAndSignInMember(@RequestBody MemberInfoRequest memberInfoRequest){
+
+        //회원가입
+        Member findMember = memberService.signUpMember(memberInfoRequest);
+
+        //로그인
+        Map<String, String> tokens = memberService.signInMember(findMember.getId());
+
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("성공", tokens));
+    }
+
     @Operation(summary = "닉네임 수정하기", description = "해당 회원의 닉네임을 수정합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "닉네임 변경 완료"),
@@ -119,19 +153,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse<>("회원탈퇴가 완료되었습니다."));
     }
 
-    @Operation(summary = "이름, 생년월일로 본인인증하기", description = "해당 회원의 이름, 생년월일로 본인인증을 진행합니다.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "닉네임 조회 완료"),
-            @ApiResponse(responseCode = "400", description = "잘못된 접근입니다."),
-            @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
-            @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
-    })
-    @PostMapping("/{memberId}/di")
-    public ResponseEntity getDi(@RequestBody MemberInfoForDiRequest memberInfoForDiRequest) throws NoSuchAlgorithmException {
-        String di = memberService.getDi(memberInfoForDiRequest);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("본인 인증 완료",di));
-    }
 
     @Operation(summary = "닉네임 조회하기", description = "해당 회원의 닉네임을 조회합니다.")
     @ApiResponses({
@@ -148,22 +170,5 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("닉네임 조회 완료", selectNicknameResponse));
     }
 
-    @Operation(summary = "회원 정보 추가하기", description = "회원의 이름, 생년월일을 기반으로 소셜로그인 회원가입/통합처리/로그인을 진행한 후 jwt를 발급합니다.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "성공"),
-            @ApiResponse(responseCode = "400", description = "잘못된 접근입니다."),
-            @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
-            @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
-    })
-    @PostMapping("members")
-    public ResponseEntity signUpAndSignInMember(@RequestBody MemberInfoRequest memberInfoRequest){
 
-        //회원가입
-        Member findMember = memberService.signUpMember(memberInfoRequest);
-
-        //로그인
-        Map<String, String> tokens = memberService.signInMember(findMember.getId());
-
-        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("성공", tokens));
-    }
 }
