@@ -1,6 +1,8 @@
 package com.footprints.businessservice.domain.board.comment.service;
 
 import com.footprints.businessservice.domain.board.article.entity.Article;
+import com.footprints.businessservice.domain.board.article.exception.ArticleException;
+import com.footprints.businessservice.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.domain.board.comment.dto.CommentRequest;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
@@ -39,7 +41,9 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     public void saveComment(CommentRequest request, Long articleId) {
-        Article article = articleRepository.getArticle(articleId);
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
+
         Comment comment = Comment.builder()
                 .content(request.getContent())
                 .writer(request.getWriter())

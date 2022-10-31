@@ -6,15 +6,25 @@ import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.article.entity.QArticle;
 import com.footprints.businessservice.domain.board.article.repository.custom.ArticleRepositoryCustom;
 import com.footprints.businessservice.domain.board.article.repository.support.QuerydslRepositorySupport;
+import com.footprints.businessservice.domain.board.comment.entity.Comment;
+import com.footprints.businessservice.domain.board.comment.entity.QComment;
+import com.footprints.businessservice.domain.board.reply.entity.QReply;
+import com.footprints.businessservice.domain.board.reply.entity.Reply;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 import static com.footprints.businessservice.domain.board.article.entity.QArticle.article;
+import static com.footprints.businessservice.domain.board.comment.entity.QComment.comment;
+import static com.footprints.businessservice.domain.board.reply.entity.QReply.reply;
 
 public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements ArticleRepositoryCustom {
 
@@ -37,9 +47,20 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
 
     @Override
     public Article getArticle(Long articleId) {
-        return selectFrom(QArticle.article)
-                .where(QArticle.article.id.eq(articleId))
+        return selectFrom(article)
+                .where(article.id.eq(articleId))
                 .fetchOne();
+    }
+
+    @Override
+    public List<Comment> getCommentList(Long articleId) {
+        return selectFrom(comment)
+                .leftJoin(comment.article, article)
+                .fetchJoin()
+                .leftJoin(comment.replies, reply)
+                .fetchJoin()
+                .where(article.id.eq(articleId))
+                .fetch();
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.footprints.businessservice.domain.board.comment.entity;
 
 import com.footprints.businessservice.domain.board.article.entity.Article;
+import com.footprints.businessservice.domain.board.reply.entity.Reply;
 import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,4 +26,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "article_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Article article;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<Reply> replies;
 }
