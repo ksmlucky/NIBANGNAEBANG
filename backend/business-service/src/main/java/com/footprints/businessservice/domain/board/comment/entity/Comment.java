@@ -6,7 +6,6 @@ import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,5 +28,5 @@ public class Comment extends BaseEntity {
     private Article article;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private List<Reply> replies = new ArrayList<>();
+    private List<Reply> replies;
 }

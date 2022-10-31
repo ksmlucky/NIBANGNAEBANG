@@ -5,6 +5,7 @@ import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
 import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.article.service.ArticleService;
+import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.domain.message.entity.Message;
 import com.footprints.businessservice.global.common.DataResponse;
 import com.footprints.businessservice.global.common.MessageResponse;
