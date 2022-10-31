@@ -10,6 +10,8 @@ import com.footprints.businessservice.domain.board.article.exception.ArticleExce
 import com.footprints.businessservice.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.domain.board.article.repository.LikedArticleRepository;
+import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
+import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,9 +67,17 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDto getArticle(Long articleId) {
-        Article article = articleRepository.getArticle(articleId);
+        List<Comment> comments = articleRepository.getCommentList(articleId);
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
+
         article.updateHits();
-        return new ArticleDto(article);
+
+        List<CommentDto> result = comments.stream()
+                .map(comment -> new CommentDto(comment))
+                .collect(Collectors.toList());
+
+        return new ArticleDto(article, result);
     }
 
     @Override
@@ -114,7 +124,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     private Article updateLikeCount(Long articleId, int count) {
-        Article article = articleRepository.getArticle(articleId);
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
 
         if (article == null) {
             throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
