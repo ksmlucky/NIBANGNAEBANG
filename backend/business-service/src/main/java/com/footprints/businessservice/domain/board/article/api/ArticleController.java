@@ -2,6 +2,7 @@ package com.footprints.businessservice.domain.board.article.api;
 
 import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
 import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
+import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
 import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.article.service.ArticleService;
 import com.footprints.businessservice.domain.message.entity.Message;
@@ -24,13 +25,7 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final Environment env;
 
-    @GetMapping("/health_check")
-    public String check() {
-        log.info("Server port={}", env.getProperty("local.server.port"));
-        return String.format("This Service port is %s", env.getProperty("local.server.port"));
-    }
 
     @GetMapping
     public ResponseEntity<? extends DataResponse> getArticleList(SortCondition condition, Pageable pageable) {
@@ -56,9 +51,15 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
-    @PostMapping("/{article-id}/unlike")
+    @DeleteMapping("/{article-id}/unlike")
     public ResponseEntity<? extends MessageResponse> unlikeArticle(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "article-id") Long articleId) {
         articleService.unlikeArticle(token, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<? extends DataResponse> searchArticle(SearchCondition condition, Pageable pageable) {
+        List<ArticleDto> response = articleService.searchArticle(condition, pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
 }
