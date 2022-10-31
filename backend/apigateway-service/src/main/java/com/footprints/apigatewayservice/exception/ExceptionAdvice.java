@@ -1,6 +1,5 @@
 package com.footprints.apigatewayservice.exception;
 
-import com.footprints.authservice.exception.MemberException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -64,14 +63,6 @@ public class ExceptionAdvice {
         return new ResponseEntity<>(new ExceptionDto(
                 "IllegalState Exception이 발생했습니다. 적절한 호출인지 확인하세요"
         ), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(MemberException.class)
-    public ResponseEntity handleMemberEx(MemberException exception) {
-        log.error("MemberException Exception 발생 ! {}", exception.getMessage());
-        return new ResponseEntity<>(new ExceptionDto(
-                "MemberException Exception이 발생했습니다. 적절한 호출인지 확인하세요"
-        ), exception.getExceptionType().getHttpStatus());
     }
 
     @ExceptionHandler(Exception.class)
