@@ -1,9 +1,12 @@
 package com.footprints.businessservice.domain.board.article.entity;
 
+import com.footprints.businessservice.domain.board.image.entity.Image;
 import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,6 +32,9 @@ public class Article extends BaseEntity {
     private Integer likes;
 
     private String category;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<Image> images = new ArrayList<>();
 
     public void updateLikes(Integer count) {
         this.likes += count;

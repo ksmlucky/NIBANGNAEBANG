@@ -15,7 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -34,8 +36,8 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody ArticleRequest request) {
-        articleService.saveArticle(request);
+    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestPart(name = "request") ArticleRequest request, @RequestPart(name = "images", required = false) List<MultipartFile> multipartFiles) throws IOException {
+        articleService.saveArticle(request, multipartFiles);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
 

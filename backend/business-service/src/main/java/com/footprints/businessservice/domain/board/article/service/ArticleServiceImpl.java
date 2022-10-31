@@ -10,6 +10,8 @@ import com.footprints.businessservice.domain.board.article.exception.ArticleExce
 import com.footprints.businessservice.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.domain.board.article.repository.LikedArticleRepository;
+import com.footprints.businessservice.domain.board.image.entity.Image;
+import com.footprints.businessservice.domain.board.image.service.ImageService;
 import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +21,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,6 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
     private final LikedArticleRepository likedArticleRepository;
+    private final ImageService imageService;
     private final TokenDecoder tokenDecoder;
 
     @Override
@@ -50,7 +55,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void saveArticle(ArticleRequest request) {
+    public void saveArticle(ArticleRequest request, List<MultipartFile> multipartFiles) throws IOException {
+        List<Image> images = imageService.saveImage(multipartFiles);
+
         Article article = Article.builder()
                 .title(request.getTitle())
                 .writer(request.getWriter())
@@ -58,6 +65,7 @@ public class ArticleServiceImpl implements ArticleService {
                 .hits(0)
                 .likes(0)
                 .category(request.getCategory())
+                .images(images)
                 .build();
 
         articleRepository.save(article);

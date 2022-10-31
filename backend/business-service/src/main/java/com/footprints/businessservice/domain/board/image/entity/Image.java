@@ -2,10 +2,7 @@ package com.footprints.businessservice.domain.board.image.entity;
 
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.global.common.BaseEntity;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,6 +12,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 public class Image extends BaseEntity {
 
     @Id
