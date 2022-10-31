@@ -27,6 +27,7 @@ import NotFound from "@screens/NotFound";
 
 // room
 import RoomRegister from "@screens/room/RoomRegister";
+import RoomShow from "@screens/room/RoomShow";
 
 // Community
 // import Community from "./Community";
@@ -69,6 +70,7 @@ function Router() {
         {/* Room */}
         <Route path="/room/*">
           <Route path="register" element={<RoomRegister />} />
+          <Route path="showre" element={<RoomShow />} />
         </Route>
 
         {/* camping */}

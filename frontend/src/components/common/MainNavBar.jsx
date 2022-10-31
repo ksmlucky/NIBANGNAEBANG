@@ -127,25 +127,25 @@ function MainNavBar() {
                 <>
                   <NavLink
                     className="left_nav__link flex notoMid fs-18"
-                    to="/camping"
+                    to="/room"
                   >
                     커뮤니티
                   </NavLink>
                   <NavLink
                     className="left_nav__link flex notoMid fs-18"
-                    to="/plan"
+                    to="/room/register"
                   >
                     양도게시판
                   </NavLink>
                   <NavLink
                     className="left_nav__link flex notoMid fs-18"
-                    to="/board"
+                    to="/room/showre"
                   >
                     함께주문
                   </NavLink>
                   <NavLink
                     className="left_nav__link flex notoMid fs-18"
-                    to="/shopping"
+                    to="/call"
                   >
                     신고하기
                   </NavLink>
@@ -155,25 +155,25 @@ function MainNavBar() {
                 <>
                   <NavLink
                     className={({ isActive }) => activeClassName(isActive)}
-                    to="/camping"
+                    to="/room"
                   >
                     커뮤니티
                   </NavLink>
                   <NavLink
                     className={({ isActive }) => activeClassName(isActive)}
-                    to="/plan"
+                    to="/room/register"
                   >
                     양도게시판
                   </NavLink>
                   <NavLink
                     className={({ isActive }) => activeClassName(isActive)}
-                    to="/board"
+                    to="/room/showre"
                   >
                     함께주문
                   </NavLink>
                   <NavLink
                     className={({ isActive }) => activeClassName(isActive)}
-                    to="/shopping"
+                    to="/call"
                   >
                     신고하기
                   </NavLink>
