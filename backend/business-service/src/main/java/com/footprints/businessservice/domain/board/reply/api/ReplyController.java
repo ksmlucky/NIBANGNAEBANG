@@ -2,6 +2,7 @@ package com.footprints.businessservice.domain.board.reply.api;
 
 import com.footprints.businessservice.domain.board.reply.dto.ReplyDto;
 import com.footprints.businessservice.domain.board.reply.dto.ReplyRequest;
+import com.footprints.businessservice.domain.board.reply.dto.ReplyUpdateRequest;
 import com.footprints.businessservice.domain.board.reply.service.ReplyService;
 import com.footprints.businessservice.global.common.DataResponse;
 import com.footprints.businessservice.global.common.MessageResponse;
@@ -41,5 +42,19 @@ public class ReplyController {
     public ResponseEntity<? extends MessageResponse> saveReply(@RequestBody ReplyRequest request, @PathVariable("comment-id") Long commentId) {
         replyService.saveReply(request, commentId);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
+    }
+
+    // 대댓글 수정
+    @PutMapping("{reply-id}")
+    public ResponseEntity<? extends MessageResponse> updateReply(@RequestBody ReplyUpdateRequest request, @PathVariable("reply-id") Long replyId) {
+        replyService.updateReply(request, replyId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
+
+    // 대댓글 삭제
+    @DeleteMapping("{reply-id}")
+    public ResponseEntity<? extends MessageResponse> deleteReply(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "reply-id") Long replyId) {
+        replyService.deleteReply(token, replyId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 }

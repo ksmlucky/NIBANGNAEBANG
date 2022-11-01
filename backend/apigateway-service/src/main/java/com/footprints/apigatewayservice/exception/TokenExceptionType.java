@@ -1,6 +1,6 @@
 package com.footprints.apigatewayservice.exception;
 
-import com.footprints.authservice.global.exception.BaseExceptionType;
+//import com.footprints.authservice.global.exception.BaseExceptionType;
 import org.springframework.http.HttpStatus;
 
 public enum TokenExceptionType implements BaseExceptionType {
