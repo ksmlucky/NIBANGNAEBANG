@@ -27,6 +27,10 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Article article;
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private List<Reply> replies;
+//    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+//    private List<Reply> replies;
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }

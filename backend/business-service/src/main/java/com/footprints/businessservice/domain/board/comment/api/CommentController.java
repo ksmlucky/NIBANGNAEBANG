@@ -2,6 +2,7 @@ package com.footprints.businessservice.domain.board.comment.api;
 
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.domain.board.comment.dto.CommentRequest;
+import com.footprints.businessservice.domain.board.comment.dto.CommentUpdateRequest;
 import com.footprints.businessservice.domain.board.comment.service.CommentService;
 import com.footprints.businessservice.global.common.DataResponse;
 import com.footprints.businessservice.global.common.MessageResponse;
@@ -45,11 +46,16 @@ public class CommentController {
     }
 
     // 댓글 수정
+    @PutMapping("/{comment-id}")
+    public ResponseEntity<? extends MessageResponse> updateComment(@RequestBody CommentUpdateRequest request, @PathVariable("comment-id") Long commentId) {
+        commentService.updateComment(request, commentId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
 
     // 댓글 삭제
-//    @DeleteMapping("/{comment-id}")
-//    public ResponseEntity<? extends MessageResponse> deleteComment(@PathVariable("comment-id") Long commentId) {
-//        commentService.deleteComment(commentId);
-//        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
-//    }
+    @DeleteMapping("/{comment-id}")
+    public ResponseEntity<? extends MessageResponse> deleteComment(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "comment-id") Long commentId) {
+        commentService.deleteComment(token, commentId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
 }

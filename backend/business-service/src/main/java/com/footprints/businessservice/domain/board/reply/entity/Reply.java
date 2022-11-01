@@ -22,11 +22,16 @@ public class Reply extends BaseEntity {
 
     private String writer;
 
+    private boolean isDeleted;
+
+    private boolean isUpdated;
+
     // 댓글 식별키
     @JoinColumn(name = "comment_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Comment comment;
 
-    // 게시글 식별 키???
-//    private Article article;
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }
