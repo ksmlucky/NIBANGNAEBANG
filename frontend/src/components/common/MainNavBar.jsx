@@ -127,13 +127,13 @@ function MainNavBar() {
                 <>
                   <NavLink
                     className="left_nav__link flex notoMid fs-18"
-                    to="/room"
+                    to="/room/trslist"
                   >
                     커뮤니티
                   </NavLink>
                   <NavLink
                     className="left_nav__link flex notoMid fs-18"
-                    to="/room/register"
+                    to="/room/roomtrs"
                   >
                     양도게시판
                   </NavLink>
@@ -145,7 +145,7 @@ function MainNavBar() {
                   </NavLink>
                   <NavLink
                     className="left_nav__link flex notoMid fs-18"
-                    to="/call"
+                    to="/room/showlist"
                   >
                     신고하기
                   </NavLink>
@@ -155,13 +155,13 @@ function MainNavBar() {
                 <>
                   <NavLink
                     className={({ isActive }) => activeClassName(isActive)}
-                    to="/room"
+                    to="/room/trslist"
                   >
                     커뮤니티
                   </NavLink>
                   <NavLink
                     className={({ isActive }) => activeClassName(isActive)}
-                    to="/room/register"
+                    to="/room/roomtrs"
                   >
                     양도게시판
                   </NavLink>
@@ -173,7 +173,7 @@ function MainNavBar() {
                   </NavLink>
                   <NavLink
                     className={({ isActive }) => activeClassName(isActive)}
-                    to="/call"
+                    to="/room/showlist"
                   >
                     신고하기
                   </NavLink>

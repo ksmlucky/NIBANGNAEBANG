@@ -26,8 +26,10 @@ import Join from "@screens/oauth/Join";
 import NotFound from "@screens/NotFound";
 
 // room
-import RoomRegister from "@screens/room/RoomRegister";
+import RoomTrs from "@screens/room/RoomTrs";
+import TrsList from "@screens/room/TrsList";
 import RoomShow from "@screens/room/RoomShow";
+import ShowList from "@screens/room/ShowList";
 
 // Community
 // import Community from "./Community";
@@ -69,8 +71,10 @@ function Router() {
 
         {/* Room */}
         <Route path="/room/*">
-          <Route path="register" element={<RoomRegister />} />
+          <Route path="roomtrs" element={<RoomTrs />} />
+          <Route path="trslist" element={<TrsList />} />
           <Route path="showre" element={<RoomShow />} />
+          <Route path="showlist" element={<ShowList />} />
         </Route>
 
         {/* camping */}

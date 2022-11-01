@@ -1,0 +1,11 @@
+.container {
+  justify-content: center;
+}
+.showList {
+  width: (1136px);
+  margin-top: (80px);
+  flex-direction: column;
+  &_comps {
+    margin: (80px) 0 (100px) 0;
+  }
+}
