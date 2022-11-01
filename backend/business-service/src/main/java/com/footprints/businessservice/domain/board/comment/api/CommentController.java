@@ -3,7 +3,6 @@ package com.footprints.businessservice.domain.board.comment.api;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.domain.board.comment.dto.CommentRequest;
 import com.footprints.businessservice.domain.board.comment.dto.CommentUpdateRequest;
-import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.comment.service.CommentService;
 import com.footprints.businessservice.global.common.DataResponse;
 import com.footprints.businessservice.global.common.MessageResponse;

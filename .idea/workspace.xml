@@ -5,26 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf351363-16cd-4249-b7a8-3f005598459b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/dto/CommentUpdateRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/exception/CommentException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/exception/CommentExceptionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/dto/ReplyUpdateRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/exception/ReplyException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/exception/ReplyExceptionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/api/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/api/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/entity/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/repository/CommentRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/repository/CommentRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/repository/custom/CommentRepositoryCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/repository/custom/CommentRepositoryCustom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/service/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/service/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/service/CommentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/api/ReplyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/api/ReplyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/entity/Reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/entity/Reply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/service/ReplyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/service/ReplyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/service/ReplyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/service/ReplyServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,7 +264,7 @@
       <workItem from="1666742955128" duration="2354000" />
       <workItem from="1666837847889" duration="16090000" />
       <workItem from="1666920374773" duration="9174000" />
-      <workItem from="1667261698386" duration="14397000" />
+      <workItem from="1667261698386" duration="15771000" />
     </task>
     <servers />
   </component>
