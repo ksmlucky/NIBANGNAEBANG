@@ -1,6 +1,7 @@
 package com.footprints.businessservice.domain.board.transfer.entity;
 
 import com.footprints.businessservice.domain.board.article.entity.Article;
+import com.footprints.businessservice.domain.board.transfer.dto.TransferDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -119,5 +120,27 @@ public class Transfer {
      */
     private String option;
 
-
+    public TransferDto toDto(Transfer transfer) {
+        return TransferDto.builder()
+                .transferId(transfer.getId())
+                .roomType(transfer.getRoomType())
+                .buildingType(transfer.getBuildingType())
+                .contractType(transfer.getContractType())
+                .deposit(transfer.getDeposit())
+                .rent(transfer.getRent())
+                .startDate(transfer.getStartDate())
+                .endDate(transfer.getEndDate())
+                .buildingNumber(transfer.getBuildingNumber())
+                .unitNumber(transfer.getUnitNumber())
+                .supplyArea(transfer.getSupplyArea())
+                .leasableArea(transfer.getLeasableArea())
+                .roomSize(transfer.getRoomSize())
+                .totalFloor(transfer.getTotalFloor())
+                .floor(transfer.getFloor())
+                .heatingType(transfer.getHeatingType())
+                .elevator(transfer.getElevator())
+                .parking(transfer.getParking())
+                .option(transfer.getOption())
+                .build();
+    }
 }

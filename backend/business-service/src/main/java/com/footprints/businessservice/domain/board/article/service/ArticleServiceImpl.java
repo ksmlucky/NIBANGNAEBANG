@@ -83,27 +83,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         if (article.getCategory().equals("transfer")) {
             Transfer transfer = transferRepository.getTransferByArticleId(articleId);
-            TransferDto transferDto = TransferDto.builder()
-                    .transferId(transfer.getId())
-                    .roomType(transfer.getRoomType())
-                    .buildingType(transfer.getBuildingType())
-                    .contractType(transfer.getContractType())
-                    .deposit(transfer.getDeposit())
-                    .rent(transfer.getRent())
-                    .startDate(transfer.getStartDate())
-                    .endDate(transfer.getEndDate())
-                    .buildingNumber(transfer.getBuildingNumber())
-                    .unitNumber(transfer.getUnitNumber())
-                    .supplyArea(transfer.getSupplyArea())
-                    .leasableArea(transfer.getLeasableArea())
-                    .roomSize(transfer.getRoomSize())
-                    .totalFloor(transfer.getTotalFloor())
-                    .floor(transfer.getFloor())
-                    .heatingType(transfer.getHeatingType())
-                    .elevator(transfer.getElevator())
-                    .parking(transfer.getParking())
-                    .option(transfer.getOption())
-                    .build();
+            TransferDto transferDto = transfer.toDto(transfer);
 
             return new ArticleDto(article, result, transferDto);
         }
