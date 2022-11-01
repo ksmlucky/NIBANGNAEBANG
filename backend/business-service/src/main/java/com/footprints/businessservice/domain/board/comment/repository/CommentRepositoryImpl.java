@@ -31,6 +31,4 @@ public class CommentRepositoryImpl extends QuerydslRepositorySupport implements 
                 .where(QComment.comment.id.eq(commentId))
                 .fetchOne();
     }
-
-
 }

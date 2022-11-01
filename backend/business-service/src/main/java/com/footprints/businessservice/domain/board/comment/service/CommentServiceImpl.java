@@ -6,7 +6,10 @@ import com.footprints.businessservice.domain.board.article.exception.ArticleExce
 import com.footprints.businessservice.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.domain.board.comment.dto.CommentRequest;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
+import com.footprints.businessservice.domain.board.comment.dto.CommentUpdateRequest;
 import com.footprints.businessservice.domain.board.comment.entity.Comment;
+import com.footprints.businessservice.domain.board.comment.exception.CommentException;
+import com.footprints.businessservice.domain.board.comment.exception.CommentExceptionType;
 import com.footprints.businessservice.domain.board.comment.repository.CommentRepository;
 import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
 
@@ -56,14 +60,15 @@ public class CommentServiceImpl implements CommentService{
         commentRepository.save(comment);
     }
 
-//    @Override
-//    @Transactional
-//    public void update(CommentRequest request, Long commentId) {
-//        Comment comment = Comment.builder()
-//                .content(request.getContent())
-//                .writer(request.getWriter())
-//                .build();
-//    }
+    @Override
+    @Transactional
+    public void updateComment(CommentUpdateRequest request, Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
+
+        comment.updateContent(request.getContent());
+    }
+
 
     @Override
     @Transactional

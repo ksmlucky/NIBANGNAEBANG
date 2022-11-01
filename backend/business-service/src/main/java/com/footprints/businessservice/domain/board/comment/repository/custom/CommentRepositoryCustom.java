@@ -8,4 +8,5 @@ public interface CommentRepositoryCustom {
     Page<Comment> getCommentList(Long articleId, Pageable pageable);
 
     Comment getComment(Long commentId);
+
 }

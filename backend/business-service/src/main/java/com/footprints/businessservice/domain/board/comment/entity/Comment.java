@@ -29,4 +29,8 @@ public class Comment extends BaseEntity {
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<Reply> replies;
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }

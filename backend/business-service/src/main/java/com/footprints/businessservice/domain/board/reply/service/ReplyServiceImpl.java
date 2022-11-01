@@ -4,7 +4,10 @@ import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.comment.repository.CommentRepository;
 import com.footprints.businessservice.domain.board.reply.dto.ReplyDto;
 import com.footprints.businessservice.domain.board.reply.dto.ReplyRequest;
+import com.footprints.businessservice.domain.board.reply.dto.ReplyUpdateRequest;
 import com.footprints.businessservice.domain.board.reply.entity.Reply;
+import com.footprints.businessservice.domain.board.reply.exception.ReplyException;
+import com.footprints.businessservice.domain.board.reply.exception.ReplyExceptionType;
 import com.footprints.businessservice.domain.board.reply.repository.ReplyRepository;
 import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +52,15 @@ public class ReplyServiceImpl implements ReplyService{
                 .build();
 
         replyRepository.save(reply);
+    }
+
+    @Override
+    @Transactional
+    public void updateReply(ReplyUpdateRequest request, Long replyId) {
+        Reply reply = replyRepository.findById(replyId)
+                .orElseThrow(() -> new ReplyException(ReplyExceptionType.NOT_FOUND_REPLY));
+
+        reply.updateContent(request.getContent());
     }
 
     @Override
