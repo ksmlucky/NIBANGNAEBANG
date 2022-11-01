@@ -1,9 +1,6 @@
 package com.footprints.businessservice.domain.board.article.service;
 
-import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
-import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
-import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
-import com.footprints.businessservice.domain.board.article.dto.SortCondition;
+import com.footprints.businessservice.domain.board.article.dto.*;
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.article.entity.LikedArticle;
 import com.footprints.businessservice.domain.board.article.exception.ArticleException;
@@ -85,7 +82,7 @@ public class ArticleServiceImpl implements ArticleService {
             Transfer transfer = transferRepository.getTransferByArticleId(articleId);
             TransferDto transferDto = transfer.toDto(transfer);
 
-            return new ArticleDto(article, result, transferDto);
+            return new ArticleDto(article, result, new CategoryDto(transferDto));
         }
 
         return new ArticleDto(article, result);
