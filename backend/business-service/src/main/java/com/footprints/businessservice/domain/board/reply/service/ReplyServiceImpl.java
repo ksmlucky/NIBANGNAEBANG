@@ -60,6 +60,7 @@ public class ReplyServiceImpl implements ReplyService{
         Reply reply = replyRepository.findById(replyId)
                 .orElseThrow(() -> new ReplyException(ReplyExceptionType.NOT_FOUND_REPLY));
 
+        reply.changeIsUpdated();
         reply.updateContent(request.getContent());
     }
 
@@ -69,6 +70,7 @@ public class ReplyServiceImpl implements ReplyService{
         Long memberId = tokenDecoder.extractMember(token);
 
         Reply reply = replyRepository.getReply(replyId);
+        reply.changeIsDeleted();
         replyRepository.delete(reply);
     }
 }
