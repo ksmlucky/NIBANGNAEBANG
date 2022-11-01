@@ -13,4 +13,10 @@ public class ArticleRequest {
 
     private String category;
 
+    public ArticleRequest(ArticleRequest articleRequest) {
+        this.title = articleRequest.getTitle();
+        this.writer = articleRequest.getWriter();
+        this.content = articleRequest.getContent();
+        this.category = articleRequest.getCategory();
+    }
 }

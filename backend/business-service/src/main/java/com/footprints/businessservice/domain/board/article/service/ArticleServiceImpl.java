@@ -1,9 +1,6 @@
 package com.footprints.businessservice.domain.board.article.service;
 
-import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
-import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
-import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
-import com.footprints.businessservice.domain.board.article.dto.SortCondition;
+import com.footprints.businessservice.domain.board.article.dto.*;
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.article.entity.LikedArticle;
 import com.footprints.businessservice.domain.board.article.exception.ArticleException;
@@ -12,6 +9,9 @@ import com.footprints.businessservice.domain.board.article.repository.ArticleRep
 import com.footprints.businessservice.domain.board.article.repository.LikedArticleRepository;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.domain.board.comment.entity.Comment;
+import com.footprints.businessservice.domain.board.transfer.dto.TransferDto;
+import com.footprints.businessservice.domain.board.transfer.entity.Transfer;
+import com.footprints.businessservice.domain.board.transfer.repository.TransferRepository;
 import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +33,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
     private final LikedArticleRepository likedArticleRepository;
+    private final TransferRepository transferRepository;
     private final TokenDecoder tokenDecoder;
 
     @Override
@@ -75,6 +76,13 @@ public class ArticleServiceImpl implements ArticleService {
         List<CommentDto> result = comments.stream()
                 .map(comment -> new CommentDto(comment))
                 .collect(Collectors.toList());
+
+        if (article.getCategory().equals("transfer")) {
+            Transfer transfer = transferRepository.getTransferByArticleId(articleId);
+            TransferDto transferDto = transfer.toDto(transfer);
+
+            return new ArticleDto(article, result, new CategoryDto(transferDto));
+        }
 
         return new ArticleDto(article, result);
     }
