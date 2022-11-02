@@ -3,6 +3,8 @@ import "./RoomCard.scss";
 import tmpImg from "@images/room.png";
 function RoomCard(){
 
+    const [room, setRoom] = userState("");
+    
 
     return (
             <div className = "roomCard">

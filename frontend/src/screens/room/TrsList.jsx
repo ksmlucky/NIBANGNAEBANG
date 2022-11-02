@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
+import KaKaoMap from "@components/KakaoMap";
 import "./TrsList.scss";
+import KakaoMap from "../../components/KakaoMap";
 
 function TrsList() {
   return (
@@ -11,7 +13,7 @@ function TrsList() {
       <div className="trsList flex">
         <div className="trsList_map flex">
           <div className="trsList_map_title flex justify-center">
-            지도가 들어갈 자리
+            <KakaoMap></KakaoMap>
           </div>
         </div>
         <div className="trsList_detail flex justify-center">

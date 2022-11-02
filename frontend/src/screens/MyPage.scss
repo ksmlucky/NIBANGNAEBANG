@@ -1,0 +1,62 @@
+.container{
+    justify-content: center;
+}
+
+.Avatar-content{
+    height : 100px;
+    width : 100px;
+}
+.editInfo{
+    width : 30vw;
+    margin-top: 100px;
+    &_nickName{
+        margin-top : 60px;
+        width: 40vw;
+         &_input{
+            margin-top : 10px;
+            &_inputBox{
+                width : 70%;
+                height : 40px;
+                margin-right : 300px;
+            }
+
+            &_checkBox{
+                width : 30%;
+                margin-right : 10px;
+            }
+         }
+    }
+    &_address{
+        margin-top : 30px;
+
+        &_box{
+            justify-content: center;
+        }
+    }
+
+    &_profile{
+        margin-top : 30px;
+        &_title{
+            text-align : center;
+        }
+
+        &_input{
+            width : 100px;
+            height : 100px;
+
+            // justify-content: center;
+        }
+    }
+
+    &_update{
+        &_button{
+            margin-top : 30px;
+        }
+    }
+
+    &_secession{
+        &_button{
+            margin-top : 10px;
+        }
+    }
+}
