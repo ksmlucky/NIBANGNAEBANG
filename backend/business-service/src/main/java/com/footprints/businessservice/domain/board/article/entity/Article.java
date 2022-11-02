@@ -33,8 +33,11 @@ public class Article extends BaseEntity {
 
     private String category;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<ScrappedArticle> scrappedArticles = new ArrayList<>();
 
     public void updateLikes(Integer count) {
         this.likes += count;

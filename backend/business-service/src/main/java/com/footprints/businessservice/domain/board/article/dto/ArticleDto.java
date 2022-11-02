@@ -77,8 +77,6 @@ public class ArticleDto {
 
         if (article.getCategory().equals("transfer")) {
             this.categoryDto = new CategoryDto(categoryDto.getTransferDto());
-        } else if (article.getCategory().equals("room")) {
-            this.categoryDto = new CategoryDto(categoryDto.getRoomDto());
         }
     }
 }
