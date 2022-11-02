@@ -46,7 +46,7 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	implementation 'jakarta.validation:jakarta.validation-api'
-	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.1'
+
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
