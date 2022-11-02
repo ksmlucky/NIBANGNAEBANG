@@ -22,5 +22,5 @@ public interface ArticleService {
 
     void scrapArticle(Long articleId);
 
-    List<ScrappedArticleDto> getScrappedArticleList(Pageable pageable);
+    List<ScrappedArticleDto> getScrappedArticleList(String memberId, Pageable pageable);
 }

@@ -161,10 +161,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ScrappedArticleDto> getScrappedArticleList(Pageable pageable) {
+    public List<ScrappedArticleDto> getScrappedArticleList(String memberId, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
-        Page<ScrappedArticle> scrappedArticles = scrappedArticleRepository.getScrappedArticleList(pageRequest);
+        Page<ScrappedArticle> scrappedArticles = scrappedArticleRepository.getScrappedArticleList(Long.parseLong(memberId), pageRequest);
 
         List<ScrappedArticleDto> result = scrappedArticles.stream()
                 .map(scrappedArticle -> new ScrappedArticleDto(scrappedArticle))

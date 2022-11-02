@@ -56,10 +56,10 @@ public class ReplyController {
     }
 
     // 대댓글 삭제
-    @DeleteMapping("{reply-id}")
+    @PutMapping("{reply-id}")
     @Operation(summary = "대댓글 삭제")
-    public ResponseEntity<? extends MessageResponse> deleteReply(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "reply-id") Long replyId) {
-        replyService.deleteReply(token, replyId);
+    public ResponseEntity<? extends MessageResponse> deleteReply(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "reply-id") Long replyId) {
+        replyService.deleteReply(memberId, replyId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 }
