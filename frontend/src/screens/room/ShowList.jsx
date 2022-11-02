@@ -32,7 +32,7 @@ function ShowList() {
               sx={{ color: "white", fontSize: 24 }}
               className="showList_title_btn_icon"
             />
-            <div className="showList_title_btn_txt">자랑하러 가기</div>
+            <div className="showList_title_btn_txt">자랑하기</div>
           </button>
         </div>
         <div className="showList_comps notoReg fs-16">
