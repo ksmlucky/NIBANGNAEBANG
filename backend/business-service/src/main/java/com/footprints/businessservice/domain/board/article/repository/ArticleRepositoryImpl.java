@@ -10,7 +10,6 @@ import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.comment.entity.QComment;
 import com.footprints.businessservice.domain.board.reply.entity.QReply;
 import com.footprints.businessservice.domain.board.reply.entity.Reply;
-import com.footprints.businessservice.domain.board.transfer.entity.QTransfer;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -26,7 +25,6 @@ import java.util.List;
 import static com.footprints.businessservice.domain.board.article.entity.QArticle.article;
 import static com.footprints.businessservice.domain.board.comment.entity.QComment.comment;
 import static com.footprints.businessservice.domain.board.reply.entity.QReply.reply;
-import static com.footprints.businessservice.domain.board.transfer.entity.QTransfer.transfer;
 
 public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements ArticleRepositoryCustom {
 
@@ -50,9 +48,6 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     @Override
     public Article getArticle(Long articleId) {
         return selectFrom(article)
-                .leftJoin(article.comments, comment)
-                .fetchJoin()
-                .leftJoin(comment.replies, reply)
                 .where(article.id.eq(articleId))
                 .fetchOne();
     }
@@ -67,7 +62,6 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                 .where(article.id.eq(articleId))
                 .fetch();
     }
-
 
     @Override
     public Page<Article> searchArticle(SearchCondition condition, Pageable pageable) {
