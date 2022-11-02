@@ -5,6 +5,7 @@ import com.footprints.businessservice.domain.board.reply.dto.ReplyDto;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,10 @@ public class CommentDto {
     private Long articleId;
     private boolean isUpdated;
     private boolean isDeleted;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
     private List<ReplyDto> replies;
 
     @QueryProjection
@@ -27,6 +32,8 @@ public class CommentDto {
         this.articleId = comment.getArticle().getId();
         this.isUpdated = comment.isUpdated();
         this.isDeleted = comment.isDeleted();
+        this.createdAt = comment.getCreatedAt();
+        this.updatedAt = comment.getUpdatedAt();
         this.replies = comment.getReplies().stream()
                 .map(reply -> new ReplyDto(reply))
                 .collect(Collectors.toList());
