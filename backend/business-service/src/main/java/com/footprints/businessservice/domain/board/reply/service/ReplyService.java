@@ -14,5 +14,5 @@ public interface ReplyService {
 
     void updateReply(ReplyUpdateRequest request, Long replyId);
 
-    void deleteReply(String token, Long replyId);
+    void deleteReply(String memberId, Long replyId);
 }

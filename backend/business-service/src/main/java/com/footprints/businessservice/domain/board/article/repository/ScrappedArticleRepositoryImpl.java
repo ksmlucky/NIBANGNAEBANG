@@ -7,6 +7,8 @@ import com.footprints.businessservice.domain.board.article.repository.support.Qu
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import static com.footprints.businessservice.domain.board.article.entity.QScrappedArticle.scrappedArticle;
+
 public class ScrappedArticleRepositoryImpl extends QuerydslRepositorySupport implements ScrappedArticleRepositoryCustom {
 
     public ScrappedArticleRepositoryImpl() {
@@ -15,14 +17,13 @@ public class ScrappedArticleRepositoryImpl extends QuerydslRepositorySupport imp
 
 
     @Override
-    public Page<ScrappedArticle> getScrappedArticleList(Pageable pageable) {
+    public Page<ScrappedArticle> getScrappedArticleList(Long memberId, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
-                        .selectFrom(QScrappedArticle.scrappedArticle)
-//                .where() // 현재 유저의 memberId와 scrappedArticle의 memberId가 같은 애들만
-                ,
+                        .selectFrom(scrappedArticle)
+                        .where(scrappedArticle.memberId.eq(memberId)),
                 countQuery -> countQuery
-                        .selectFrom(QScrappedArticle.scrappedArticle)
+                        .selectFrom(scrappedArticle)
+                        .where(scrappedArticle.memberId.eq(memberId))
         );
     }
-
 }

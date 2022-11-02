@@ -9,7 +9,6 @@ import com.footprints.businessservice.domain.board.reply.entity.Reply;
 import com.footprints.businessservice.domain.board.reply.exception.ReplyException;
 import com.footprints.businessservice.domain.board.reply.exception.ReplyExceptionType;
 import com.footprints.businessservice.domain.board.reply.repository.ReplyRepository;
-import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
 public class ReplyServiceImpl implements ReplyService{
     private final ReplyRepository replyRepository;
     private final CommentRepository commentRepository;
-    private final TokenDecoder tokenDecoder;
 
 
     @Override
@@ -67,10 +65,10 @@ public class ReplyServiceImpl implements ReplyService{
     @Override
     @Transactional
     public void deleteReply(String token, Long replyId) {
-        Long memberId = tokenDecoder.extractMember(token);
 
-        Reply reply = replyRepository.getReply(replyId);
+        Reply reply = replyRepository.findById(replyId)
+                .orElseThrow(() -> new ReplyException(ReplyExceptionType.NOT_FOUND_REPLY));
+
         reply.changeIsDeleted();
-        replyRepository.delete(reply);
     }
 }
