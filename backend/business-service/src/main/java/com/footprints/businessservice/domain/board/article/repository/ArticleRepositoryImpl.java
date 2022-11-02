@@ -53,7 +53,6 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                 .leftJoin(article.comments, comment)
                 .fetchJoin()
                 .leftJoin(comment.replies, reply)
-                .fetchJoin()
                 .where(article.id.eq(articleId))
                 .fetchOne();
     }
@@ -68,6 +67,7 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                 .where(article.id.eq(articleId))
                 .fetch();
     }
+
 
     @Override
     public Page<Article> searchArticle(SearchCondition condition, Pageable pageable) {

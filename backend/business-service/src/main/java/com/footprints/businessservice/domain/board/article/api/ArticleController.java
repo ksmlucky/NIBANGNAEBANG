@@ -64,4 +64,18 @@ public class ArticleController {
         List<ArticleDto> response = articleService.searchArticle(condition, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
+
+    @PostMapping("/scrap/{article-id}")
+    @Operation(summary = "게시글 스크랩")
+    public ResponseEntity<? extends MessageResponse> scrapArticle(@PathVariable(name = "article-id") Long articleId) {
+        articleService.scrapArticle(articleId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
+
+    @GetMapping("/scrap")
+    @Operation(summary = "스크랩한 게시글 목록", description = "후에 파라미터에 Long memberId 추가")
+    public ResponseEntity<? extends DataResponse> getScrappedArticleList(Pageable pageable) {
+        List<ScrappedArticleDto> list = articleService.getScrappedArticleList(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(list));
+    }
 }

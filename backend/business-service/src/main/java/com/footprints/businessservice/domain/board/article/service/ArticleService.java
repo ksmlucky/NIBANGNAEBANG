@@ -19,4 +19,8 @@ public interface ArticleService {
     void unlikeArticle(String token, Long articleId);
 
     List<ArticleDto> searchArticle(SearchCondition condition, Pageable pageable);
+
+    void scrapArticle(Long articleId);
+
+    List<ScrappedArticleDto> getScrappedArticleList(Pageable pageable);
 }

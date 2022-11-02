@@ -31,7 +31,7 @@ public class Comment extends BaseEntity {
     private Article article;
 
     @OneToMany(mappedBy = "comment")
-    private Set<Reply> replies;
+    private List<Reply> replies;
 
     public void updateContent(String content) {
         this.content = content;

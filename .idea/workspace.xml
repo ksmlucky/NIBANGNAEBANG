@@ -5,15 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf351363-16cd-4249-b7a8-3f005598459b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/dto/ScrappedArticleDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/entity/ScrappedArticle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/repository/ScrappedArticleRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/repository/ScrappedArticleRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/repository/custom/ScrappedArticleRepositoryCustom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/structure/dto/StructureDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/structure/entity/Structure.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/structure/repository/StructureRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/structure/service/StructureService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/structure/service/StructureServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/structure/util/StructureUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/api/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/api/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/api/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/comment/api/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/api/ReplyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/api/ReplyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/dto/ReplyDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/reply/dto/ReplyDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/dto/ArticleDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/dto/ArticleDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/dto/CategoryDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/dto/CategoryDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/dto/CommonRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/dto/CommonRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/entity/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/room/dto/RoomDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/room/dto/RoomRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/room/entity/Room.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/room/repository/RoomRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/room/service/RoomService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/room/service/RoomServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/room/util/RoomUtil.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,21 +123,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\multicampus\Desktop\final_project\S07P31C109\backend\business-service\src\main\java\com\footprints\businessservice\domain\board\reply\exception" />
@@ -181,50 +192,50 @@
     </configuration>
     <configuration name="ApigatewayServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="apigateway-service.main" />
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.footprints.apigatewayservice.ApigatewayServiceApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.footprints.apigatewayservice.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.footprints.apigatewayservice.ApigatewayServiceApplication" />
-      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="BusinessServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="business-service.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.footprints.businessservice.BusinessServiceApplication" />
       <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.footprints.businessservice.BusinessServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ConfigServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="config-service.main" />
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.footprints.configservice.ConfigServiceApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.footprints.configservice.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.footprints.configservice.ConfigServiceApplication" />
-      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="DiscoveryServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="discovery-service.main" />
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.footprints.discoveryservice.DiscoveryServiceApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.footprints.discoveryservice.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.footprints.discoveryservice.DiscoveryServiceApplication" />
-      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -237,10 +248,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.business-service [compileQuerydsl]" />
         <item itemvalue="Spring Boot.ApigatewayServiceApplication" />
         <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
         <item itemvalue="Spring Boot.ConfigServiceApplication" />
-        <item itemvalue="Gradle.business-service [compileQuerydsl]" />
         <item itemvalue="Gradle.business-service [initQuerydslSourcesDir]" />
       </list>
     </recent_temporary>
@@ -276,7 +287,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

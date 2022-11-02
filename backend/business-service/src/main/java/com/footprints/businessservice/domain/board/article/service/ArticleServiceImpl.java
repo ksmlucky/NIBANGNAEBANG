@@ -3,10 +3,12 @@ package com.footprints.businessservice.domain.board.article.service;
 import com.footprints.businessservice.domain.board.article.dto.*;
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.article.entity.LikedArticle;
+import com.footprints.businessservice.domain.board.article.entity.ScrappedArticle;
 import com.footprints.businessservice.domain.board.article.exception.ArticleException;
 import com.footprints.businessservice.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.domain.board.article.repository.LikedArticleRepository;
+import com.footprints.businessservice.domain.board.article.repository.ScrappedArticleRepository;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.transfer.dto.TransferDto;
@@ -33,6 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
     private final LikedArticleRepository likedArticleRepository;
+    private final ScrappedArticleRepository scrappedArticleRepository;
     private final TransferRepository transferRepository;
     private final TokenDecoder tokenDecoder;
 
@@ -137,6 +140,32 @@ public class ArticleServiceImpl implements ArticleService {
 
         List<ArticleDto> result = articles.stream()
                 .map(article -> new ArticleDto(article))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public void scrapArticle(Long articleId) {
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
+
+        ScrappedArticle scrappedArticle = ScrappedArticle.builder()
+                .article(article)
+                .build();
+
+        scrappedArticleRepository.save(scrappedArticle);
+    }
+
+    @Override
+    public List<ScrappedArticleDto> getScrappedArticleList(Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+
+        Page<ScrappedArticle> scrappedArticles = scrappedArticleRepository.getScrappedArticleList(pageRequest);
+
+        List<ScrappedArticleDto> result = scrappedArticles.stream()
+                .map(scrappedArticle -> new ScrappedArticleDto(scrappedArticle))
                 .collect(Collectors.toList());
 
         return result;
