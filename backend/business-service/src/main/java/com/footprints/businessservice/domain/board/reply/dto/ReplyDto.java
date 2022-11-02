@@ -11,6 +11,8 @@ public class ReplyDto {
     private String content;
     private String writer;
     private Long commentId;
+    private boolean isUpdated;
+    private boolean isDeleted;
 
     @QueryProjection
     public ReplyDto(Reply reply) {
@@ -18,7 +20,7 @@ public class ReplyDto {
         this.content = reply.getContent();
         this.writer = reply.getWriter();
         this.commentId = reply.getComment().getId();
-        // 게시글 식별키?
-
+        this.isUpdated = reply.isUpdated();
+        this.isDeleted = reply.isDeleted();
     }
 }
