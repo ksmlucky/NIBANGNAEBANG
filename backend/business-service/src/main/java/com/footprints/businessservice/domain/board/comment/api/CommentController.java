@@ -59,8 +59,8 @@ public class CommentController {
     // 댓글 삭제
     @DeleteMapping("/{comment-id}")
     @Operation(summary = "댓글 삭제")
-    public ResponseEntity<? extends MessageResponse> deleteComment(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "comment-id") Long commentId) {
-        commentService.deleteComment(token, commentId);
+    public ResponseEntity<? extends MessageResponse> deleteComment(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "comment-id") Long commentId) {
+        commentService.deleteComment(memberId, commentId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 }

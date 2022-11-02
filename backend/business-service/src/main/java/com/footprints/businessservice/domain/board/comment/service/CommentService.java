@@ -17,5 +17,5 @@ public interface CommentService {
 
     void updateComment(CommentUpdateRequest request, Long commentId);
 
-    void deleteComment(String token, Long commentId);
+    void deleteComment(String memberId, Long commentId);
 }

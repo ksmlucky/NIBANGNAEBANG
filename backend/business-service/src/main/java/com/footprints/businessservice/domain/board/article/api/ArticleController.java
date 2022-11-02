@@ -73,9 +73,9 @@ public class ArticleController {
     }
 
     @GetMapping("/scrap")
-    @Operation(summary = "스크랩한 게시글 목록", description = "후에 파라미터에 Long memberId 추가")
-    public ResponseEntity<? extends DataResponse> getScrappedArticleList(Pageable pageable) {
-        List<ScrappedArticleDto> list = articleService.getScrappedArticleList(pageable);
+    @Operation(summary = "스크랩한 게시글 목록")
+    public ResponseEntity<? extends DataResponse> getScrappedArticleList(@RequestHeader(name = "X-Authorization-Id") String memberId, Pageable pageable) {
+        List<ScrappedArticleDto> list = articleService.getScrappedArticleList(memberId, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(list));
     }
 }

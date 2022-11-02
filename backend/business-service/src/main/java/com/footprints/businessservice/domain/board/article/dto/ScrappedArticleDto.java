@@ -6,21 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScrappedArticleDto {
     private Long id;
 
-//    private Long memberId;
-
-    private Long articleid;
+    private Long articleId;
 
     @QueryProjection
     public ScrappedArticleDto(ScrappedArticle scrappedArticle) {
         this.id = scrappedArticle.getId();
-        this.articleid = scrappedArticle.getArticle().getId();
+        this.articleId = scrappedArticle.getArticle().getId();
     }
 }

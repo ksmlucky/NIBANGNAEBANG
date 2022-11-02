@@ -11,7 +11,6 @@ import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.comment.exception.CommentException;
 import com.footprints.businessservice.domain.board.comment.exception.CommentExceptionType;
 import com.footprints.businessservice.domain.board.comment.repository.CommentRepository;
-import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,8 +28,6 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
 
     private final ArticleRepository articleRepository;
-
-    private final TokenDecoder tokenDecoder;
 
     @Override
     public List<CommentDto> getCommentList(Long articleId, Pageable pageable) {
@@ -73,11 +70,11 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     @Transactional
-    public void deleteComment(String token, Long commentId) {
-        Long memberId = tokenDecoder.extractMember(token);
+    public void deleteComment(String memberId, Long commentId) {
 
-        Comment comment = commentRepository.getComment(commentId);
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
+
         comment.changeIsDeleted();
-        commentRepository.delete(comment);
     }
 }
