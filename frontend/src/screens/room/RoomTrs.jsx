@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import PlaceIcon from "@mui/icons-material/Place";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
+import FormControl from "@mui/material/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import "./RoomTrs.scss";
@@ -15,6 +19,7 @@ function RoomTrs() {
   const [contract, setContract] = useState("");
   const [term, setTerm] = useState("");
   const [address, setAddress] = useState("");
+  const [heat, setHeat] = useState("");
   const onChangeRoom = (e) => {
     setRoom(e.target.value);
   };
@@ -23,6 +28,9 @@ function RoomTrs() {
   };
   const onChangeContract = (e) => {
     setContract(e.target.value);
+  };
+  const onChangeHeat = (e) => {
+    setHeat(e.target.value);
   };
   return (
     <div className="container flex">
@@ -113,7 +121,19 @@ function RoomTrs() {
                   </div>
                 </div>
               </div>
-              <div className="roomTrs_loc_address_boxes_map"></div>
+              <div className="roomTrs_loc_address_boxes_map flex justify-center">
+                <PlaceIcon
+                  color="action"
+                  fontSize="large"
+                  className="roomTrs_loc_address_boxes_map_icon"
+                />
+                <div className="roomTrs_loc_address_boxes_map_txt1 notoReg fs-16">
+                  주소 검색을 하면
+                </div>
+                <div className="roomTrs_loc_address_boxes_map_txt2 notoReg fs-16">
+                  위치가 지도에 표시됩니다
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -132,12 +152,12 @@ function RoomTrs() {
                     (1평=3.3058㎡)
                   </div>
                 </div>
-                <div className="roomTrs_info_con_left_top_boxes flex">
+                <div className="roomTrs_info_con_left_top_boxes flex notoReg fs-16">
                   <div className="roomTrs_info_con_left_top_boxes_up flex">
-                    1
+                    공급 면적
                   </div>
                   <div className="roomTrs_info_con_left_top_boxes_down flex">
-                    2
+                    전용 면적
                   </div>
                 </div>
               </div>
@@ -145,7 +165,22 @@ function RoomTrs() {
                 <div className="roomTrs_info_con_left_mid_title flex notoMid fs-16">
                   난방 종류
                 </div>
-                <div className="roomTrs_info_con_left_mid_boxes flex">3</div>
+                <div className="roomTrs_info_con_left_mid_boxes flex">
+                  <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
+                    <InputLabel id="select-heat-small">난방 종류</InputLabel>
+                    <Select
+                      labelId="select-heat-small"
+                      id="select-heat-small"
+                      value={heat}
+                      label="난방 종류"
+                      onChange={onChangeHeat}
+                    >
+                      <MenuItem value={"중앙 난방"}>중앙 난방</MenuItem>
+                      <MenuItem value={"개별 난방"}>개별 난방</MenuItem>
+                      <MenuItem value={"지역 난방"}>지역 난방</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
               <div className="roomTrs_info_con_left_bot flex">
                 <div className="roomTrs_info_con_left_bot_title flex notoMid fs-16">
@@ -159,12 +194,22 @@ function RoomTrs() {
                 <div className="roomTrs_info_con_right_top_title flex notoMid fs-16">
                   건물 층수
                 </div>
-                <div className="roomTrs_info_con_right_top_boxes flex">
+                <div className="roomTrs_info_con_right_top_boxes flex notoReg fs-16">
                   <div className="roomTrs_info_con_right_top_boxes_up flex">
-                    5
+                    건물 층수
+                    <input
+                      className="roomTrs_info_con_right_top_boxes_up_input"
+                      type="text"
+                    />
+                    층
                   </div>
                   <div className="roomTrs_info_con_right_top_boxes_down flex">
-                    6
+                    해당 층수
+                    <input
+                      className="roomTrs_info_con_right_top_boxes_up_input"
+                      type="text"
+                    />
+                    층
                   </div>
                 </div>
               </div>

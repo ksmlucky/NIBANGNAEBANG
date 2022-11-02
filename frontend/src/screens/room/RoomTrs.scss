@@ -119,9 +119,20 @@
           }
         }
         &_map {
+          flex-direction: column;
+          align-items: center;
           margin-left: (20px);
           width: vw(360px);
-          background-color: $MAIN;
+          // background-color: $MAIN;
+          border: 1px solid $GRAY-DB;
+          &_icon {
+            margin-bottom: (6px);
+          }
+          &_txt1,
+          &_txt2 {
+            color: $GRAY-88;
+            margin-top: (4px);
+          }
         }
       }
     }
@@ -147,6 +158,12 @@
               padding: (6px) 0 (6px) (12px);
               align-items: center;
               color: $GRAY-88;
+              &_input {
+                width: (100px);
+                margin: 0 (4px) 0 (24px);
+                height: (32px);
+                border: 1px solid $GRAY-DB;
+              }
             }
           }
         }
