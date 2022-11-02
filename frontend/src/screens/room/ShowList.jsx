@@ -4,6 +4,7 @@ import Pagination from "@mui/material/Pagination";
 import CreateIcon from "@mui/icons-material/Create";
 import ShowCardList from "@components/room/ShowCardList";
 import "./ShowList.scss";
+import RoomCard from "@components/room/RoomCard";
 
 function ShowList() {
   const navigate = useNavigate();

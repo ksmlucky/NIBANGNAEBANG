@@ -14,7 +14,8 @@ import Login from "@screens/oauth/Login";
 import KakaoLogin from "@screens/oauth/KakaoLogin";
 import GoogleLogin from "@screens/oauth/GoogleLogin";
 import Join from "@screens/oauth/Join";
-import RoomCard from "@components/room/RoomCard";
+import MyPage from "@screens/MyPage";
+
 import ShowCard from "@components/room/ShowCard";
 // mypage
 // import Drop from "@screens/mypage/Drop";
@@ -32,6 +33,7 @@ import RoomTrs from "@screens/room/RoomTrs";
 import TrsList from "@screens/room/TrsList";
 import RoomShow from "@screens/room/RoomShow";
 import ShowList from "@screens/room/ShowList";
+import RoomCard from "@components/room/RoomCard";
 
 // Community
 // import Community from "./Community";
@@ -91,7 +93,7 @@ function Router() {
 
         {/* mypage */}
         <Route path="/mypage/*">
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<MyPage />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
