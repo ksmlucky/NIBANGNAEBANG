@@ -21,10 +21,8 @@ public class Reply extends BaseEntity {
     private String content;
 
     private String writer;
-
-    private boolean isDeleted;
-
     private boolean isUpdated;
+    private boolean isDeleted;
 
     // 댓글 식별키
     @JoinColumn(name = "comment_id")
@@ -33,5 +31,13 @@ public class Reply extends BaseEntity {
 
     public void updateContent(String content) {
         this.content = content;
+    }
+
+    public void changeIsUpdated() {
+        this.isUpdated = true;
+    }
+
+    public void changeIsDeleted() {
+        this.isDeleted = true;
     }
 }

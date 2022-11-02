@@ -66,6 +66,7 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
+        comment.changeIsUpdated();
         comment.updateContent(request.getContent());
     }
 
@@ -76,6 +77,7 @@ public class CommentServiceImpl implements CommentService{
         Long memberId = tokenDecoder.extractMember(token);
 
         Comment comment = commentRepository.getComment(commentId);
+        comment.changeIsDeleted();
         commentRepository.delete(comment);
     }
 }
