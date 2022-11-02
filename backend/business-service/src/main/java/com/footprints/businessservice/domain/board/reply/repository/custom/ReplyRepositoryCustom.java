@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ReplyRepositoryCustom {
     Page<Reply> getReplyList(Long commentId, Pageable pageable);
+
+    Reply getReply(Long replyId);
 }

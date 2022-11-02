@@ -15,6 +15,8 @@ public class CommentDto {
     private String content;
     private String writer;
     private Long articleId;
+    private boolean isUpdated;
+    private boolean isDeleted;
     private List<ReplyDto> replies;
 
     @QueryProjection
@@ -23,6 +25,8 @@ public class CommentDto {
         this.content = comment.getContent();
         this.writer = comment.getWriter();
         this.articleId = comment.getArticle().getId();
+        this.isUpdated = comment.isUpdated();
+        this.isDeleted = comment.isDeleted();
         this.replies = comment.getReplies().stream()
                 .map(reply -> new ReplyDto(reply))
                 .collect(Collectors.toList());

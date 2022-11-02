@@ -1,6 +1,7 @@
 package com.footprints.businessservice.domain.board.reply.repository;
 
 import com.footprints.businessservice.domain.board.article.repository.support.QuerydslRepositorySupport;
+import com.footprints.businessservice.domain.board.reply.entity.QReply;
 import com.footprints.businessservice.domain.board.reply.entity.Reply;
 import com.footprints.businessservice.domain.board.reply.repository.custom.ReplyRepositoryCustom;
 import org.springframework.data.domain.Page;
@@ -23,5 +24,12 @@ public class ReplyRepositoryImpl extends QuerydslRepositorySupport implements Re
                         .selectFrom(reply)
                         .where(reply.comment.id.eq(commentId))
         );
+    }
+
+    @Override
+    public Reply getReply(Long replyId) {
+        return selectFrom(QReply.reply)
+                .where(QReply.reply.id.eq(replyId))
+                .fetchOne();
     }
 }

@@ -22,11 +22,24 @@ public class Comment extends BaseEntity {
     private String content;
 
     private String writer;
+    private boolean isUpdated;
+    private boolean isDeleted;
 
     @JoinColumn(name = "article_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Article article;
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "comment")
     private List<Reply> replies;
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void changeIsUpdated() {
+        this.isUpdated = true;
+    }
+    public void changeIsDeleted() {
+        this.isDeleted = true;
+    }
 }
