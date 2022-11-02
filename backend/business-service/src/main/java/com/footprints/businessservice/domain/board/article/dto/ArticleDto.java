@@ -1,8 +1,8 @@
 package com.footprints.businessservice.domain.board.article.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
-import com.footprints.businessservice.domain.board.transfer.dto.TransferDto;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ArticleDto {
 
     private Long id;

@@ -32,7 +32,7 @@ public class ArticleController {
 
     @PostMapping
     @Operation(summary = "게시글 등록")
-    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody ArticleRequest request) {
+    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody CommonRequest request) {
         articleService.saveArticle(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
