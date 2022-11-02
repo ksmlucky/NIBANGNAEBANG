@@ -1,9 +1,6 @@
 package com.footprints.businessservice.domain.board.article.api;
 
-import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
-import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
-import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
-import com.footprints.businessservice.domain.board.article.dto.SortCondition;
+import com.footprints.businessservice.domain.board.article.dto.*;
 import com.footprints.businessservice.domain.board.article.service.ArticleService;
 import com.footprints.businessservice.global.common.DataResponse;
 import com.footprints.businessservice.global.common.MessageResponse;
@@ -35,7 +32,7 @@ public class ArticleController {
 
     @PostMapping
     @Operation(summary = "게시글 등록")
-    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody ArticleRequest request) {
+    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody CommonRequest request) {
         articleService.saveArticle(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }

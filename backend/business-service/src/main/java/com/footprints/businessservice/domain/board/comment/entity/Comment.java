@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -30,7 +31,7 @@ public class Comment extends BaseEntity {
     private Article article;
 
     @OneToMany(mappedBy = "comment")
-    private List<Reply> replies;
+    private Set<Reply> replies;
 
     public void updateContent(String content) {
         this.content = content;
