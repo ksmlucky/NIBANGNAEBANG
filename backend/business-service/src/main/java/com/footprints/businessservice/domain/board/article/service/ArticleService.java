@@ -1,6 +1,9 @@
 package com.footprints.businessservice.domain.board.article.service;
 
-import com.footprints.businessservice.domain.board.article.dto.*;
+import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
+import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
+import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
+import com.footprints.businessservice.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import org.springframework.data.domain.Pageable;
 
@@ -10,7 +13,7 @@ public interface ArticleService {
 
     List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable);
 
-    void saveArticle(CommonRequest request);
+    void saveArticle(ArticleRequest request);
 
     ArticleDto getArticle(Long articleId);
 
@@ -19,8 +22,4 @@ public interface ArticleService {
     void unlikeArticle(String token, Long articleId);
 
     List<ArticleDto> searchArticle(SearchCondition condition, Pageable pageable);
-
-    void scrapArticle(Long articleId);
-
-    List<ScrappedArticleDto> getScrappedArticleList(Pageable pageable);
 }
