@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
-import KaKaoMap from "@components/KakaoMap";
 import "./TrsList.scss";
 import KakaoMap from "../../components/KakaoMap";
 
