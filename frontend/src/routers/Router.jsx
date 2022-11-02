@@ -15,6 +15,7 @@ import KakaoLogin from "@screens/oauth/KakaoLogin";
 import GoogleLogin from "@screens/oauth/GoogleLogin";
 import Join from "@screens/oauth/Join";
 import RoomCard from "@components/room/RoomCard";
+import ShowCard from "@components/room/ShowCard";
 // mypage
 // import Drop from "@screens/mypage/Drop";
 // import DropFinish from "@screens/mypage/DropFinish";
@@ -76,6 +77,7 @@ function Router() {
           <Route path="trslist" element={<TrsList />} />
           <Route path="showre" element={<RoomShow />} />
           <Route path="showlist" element={<ShowList />} />
+          <Route path="showcard" element={<ShowCard />} />
         </Route>
 
         {/* camping */}

@@ -157,7 +157,7 @@ function RoomShow() {
           <div className="roomshow_text_content_box" id="editor">
             <CKEditor
               initData=""
-              style={{ borderColor: "#ffffff" }}
+              style={{ borderColor: "#8bc34a" }}
               onChange={(e) => {
                 const data = e.editor.getData();
                 setTalkContent({
@@ -167,7 +167,7 @@ function RoomShow() {
               }}
               config={{
                 readOnly: false,
-                uiColor: "#467264",
+                uiColor: "#8bc34a",
                 width: windowWidth * 0.618,
                 height: 500,
                 resize_enabled: false,
