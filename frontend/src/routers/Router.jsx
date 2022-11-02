@@ -14,6 +14,7 @@ import Login from "@screens/oauth/Login";
 import KakaoLogin from "@screens/oauth/KakaoLogin";
 import GoogleLogin from "@screens/oauth/GoogleLogin";
 import Join from "@screens/oauth/Join";
+import RoomCard from "@components/room/RoomCard";
 // mypage
 // import Drop from "@screens/mypage/Drop";
 // import DropFinish from "@screens/mypage/DropFinish";

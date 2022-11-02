@@ -203,6 +203,11 @@ function MainNavBar() {
                   >
                     회원가입
                   </NavLink>
+                  <NavLink
+                    className="right_nav__link_none_join fs-16"
+                    to ="/myPage">
+                    내 정보 수정
+                  </NavLink>
                 </>
               ) : (
                 <>

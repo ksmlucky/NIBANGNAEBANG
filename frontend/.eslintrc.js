@@ -51,7 +51,7 @@ module.exports = {
     "import/order": "off",
     "prefer-const": "off",
     "import/no-dynamic-require": "off",
-    camelcase: "off",
+    "camelcase": "off",
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     "import/newline-after-import": "off",
     "no-var": "off",
