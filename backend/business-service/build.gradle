@@ -47,13 +47,6 @@ dependencies {
 
 	implementation 'jakarta.validation:jakarta.validation-api'
 
-	// MapStruct 추가
-	implementation 'org.mapstruct:mapstruct:1.4.1.Final'
-	implementation 'org.projectlombok:lombok-mapstruct-binding'
-
-	annotationProcessor "org.mapstruct:mapstruct-processor:1.4.1.Final"
-	annotationProcessor "org.projectlombok:lombok-mapstruct-binding"
-
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
