@@ -1,5 +1,6 @@
 package com.footprints.businessservice.domain.board.transfer.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.footprints.businessservice.domain.board.transfer.entity.Transfer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransferDto {
 
     private Long transferId;
