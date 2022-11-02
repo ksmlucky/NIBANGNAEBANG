@@ -10,13 +10,13 @@ public interface ArticleService {
 
     List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable);
 
-    void saveArticle(CommonRequest request);
+    void saveArticle(String memberId, CommonRequest request);
 
     ArticleDto getArticle(Long articleId);
 
-    void likeArticle(String token, Long articleId);
+    void likeArticle(String memberId, Long articleId);
 
-    void unlikeArticle(String token, Long articleId);
+    void unlikeArticle(String memberId, Long articleId);
 
     List<ArticleDto> searchArticle(SearchCondition condition, Pageable pageable);
 

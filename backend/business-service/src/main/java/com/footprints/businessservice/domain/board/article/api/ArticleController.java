@@ -32,8 +32,8 @@ public class ArticleController {
 
     @PostMapping
     @Operation(summary = "게시글 등록")
-    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody CommonRequest request) {
-        articleService.saveArticle(request);
+    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody CommonRequest request) {
+        articleService.saveArticle(memberId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
 
@@ -46,15 +46,15 @@ public class ArticleController {
 
     @PostMapping("/{article-id}/like")
     @Operation(summary = "게시글 좋아요")
-    public ResponseEntity<? extends MessageResponse> likeArticle(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "article-id") Long articleId) {
-        articleService.likeArticle(token, articleId);
+    public ResponseEntity<? extends MessageResponse> likeArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "article-id") Long articleId) {
+        articleService.likeArticle(memberId, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
     @DeleteMapping("/{article-id}/unlike")
     @Operation(summary = "게시글 좋아요 해제")
-    public ResponseEntity<? extends MessageResponse> unlikeArticle(@RequestHeader(name = "Authorization") String token, @PathVariable(name = "article-id") Long articleId) {
-        articleService.unlikeArticle(token, articleId);
+    public ResponseEntity<? extends MessageResponse> unlikeArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "article-id") Long articleId) {
+        articleService.unlikeArticle(memberId, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 

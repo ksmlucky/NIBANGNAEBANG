@@ -10,11 +10,9 @@ import com.footprints.businessservice.domain.board.article.repository.ArticleRep
 import com.footprints.businessservice.domain.board.article.repository.LikedArticleRepository;
 import com.footprints.businessservice.domain.board.article.repository.ScrappedArticleRepository;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
-import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.transfer.dto.TransferDto;
 import com.footprints.businessservice.domain.board.transfer.entity.Transfer;
 import com.footprints.businessservice.domain.board.transfer.repository.TransferRepository;
-import com.footprints.businessservice.domain.board.util.TokenDecoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -37,7 +35,6 @@ public class ArticleServiceImpl implements ArticleService {
     private final LikedArticleRepository likedArticleRepository;
     private final ScrappedArticleRepository scrappedArticleRepository;
     private final TransferRepository transferRepository;
-    private final TokenDecoder tokenDecoder;
 
     @Override
     public List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable) {
@@ -55,7 +52,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void saveArticle(CommonRequest request) {
+    public void saveArticle(String memberId, CommonRequest request) {
+
+        // Auth-Service 에 memberId로 로그인한 사용자 이름 조회 후 writer 필드에 저장
+
         Article article = Article.builder()
                 .title(request.getArticleRequest().getTitle())
                 .writer(request.getArticleRequest().getWriter())
@@ -104,9 +104,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void likeArticle(String token, Long articleId) {
-        Long memberId = tokenDecoder.extractMember(token);
-        if (findLikedArticleWithMemberIdAndArticleId(memberId, articleId) != null) {
+    public void likeArticle(String memberId, Long articleId) {
+        Long findMemberId = Long.parseLong(memberId);
+
+        if (findLikedArticleWithMemberIdAndArticleId(findMemberId, articleId) != null) {
             throw new ArticleException(ArticleExceptionType.ALREADY_LIKED_ARTICLE);
         }
 
@@ -114,7 +115,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         LikedArticle likedArticle = LikedArticle.builder()
                 .article(article)
-                .memberId(memberId)
+                .memberId(findMemberId)
                 .build();
 
         likedArticleRepository.save(likedArticle);
@@ -122,9 +123,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void unlikeArticle(String token, Long articleId) {
-        Long memberId = tokenDecoder.extractMember(token);
-        if (findLikedArticleWithMemberIdAndArticleId(memberId, articleId) == null) {
+    public void unlikeArticle(String memberId, Long articleId) {
+        Long findMemberId = Long.parseLong(memberId);
+
+        if (findLikedArticleWithMemberIdAndArticleId(findMemberId, articleId) == null) {
             throw new ArticleException(ArticleExceptionType.NOT_LIKED_ARTICLE);
         }
 
