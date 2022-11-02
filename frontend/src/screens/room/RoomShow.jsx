@@ -196,7 +196,7 @@ function RoomShow() {
         </div>
         <div className="roomshow_btn flex align-center justify-center">
           <Link
-            to="/board/talk/home"
+            to="/room/showlist"
             className="roomshow_btn_back notoBold fs-24"
           >
             뒤로가기

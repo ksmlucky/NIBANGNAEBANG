@@ -1,0 +1,21 @@
+.container {
+  //   justify-content: center;
+}
+.trsList {
+  flex-direction: row;
+  //   height: calc(100vh - (100px));
+  &_map {
+    align-items: center;
+    width: calc(100vw - (300px));
+    &_title {
+      width: 100%;
+    }
+  }
+  &_detail {
+    // flex-direction: column;
+    width: (300px);
+    &_search {
+      width: 100%;
+    }
+  }
+}
