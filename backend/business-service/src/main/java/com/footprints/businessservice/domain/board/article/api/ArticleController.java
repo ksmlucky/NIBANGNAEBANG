@@ -1,9 +1,6 @@
 package com.footprints.businessservice.domain.board.article.api;
 
-import com.footprints.businessservice.domain.board.article.dto.ArticleDto;
-import com.footprints.businessservice.domain.board.article.dto.ArticleRequest;
-import com.footprints.businessservice.domain.board.article.dto.SearchCondition;
-import com.footprints.businessservice.domain.board.article.dto.SortCondition;
+import com.footprints.businessservice.domain.board.article.dto.*;
 import com.footprints.businessservice.domain.board.article.service.ArticleService;
 import com.footprints.businessservice.global.common.DataResponse;
 import com.footprints.businessservice.global.common.MessageResponse;
@@ -35,7 +32,7 @@ public class ArticleController {
 
     @PostMapping
     @Operation(summary = "게시글 등록")
-    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody ArticleRequest request) {
+    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestBody CommonRequest request) {
         articleService.saveArticle(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
@@ -66,5 +63,19 @@ public class ArticleController {
     public ResponseEntity<? extends DataResponse> searchArticle(SearchCondition condition, Pageable pageable) {
         List<ArticleDto> response = articleService.searchArticle(condition, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
+    }
+
+    @PostMapping("/scrap/{article-id}")
+    @Operation(summary = "게시글 스크랩")
+    public ResponseEntity<? extends MessageResponse> scrapArticle(@PathVariable(name = "article-id") Long articleId) {
+        articleService.scrapArticle(articleId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
+
+    @GetMapping("/scrap")
+    @Operation(summary = "스크랩한 게시글 목록", description = "후에 파라미터에 Long memberId 추가")
+    public ResponseEntity<? extends DataResponse> getScrappedArticleList(Pageable pageable) {
+        List<ScrappedArticleDto> list = articleService.getScrappedArticleList(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(list));
     }
 }

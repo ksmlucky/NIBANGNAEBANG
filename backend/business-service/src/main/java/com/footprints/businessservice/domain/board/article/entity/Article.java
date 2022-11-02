@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,8 +34,11 @@ public class Article extends BaseEntity {
 
     private String category;
 
-    @OneToMany(mappedBy = "article")
-    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<ScrappedArticle> scrappedArticles = new ArrayList<>();
 
     public void updateLikes(Integer count) {
         this.likes += count;

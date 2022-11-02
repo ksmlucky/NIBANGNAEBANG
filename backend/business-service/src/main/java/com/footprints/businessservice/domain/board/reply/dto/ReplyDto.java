@@ -4,6 +4,8 @@ import com.footprints.businessservice.domain.board.reply.entity.Reply;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class ReplyDto {
     private Long id;
@@ -14,6 +16,10 @@ public class ReplyDto {
     private boolean isUpdated;
     private boolean isDeleted;
 
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
     @QueryProjection
     public ReplyDto(Reply reply) {
         this.id = reply.getId();
@@ -22,5 +28,7 @@ public class ReplyDto {
         this.commentId = reply.getComment().getId();
         this.isUpdated = reply.isUpdated();
         this.isDeleted = reply.isDeleted();
+        this.createdAt = reply.getCreatedAt();
+        this.updatedAt = reply.getUpdatedAt();
     }
 }

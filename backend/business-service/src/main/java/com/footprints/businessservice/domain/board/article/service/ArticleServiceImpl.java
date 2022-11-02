@@ -3,10 +3,12 @@ package com.footprints.businessservice.domain.board.article.service;
 import com.footprints.businessservice.domain.board.article.dto.*;
 import com.footprints.businessservice.domain.board.article.entity.Article;
 import com.footprints.businessservice.domain.board.article.entity.LikedArticle;
+import com.footprints.businessservice.domain.board.article.entity.ScrappedArticle;
 import com.footprints.businessservice.domain.board.article.exception.ArticleException;
 import com.footprints.businessservice.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.domain.board.article.repository.LikedArticleRepository;
+import com.footprints.businessservice.domain.board.article.repository.ScrappedArticleRepository;
 import com.footprints.businessservice.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.domain.board.transfer.dto.TransferDto;
@@ -33,6 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
     private final LikedArticleRepository likedArticleRepository;
+    private final ScrappedArticleRepository scrappedArticleRepository;
     private final TransferRepository transferRepository;
     private final TokenDecoder tokenDecoder;
 
@@ -52,28 +55,40 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void saveArticle(ArticleRequest request) {
+    public void saveArticle(CommonRequest request) {
         Article article = Article.builder()
-                .title(request.getTitle())
-                .writer(request.getWriter())
-                .content(request.getContent())
+                .title(request.getArticleRequest().getTitle())
+                .writer(request.getArticleRequest().getWriter())
+                .content(request.getArticleRequest().getContent())
                 .hits(0)
                 .likes(0)
-                .category(request.getCategory())
+                .category(request.getArticleRequest().getCategory())
                 .build();
+
+        if (request.getArticleRequest().getCategory().equals("transfer")) {
+            Transfer transfer = Transfer.builder()
+                    .roomType(request.getTransferRequest().getRoomType())
+                    .buildingType(request.getTransferRequest().getBuildingType())
+                    .article(article)
+                    .build();
+
+            transferRepository.save(transfer);
+        }
 
         articleRepository.save(article);
     }
 
     @Override
     public ArticleDto getArticle(Long articleId) {
-        List<Comment> comments = articleRepository.getCommentList(articleId);
-        Article article = articleRepository.findById(articleId)
-                .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
+        Article article = articleRepository.getArticle(articleId);
+
+        if (article == null) {
+            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
+        }
 
         article.updateHits();
 
-        List<CommentDto> result = comments.stream()
+        List<CommentDto> comments = article.getComments().stream()
                 .map(comment -> new CommentDto(comment))
                 .collect(Collectors.toList());
 
@@ -81,10 +96,10 @@ public class ArticleServiceImpl implements ArticleService {
             Transfer transfer = transferRepository.getTransferByArticleId(articleId);
             TransferDto transferDto = transfer.toDto(transfer);
 
-            return new ArticleDto(article, result, new CategoryDto(transferDto));
+            return new ArticleDto(article, comments, new CategoryDto(transferDto));
         }
 
-        return new ArticleDto(article, result);
+        return new ArticleDto(article, comments);
     }
 
     @Override
@@ -125,6 +140,32 @@ public class ArticleServiceImpl implements ArticleService {
 
         List<ArticleDto> result = articles.stream()
                 .map(article -> new ArticleDto(article))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public void scrapArticle(Long articleId) {
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
+
+        ScrappedArticle scrappedArticle = ScrappedArticle.builder()
+                .article(article)
+                .build();
+
+        scrappedArticleRepository.save(scrappedArticle);
+    }
+
+    @Override
+    public List<ScrappedArticleDto> getScrappedArticleList(Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+
+        Page<ScrappedArticle> scrappedArticles = scrappedArticleRepository.getScrappedArticleList(pageRequest);
+
+        List<ScrappedArticleDto> result = scrappedArticles.stream()
+                .map(scrappedArticle -> new ScrappedArticleDto(scrappedArticle))
                 .collect(Collectors.toList());
 
         return result;
