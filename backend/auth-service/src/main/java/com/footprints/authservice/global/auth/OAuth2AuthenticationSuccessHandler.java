@@ -61,7 +61,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 //        String accessToken = tokenProvider.createToken(providerId, findMember.get().getId());
 
-        return UriComponentsBuilder.fromUriString("http://localhost:3002/oauth")
+        return UriComponentsBuilder.fromUriString("http://k7c109.p.ssafy.io:3002/oauth")
                 .queryParam("provider", provider)
                 .queryParam("providerId", providerId)
 //                .queryParam("accessToken", accessToken)
