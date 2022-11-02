@@ -1,0 +1,26 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/simjaeseo/footprints-config.git
+#          search-paths:
+#            - configuration
+          username: simjaeseo
+          password: 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
+          default-label: master
+#        default-label: backend
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
