@@ -8,9 +8,10 @@ COPY src src
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJAR
 
-FROM openjdk:17-ea-11-jdk-slim
-COPY --from=build-stage /var/jenkins_home/workspace/deploy/backend/discovery-service/build/libs/discovery-service-0.0.1-SNAPSHOT.jar DiscoveryService.jar
+WORKDIR /var/jenkins_home/workspace/deploy/backend/discovery-service/build/libs
+#COPY --from=build-stage /var/jenkins_home/workspace/deploy/backend/discovery-service/build/libs/discovery-service-0.0.1-SNAPSHOT.jar DiscoveryService.jar
 
 EXPOSE 8761
-ENTRYPOINT ["java","-jar","DiscoveryService.jar"]
+#ENTRYPOINT ["java","-jar","DiscoveryService.jar"]
+ENTRYPOINT ["java","-jar","discovery-service-0.0.1-SNAPSHOT.jar"]
 
