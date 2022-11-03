@@ -27,8 +27,8 @@ public class CommentRepositoryImpl extends QuerydslRepositorySupport implements 
 
     @Override
     public Comment getComment(Long commentId) {
-        return selectFrom(QComment.comment)
-                .where(QComment.comment.id.eq(commentId))
+        return selectFrom(comment)
+                .where(comment.id.eq(commentId))
                 .fetchOne();
     }
 }

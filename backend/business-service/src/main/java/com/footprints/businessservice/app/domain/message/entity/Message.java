@@ -2,11 +2,10 @@ package com.footprints.businessservice.app.domain.message.entity;
 
 import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,13 +14,23 @@ import javax.persistence.Id;
 @Builder
 public class Message extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")
     private Long id;
 
-    private String sendMember;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "send_member")
+//    @OnDelete(action = OnDeleteAction.NO_ACTION)
+//    private Long sendMember;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "receive_member")
+//    @OnDelete(action = OnDeleteAction.NO_ACTION)
+//    private String receiveMember;
 
-    private String receiveMember;
+    private Long sendMember;
+
+    private Long receiveMember;
 
     // 보낸 시간 createdAt
 
@@ -35,7 +44,7 @@ public class Message extends BaseEntity {
 
     private boolean isDeletedByReceiveMember;
 
-    private boolean readCheck;
+    private boolean isRead;
 
     private String boardClassification;
 
@@ -47,7 +56,11 @@ public class Message extends BaseEntity {
         this.isDeletedByReceiveMember = true;
     }
 
-//    public boolean isDeleted() {
-//        return isDeletedB ySendMember() && isDeletedByReceiveMember();
-//    }
+    public boolean isDeleted() {
+        return isDeletedBySendMember() && isDeletedByReceiveMember();
+    }
+
+    public void readCheck() {
+        this.isRead = true;
+    }
 }
