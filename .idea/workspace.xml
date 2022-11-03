@@ -5,10 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf351363-16cd-4249-b7a8-3f005598459b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/api/MessageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/api/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/api/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/domain/board/article/service/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/article/repository/ArticleRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/article/repository/ArticleRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/article/repository/LikedArticleRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/article/repository/LikedArticleRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/article/repository/ScrappedArticleRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/article/repository/ScrappedArticleRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/api/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/api/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/dto/CommentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/dto/CommentDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/repository/CommentRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/repository/CommentRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/api/ReplyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/api/ReplyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/repository/ReplyRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/repository/ReplyRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/transfer/repository/TransferRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/transfer/repository/TransferRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/entity/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/entity/Message.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,10 +115,13 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "spring.configuration.checksum": "dea2e3e1e902d8a25bf92d9e2d707f7d",
     "vue.rearranger.settings.migration": "true"
   }
@@ -255,6 +266,7 @@
       <workItem from="1667261698386" duration="21498000" />
       <workItem from="1667302538326" duration="1792000" />
       <workItem from="1667373126439" duration="883000" />
+      <workItem from="1667433687110" duration="9858000" />
     </task>
     <servers />
   </component>

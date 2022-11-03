@@ -6,7 +6,7 @@ import com.footprints.businessservice.app.domain.board.article.repository.suppor
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import static com.footprints.businessservice.domain.board.article.entity.QScrappedArticle.scrappedArticle;
+import static com.footprints.businessservice.app.domain.board.article.entity.QScrappedArticle.scrappedArticle;
 
 public class ScrappedArticleRepositoryImpl extends QuerydslRepositorySupport implements ScrappedArticleRepositoryCustom {
 
