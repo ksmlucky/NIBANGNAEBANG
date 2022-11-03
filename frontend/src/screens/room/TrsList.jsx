@@ -7,7 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
+import RoomCardList from "@components/room/RoomCardList";
 import "./TrsList.scss";
 import KakaoMap from "@components/KakaoMap";
 
@@ -25,7 +25,7 @@ function TrsList() {
             <KakaoMap />
           </div>
         </div>
-        <div className="trsList_detail flex justify-center">
+        <div className="trsList_detail flex">
           <div className="trsList_detail_search flex">
             <div className="trsList_detail_search_btn">
               <div className="trsList_detail_search_btn_space" />
@@ -79,6 +79,9 @@ function TrsList() {
             </div>
           </div>
           <div className="divide" />
+          <div className="trsList_detail_rooms">
+            <RoomCardList />
+          </div>
         </div>
       </div>
     </div>

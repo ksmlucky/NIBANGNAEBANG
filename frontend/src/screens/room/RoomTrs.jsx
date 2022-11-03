@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DaumPostcode from "react-daum-postcode";
 import PlaceIcon from "@mui/icons-material/Place";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -10,11 +11,13 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import RoomSearch from "@components/room/RoomSearch";
 import "./RoomTrs.scss";
 
 function RoomTrs() {
   const [room, setRoom] = useState("");
-  console.log(room);
+  // console.log(room);
+  const [popup, setPopup] = useState(false);
   const [building, setBuilding] = useState("");
   const [contract, setContract] = useState("");
   const [term, setTerm] = useState("");
@@ -91,9 +94,15 @@ function RoomTrs() {
                       // fontSize: 20,
                       fontFamily: "NotoSansRegular",
                     }}
+                    onClick={() => {
+                      setPopup(!popup);
+                    }}
                   >
                     주소검색
                   </Button>
+                  {popup && (
+                    <RoomSearch address={address} setAddress={setAddress} />
+                  )}
                 </div>
                 <div className="roomTrs_loc_address_boxes_info_result notoReg fs-14">
                   {address}

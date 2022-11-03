@@ -19,7 +19,7 @@ function MainNavBar() {
   const { pathname } = useLocation();
 
   const activeClassName = (active) => {
-    const prefix = "left_nav__link flex fs-16 btn--";
+    const prefix = "left_nav__link flex fs-18 btn--";
     return active ? `${prefix}active` : `${prefix}unactive`;
   };
 
@@ -205,7 +205,8 @@ function MainNavBar() {
                   </NavLink>
                   <NavLink
                     className="right_nav__link_none_join fs-16"
-                    to ="/myPage">
+                    to="/myPage"
+                  >
                     내 정보 수정
                   </NavLink>
                 </>

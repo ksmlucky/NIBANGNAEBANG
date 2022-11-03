@@ -16,7 +16,6 @@ import GoogleLogin from "@screens/oauth/GoogleLogin";
 import Join from "@screens/oauth/Join";
 import MyPage from "@screens/MyPage";
 
-import ShowCard from "@components/room/ShowCard";
 // mypage
 // import Drop from "@screens/mypage/Drop";
 // import DropFinish from "@screens/mypage/DropFinish";
@@ -33,7 +32,6 @@ import RoomTrs from "@screens/room/RoomTrs";
 import TrsList from "@screens/room/TrsList";
 import RoomShow from "@screens/room/RoomShow";
 import ShowList from "@screens/room/ShowList";
-import RoomCard from "@components/room/RoomCard";
 
 // Community
 // import Community from "./Community";
@@ -79,7 +77,6 @@ function Router() {
           <Route path="trslist" element={<TrsList />} />
           <Route path="showre" element={<RoomShow />} />
           <Route path="showlist" element={<ShowList />} />
-          <Route path="showcard" element={<ShowCard />} />
         </Route>
 
         {/* camping */}

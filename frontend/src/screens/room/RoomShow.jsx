@@ -146,11 +146,11 @@ function RoomShow() {
               className="roomshow_text_name_input notoMid fs-24"
               placeholder="제목을 입력해주세요."
               name="title"
-              maxLength={29}
+              maxLength={19}
               onChange={getValue}
             />
             <div className="roomshow_text_name_count roReg fs-24">
-              {titleLength}/30
+              {titleLength}/20
             </div>
           </div>
           <div className="divide" />
@@ -189,7 +189,7 @@ function RoomShow() {
           <input
             ref={tagRef}
             type="text"
-            placeholder="# 태그입력"
+            placeholder="# 자랑하고 싶은 가구를 태그와 함께 입력해주세요 (ex. #이케아Poang #한샘리클라이너소파)"
             className="roomshow_text_content_tag notoReg fs-16"
           />
           <div className="divide" />
