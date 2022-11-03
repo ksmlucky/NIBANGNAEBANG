@@ -57,7 +57,7 @@ public class CommentController {
     }
 
     // 댓글 삭제
-    @PutMapping("/{comment-id}")
+    @DeleteMapping("/{comment-id}")
     @Operation(summary = "댓글 삭제")
     public ResponseEntity<? extends MessageResponse> deleteComment(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "comment-id") Long commentId) {
         commentService.deleteComment(memberId, commentId);

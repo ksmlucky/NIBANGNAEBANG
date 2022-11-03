@@ -56,7 +56,7 @@ public class ReplyController {
     }
 
     // 대댓글 삭제
-    @PutMapping("{reply-id}")
+    @DeleteMapping("{reply-id}")
     @Operation(summary = "대댓글 삭제")
     public ResponseEntity<? extends MessageResponse> deleteReply(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "reply-id") Long replyId) {
         replyService.deleteReply(memberId, replyId);
