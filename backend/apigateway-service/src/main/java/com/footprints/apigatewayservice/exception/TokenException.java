@@ -1,6 +1,5 @@
 package com.footprints.apigatewayservice.exception;
 
-
 public class TokenException extends BaseException {
     private BaseExceptionType exceptionType;
 
