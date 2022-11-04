@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MessageService {
     // 한 명의 멤버가 받은 모든 쪽지 불러오기(받은 쪽지함)
-    List<MessageDto> getAllReceivedMessages(Long sendMember, Pageable pageable);
+    List<MessageDto> getAllReceivedMessages(String sendMember, Pageable pageable);
 
     // 쪽지 보내기
     void sendMessage(String sendMember, MessageRequest request);
@@ -17,7 +17,7 @@ public interface MessageService {
     void deleteMessageByReceiveMember(Long receiveMemberId, Long messageId);
 
     // 보낸 쪽지함
-    List<MessageDto> getAllSentMessages(Long receiveMember, Pageable pageable);
+    List<MessageDto> getAllSentMessages(String receiveMember, Pageable pageable);
 
     // 보낸 쪽지 삭제
     void deleteMessageBySendMember(Long sendMemberId, Long messageId);

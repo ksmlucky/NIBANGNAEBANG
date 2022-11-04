@@ -33,7 +33,7 @@ public class MessageController {
     // 받은 쪽지 리스트
     @GetMapping("/received")
     @Operation(summary = "받은 쪽지 목록 조회")
-    public ResponseEntity<? extends DataResponse> getAllReceivedMessages(Long sendMember, Pageable pageable) {
+    public ResponseEntity<? extends DataResponse> getAllReceivedMessages(@RequestHeader(name = "X-Authorization-Id") String sendMember, Pageable pageable) {
         List<MessageDto> messageDtos = messageService.getAllReceivedMessages(sendMember, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(messageDtos));
     }
@@ -41,7 +41,7 @@ public class MessageController {
     // 보낸 쪽지 리스트
     @GetMapping("/sent")
     @Operation(summary = "보낸 쪽지 목록 조회")
-    public ResponseEntity<? extends DataResponse> getAllSentMessages(Long receiveMember, Pageable pageable) {
+    public ResponseEntity<? extends DataResponse> getAllSentMessages(@RequestHeader(name = "X-Authorization-Id") String receiveMember, Pageable pageable) {
         List<MessageDto> messageDtos = messageService.getAllSentMessages(receiveMember, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(messageDtos));
     }

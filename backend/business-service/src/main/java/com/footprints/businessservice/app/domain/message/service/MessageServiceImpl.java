@@ -23,10 +23,10 @@ public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
 
     @Override
-    public List<MessageDto> getAllReceivedMessages(Long sendMember, Pageable pageable) {
+    public List<MessageDto> getAllReceivedMessages(String sendMember, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
-        Page<Message> messages = messageRepository.getAllMessagesBySendMember(sendMember, pageRequest);
+        Page<Message> messages = messageRepository.getAllMessagesBySendMember(Long.parseLong(sendMember), pageRequest);
 
         List<MessageDto> result = messages.stream()
                 .map(message -> new MessageDto(message))
@@ -56,10 +56,10 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<MessageDto> getAllSentMessages(Long receiveMember, Pageable pageable) {
+    public List<MessageDto> getAllSentMessages(String receiveMember, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
-        Page<Message> messages = messageRepository.getAllMessagesByReceiveMember(receiveMember, pageRequest);
+        Page<Message> messages = messageRepository.getAllMessagesByReceiveMember(Long.parseLong(receiveMember), pageRequest);
 
         List<MessageDto> result = messages.stream()
                 .map(message -> new MessageDto(message))
