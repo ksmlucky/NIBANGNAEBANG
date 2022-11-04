@@ -15,9 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +27,8 @@ public class S3Service {
 
     private final AmazonS3 amazonS3;
 
-    public List<String> uploadFile(List<MultipartFile> multipartFiles) {
-        List<String> fileNameList = new ArrayList<>();
+    public Map<String, String> uploadFile(List<MultipartFile> multipartFiles) {
+        Map<String, String> fileInfoList = new HashMap<>();
 
         multipartFiles.forEach(file -> {
             String fileName = createFileName(file.getOriginalFilename());
@@ -45,10 +43,11 @@ public class S3Service {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
             }
 
-            fileNameList.add(fileName);
+            fileInfoList.put("name", fileName);
+            fileInfoList.put("url", amazonS3.getUrl(bucket, fileName).toString());
         });
 
-        return fileNameList;
+        return fileInfoList;
     }
 
     public void deleteFile(String fileName) {
