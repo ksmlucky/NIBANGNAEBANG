@@ -3,6 +3,7 @@ package com.footprints.businessservice.app.domain.board.article.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
+import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,8 @@ public class ArticleDto {
 
     private List<CommentDto> comments;
 
+    private List<ImageDto> images;
+
     private LocalDateTime createdAt;
 
     private CategoryDto categoryDto;
@@ -53,7 +56,7 @@ public class ArticleDto {
         this.createdAt = article.getCreatedAt();
     }
 
-    public ArticleDto(Article article, List<CommentDto> comments) {
+    public ArticleDto(Article article, List<CommentDto> comments, List<ImageDto> images) {
         this.id = article.getId();
         this.title = article.getTitle();
         this.writer = article.getWriter();
@@ -63,9 +66,10 @@ public class ArticleDto {
         this.category = article.getCategory();
         this.comments = comments;
         this.createdAt = article.getCreatedAt();
+        this.images = images;
     }
 
-    public ArticleDto(Article article, List<CommentDto> comments, CategoryDto categoryDto) {
+    public ArticleDto(Article article, List<CommentDto> comments, CategoryDto categoryDto, List<ImageDto> images) {
         this.id = article.getId();
         this.title = article.getTitle();
         this.writer = article.getWriter();
@@ -74,6 +78,7 @@ public class ArticleDto {
         this.likes = article.getLikes();
         this.category = article.getCategory();
         this.comments = comments;
+        this.images = images;
         this.createdAt = article.getCreatedAt();
 
         if (article.getCategory().equals("transfer")) {
