@@ -33,16 +33,16 @@ public class MessageController {
     // 받은 쪽지 리스트
     @GetMapping("/received")
     @Operation(summary = "받은 쪽지 목록 조회")
-    public ResponseEntity<? extends DataResponse> getAllReceivedMessages(@RequestHeader(name = "X-Authorization-Id") String sendMember, Pageable pageable) {
-        List<MessageDto> messageDtos = messageService.getAllReceivedMessages(sendMember, pageable);
+    public ResponseEntity<? extends DataResponse> getAllReceivedMessages(@RequestHeader(name = "X-Authorization-Id") String receiveMember, Pageable pageable) {
+        List<MessageDto> messageDtos = messageService.getAllReceivedMessages(receiveMember, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(messageDtos));
     }
 
     // 보낸 쪽지 리스트
     @GetMapping("/sent")
     @Operation(summary = "보낸 쪽지 목록 조회")
-    public ResponseEntity<? extends DataResponse> getAllSentMessages(@RequestHeader(name = "X-Authorization-Id") String receiveMember, Pageable pageable) {
-        List<MessageDto> messageDtos = messageService.getAllSentMessages(receiveMember, pageable);
+    public ResponseEntity<? extends DataResponse> getAllSentMessages(@RequestHeader(name = "X-Authorization-Id") String sendMember, Pageable pageable) {
+        List<MessageDto> messageDtos = messageService.getAllSentMessages(sendMember, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(messageDtos));
     }
 
@@ -63,6 +63,18 @@ public class MessageController {
     }
 
     // 받은 쪽지 삭제
+    @DeleteMapping("/received/delete/{message-id}")
+    @Operation(summary = "받은 쪽지 삭제")
+    public ResponseEntity<? extends MessageResponse> deleteReceivedMessage(@RequestHeader(name = "X-Authorization-Id") String receiveMember, @PathVariable("message-id") Long messageId) {
+        messageService.deleteMessageByReceiveMember(receiveMember, messageId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
 
     // 보낸 쪽지 삭제
+    @DeleteMapping("/sent/delete/{message-id}")
+    @Operation(summary = "보낸 쪽지 삭제")
+    public ResponseEntity<? extends MessageResponse> deleteSentMessage(@RequestHeader(name = "X-Authorization-Id") String sendMember, @PathVariable("message-id") Long messageId) {
+        messageService.deleteMessageBySendMember(sendMember, messageId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
 }

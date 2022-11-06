@@ -40,8 +40,10 @@ public class Message extends BaseEntity {
     // 내용
     private String content;
 
+    // 보낸 사람이 삭제했는지
     private boolean isDeletedBySendMember;
 
+    // 받은 사람이 삭제했는지
     private boolean isDeletedByReceiveMember;
 
     private boolean isRead;
