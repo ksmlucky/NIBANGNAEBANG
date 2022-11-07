@@ -15,6 +15,12 @@ public class MessageDto {
     private String title;
     private String content;
     private boolean isRead;
+
+    // 보낸 사람이 삭제했는지
+    private boolean isDeletedBySendMember;
+
+    // 받은 사람이 삭제했는지
+    private boolean isDeletedByReceiveMember;
     private String boardClassification;
 
     @QueryProjection
@@ -26,6 +32,8 @@ public class MessageDto {
         this.title = message.getTitle();
         this.content = message.getContent();
         this.isRead = message.isRead();
+        this.isDeletedBySendMember = message.isDeletedBySendMember();
+        this.isDeletedByReceiveMember = message.isDeletedByReceiveMember();
         this.boardClassification = message.getBoardClassification();
     }
 }
