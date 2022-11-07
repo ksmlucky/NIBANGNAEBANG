@@ -67,11 +67,11 @@ public class ArticleDto {
 
     private ImageDto imageToImageDto(Article article) {
         Image findImage = article.getImages().get(0);
+        String url = findImage.getUrl();
         ImageDto image = ImageDto.builder()
                 .id(findImage.getId())
-                .imageName(findImage.getOriginalFileName())
-                .url(findImage.getUrl())
-                .size(findImage.getSize())
+                .imageName("s_" + findImage.getOriginalFileName())
+                .url(url.substring(0, url.indexOf(".com/") + 5) + "s_" + findImage.getFileName())
                 .build();
 
         return image;

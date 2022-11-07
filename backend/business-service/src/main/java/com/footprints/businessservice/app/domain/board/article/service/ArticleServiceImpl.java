@@ -79,7 +79,7 @@ public class ArticleServiceImpl implements ArticleService {
             transferRepository.save(transfer);
         }
 
-        if (!multipartFiles.isEmpty()) {
+        if (multipartFiles != null) {
             imageService.saveImage(article, multipartFiles);
         }
 
