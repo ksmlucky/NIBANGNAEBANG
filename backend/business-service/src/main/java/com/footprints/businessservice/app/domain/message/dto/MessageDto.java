@@ -21,7 +21,6 @@ public class MessageDto {
 
     // 받은 사람이 삭제했는지
     private boolean isDeletedByReceiveMember;
-    private String boardClassification;
 
     @QueryProjection
     public MessageDto(Message message) {
@@ -34,6 +33,5 @@ public class MessageDto {
         this.isRead = message.isRead();
         this.isDeletedBySendMember = message.isDeletedBySendMember();
         this.isDeletedByReceiveMember = message.isDeletedByReceiveMember();
-        this.boardClassification = message.getBoardClassification();
     }
 }
