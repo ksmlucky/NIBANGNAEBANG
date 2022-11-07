@@ -6,6 +6,8 @@ import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,13 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
-import java.io.InputStream;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class S3Service {
 
     @Value("${cloud.aws.s3.bucket}")
@@ -38,6 +42,7 @@ public class S3Service {
         try (InputStream inputStream = file.getInputStream()) {
             amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
+            uploadThumbnail(file, fileName);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
         }
@@ -48,8 +53,33 @@ public class S3Service {
         return fileInfoList;
     }
 
+    public void uploadThumbnail(MultipartFile file, String fileName) {
+        try {
+            BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
+            BufferedImage thumbnail = Thumbnails.of(bufferedImage).size(400, 300).asBufferedImage();
+
+            ByteArrayOutputStream thumbnailOutput = new ByteArrayOutputStream();
+            String fileType = file.getContentType();
+            ImageIO.write(thumbnail, fileType.substring(fileType.indexOf("/") + 1), thumbnailOutput);
+
+            ObjectMetadata thumbnailObjectMetadata = new ObjectMetadata();
+            byte[] thumbnailBytes = thumbnailOutput.toByteArray();
+            thumbnailObjectMetadata.setContentType(file.getContentType());
+            thumbnailObjectMetadata.setContentLength(thumbnailBytes.length);
+
+            InputStream thumbnailInput = new ByteArrayInputStream(thumbnailBytes);
+            amazonS3.putObject(bucket, "s_" + fileName, thumbnailInput, thumbnailObjectMetadata);
+
+            thumbnailInput.close();
+            thumbnailOutput.close();
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+    }
+
     public void deleteFile(String fileName) {
         amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
+        amazonS3.deleteObject(new DeleteObjectRequest(bucket, "s_" + fileName));
     }
 
     private String createFileName(String fileName) {
