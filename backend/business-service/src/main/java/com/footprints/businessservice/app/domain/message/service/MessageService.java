@@ -23,5 +23,5 @@ public interface MessageService {
     void deleteMessageBySendMember(String sendMemberId, Long messageId);
 
     // 쪽지 하나 읽기
-    MessageDto getMessage(Long messageId);
+    MessageDto getMessage(String memberId, Long messageId);
 }

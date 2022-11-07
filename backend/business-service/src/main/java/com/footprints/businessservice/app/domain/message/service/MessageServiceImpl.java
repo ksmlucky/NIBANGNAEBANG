@@ -38,8 +38,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public void sendMessage(String sendMember, MessageRequest request) {
-        // receiveMember 검증 -> 존재하지 않는 수신자면 예외 처리
-
         Message message = Message.builder()
                 .sendMember(Long.parseLong(sendMember))
                 .receiveMember(request.getReceiveMember())
@@ -55,8 +53,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public void deleteMessageByReceiveMember(String receiveMemberId, Long messageId) {
-        // receiveMemberId로 사용자 검증?
-
         Message message = messageRepository.getMessage(messageId);
 
         if (message == null) {
@@ -68,7 +64,7 @@ public class MessageServiceImpl implements MessageService {
             // 받은 사람이 삭제 체크
             message.deleteByReceiveMember();
         } else {
-            throw new MessageException(MessageExceptionType.NOT_MATCHED_MESSAGE);
+            throw new MessageException(MessageExceptionType.NO_AUTHORIZATION_MESSAGE);
         }
 
         // 보낸 사람도 삭제했으면 아예 삭제
@@ -94,8 +90,6 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public void deleteMessageBySendMember(String sendMemberId, Long messageId) {
-        // sendMemberId로 사용자 검증?
-
         Message message = messageRepository.getMessage(messageId);
 
         if (message == null) {
@@ -107,7 +101,7 @@ public class MessageServiceImpl implements MessageService {
             // 보낸 사람이 삭제 체크
             message.deleteBySendMember();
         } else {
-            throw new MessageException(MessageExceptionType.NOT_MATCHED_MESSAGE);
+            throw new MessageException(MessageExceptionType.NO_AUTHORIZATION_MESSAGE);
         }
 
 
@@ -119,15 +113,23 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     @Transactional
-    public MessageDto getMessage(Long messageId) {
+    public MessageDto getMessage(String memberId, Long messageId) {
         Message message = messageRepository.getMessage(messageId);
 
         if (message == null) {
             throw new MessageException(MessageExceptionType.NOT_FOUND_MESSAGE);
         }
 
-        message.readCheck();
+        Long longMemberId = Long.parseLong(memberId);
+        // 권한이 있으면
+        if (longMemberId == message.getSendMember() || longMemberId == message.getReceiveMember()) {
+            if (longMemberId == message.getReceiveMember()) {
+                message.readCheck();
+            }
 
-        return new MessageDto(message);
+            return new MessageDto(message);
+        } else {
+            throw new MessageException(MessageExceptionType.NO_AUTHORIZATION_MESSAGE);
+        }
     }
 }
