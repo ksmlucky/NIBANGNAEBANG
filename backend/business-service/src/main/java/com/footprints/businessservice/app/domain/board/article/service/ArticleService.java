@@ -2,6 +2,7 @@ package com.footprints.businessservice.app.domain.board.article.service;
 
 import com.footprints.businessservice.app.domain.board.article.dto.*;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface ArticleService {
 
     List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable);
 
-    void saveArticle(String memberId, CommonRequest request);
+    void saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles);
 
     ArticleDto getArticle(Long articleId);
 

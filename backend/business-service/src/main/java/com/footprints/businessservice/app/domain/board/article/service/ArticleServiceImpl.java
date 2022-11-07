@@ -10,6 +10,8 @@ import com.footprints.businessservice.app.domain.board.article.repository.Articl
 import com.footprints.businessservice.app.domain.board.article.repository.LikedArticleRepository;
 import com.footprints.businessservice.app.domain.board.article.repository.ScrappedArticleRepository;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
+import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
+import com.footprints.businessservice.app.domain.board.image.service.ImageService;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
 import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.footprints.businessservice.app.domain.board.transfer.repository.TransferRepository;
@@ -21,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,11 +38,12 @@ public class ArticleServiceImpl implements ArticleService {
     private final LikedArticleRepository likedArticleRepository;
     private final ScrappedArticleRepository scrappedArticleRepository;
     private final TransferRepository transferRepository;
+    private final ImageService imageService;
 
     @Override
     public List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-                Sort.by(Sort.Direction.DESC, condition.getSort()));
+                Sort.by(Sort.Direction.DESC, condition.getSort() == null ? "createdAt" : condition.getSort()));
 
         Page<Article> articles = articleRepository.getArticleList(condition, pageRequest);
 
@@ -52,8 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void saveArticle(String memberId, CommonRequest request) {
-
+    public void saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles) {
         // Auth-Service 에 memberId로 로그인한 사용자 이름 조회 후 writer 필드에 저장
 
         Article article = Article.builder()
@@ -75,6 +78,10 @@ public class ArticleServiceImpl implements ArticleService {
             transferRepository.save(transfer);
         }
 
+        if (!multipartFiles.isEmpty()) {
+            imageService.saveImage(article, multipartFiles);
+        }
+
         articleRepository.save(article);
     }
 
@@ -92,14 +99,16 @@ public class ArticleServiceImpl implements ArticleService {
                 .map(comment -> new CommentDto(comment))
                 .collect(Collectors.toList());
 
+        List<ImageDto> images = imageService.getImages(articleId);
+
         if (article.getCategory().equals("transfer")) {
             Transfer transfer = transferRepository.getTransferByArticleId(articleId);
             TransferDto transferDto = transfer.toDto(transfer);
 
-            return new ArticleDto(article, comments, new CategoryDto(transferDto));
+            return new ArticleDto(article, comments, new CategoryDto(transferDto), images);
         }
 
-        return new ArticleDto(article, comments);
+        return new ArticleDto(article, comments, images);
     }
 
     @Override
