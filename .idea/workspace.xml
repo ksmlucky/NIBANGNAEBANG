@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf351363-16cd-4249-b7a8-3f005598459b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/apigateway-service/src/main/resources/keystore.p12" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/auth-service/src/main/resources/keystore.p12" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/resources/keystore.p12" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/config-service/src/main/resources/keystore.p12" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/discovery-service/src/main/resources/keystore.p12" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/apigateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/apigateway-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/auth-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/discovery-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/discovery-service/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="cf351363-16cd-4249-b7a8-3f005598459b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
