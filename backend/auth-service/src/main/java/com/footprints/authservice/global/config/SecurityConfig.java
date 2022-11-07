@@ -91,8 +91,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
                 .anyRequest().authenticated()
 
-                .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .and();
+//                토큰 검증을 위한 jwt filter 추가
+//                .apply(new JwtSecurityConfig(tokenProvider));
     }
 
 }
