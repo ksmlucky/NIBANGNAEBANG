@@ -6,6 +6,7 @@ import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import com.footprints.businessservice.app.domain.board.article.repository.custom.ArticleRepositoryCustom;
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
+import com.footprints.businessservice.app.domain.board.image.entity.QImage;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import static com.footprints.businessservice.app.domain.board.article.entity.QArticle.article;
 import static com.footprints.businessservice.app.domain.board.comment.entity.QComment.comment;
+import static com.footprints.businessservice.app.domain.board.image.entity.QImage.image;
 import static com.footprints.businessservice.app.domain.board.reply.entity.QReply.reply;
 
 public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements ArticleRepositoryCustom {
@@ -30,10 +32,14 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     public Page<Article> getArticleList(SortCondition condition, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(article)
+                        .leftJoin(article.images, image)
+                        .fetchJoin()
                         .where(categoryEq(condition.getCategory()))
                         .orderBy(sort(pageable)),
                 countQuery -> countQuery
                         .selectFrom(article)
+                        .leftJoin(article.images, image)
+                        .fetchJoin()
                         .where(categoryEq(condition.getCategory()))
                         .orderBy(sort(pageable))
         );
