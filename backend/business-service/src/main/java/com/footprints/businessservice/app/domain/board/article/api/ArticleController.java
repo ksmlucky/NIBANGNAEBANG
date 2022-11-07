@@ -39,7 +39,7 @@ public class ArticleController {
             @RequestHeader(name = "X-Authorization-Id") String memberId,
             @RequestPart(name = "request") CommonRequest request,
             @RequestPart(name = "file", required = false) List<MultipartFile> multipartFiles) {
-        if (!checkImageType(multipartFiles)) {
+        if (multipartFiles != null && !checkImageType(multipartFiles)) {
             throw new ArticleException(ArticleExceptionType.FILE_IS_NOT_IMAGE);
         }
 
