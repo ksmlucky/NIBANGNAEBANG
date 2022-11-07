@@ -3,6 +3,7 @@ package com.footprints.businessservice.app.domain.board.article.repository;
 import com.footprints.businessservice.app.domain.board.article.dto.SearchCondition;
 import com.footprints.businessservice.app.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.app.domain.board.article.entity.Article;
+import com.footprints.businessservice.app.domain.board.article.entity.QArticle;
 import com.footprints.businessservice.app.domain.board.article.repository.custom.ArticleRepositoryCustom;
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;

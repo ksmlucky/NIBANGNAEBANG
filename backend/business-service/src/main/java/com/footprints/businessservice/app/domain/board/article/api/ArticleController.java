@@ -67,15 +67,24 @@ public class ArticleController {
 
     @PostMapping("/scrap/{article-id}")
     @Operation(summary = "게시글 스크랩")
-    public ResponseEntity<? extends MessageResponse> scrapArticle(@PathVariable(name = "article-id") Long articleId) {
-        articleService.scrapArticle(articleId);
+    public ResponseEntity<? extends MessageResponse> scrapArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "article-id") Long articleId) {
+        articleService.scrapArticle(memberId, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
-    @GetMapping("/scrap")
+    @DeleteMapping("/scrap/{article-id}")
+    @Operation(summary = "게시글 스크랩 취소")
+    public ResponseEntity<? extends MessageResponse> unscrapArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "article-id") Long articleId) {
+        articleService.unscrapArticle(memberId, articleId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
+
+    @GetMapping("/scrap/{category}")
     @Operation(summary = "스크랩한 게시글 목록")
-    public ResponseEntity<? extends DataResponse> getScrappedArticleList(@RequestHeader(name = "X-Authorization-Id") String memberId, Pageable pageable) {
-        List<ScrappedArticleDto> list = articleService.getScrappedArticleList(memberId, pageable);
+    public ResponseEntity<? extends DataResponse> getScrappedArticleList(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "category") String category, Pageable pageable) {
+        List<ScrappedArticleDto> list = articleService.getScrappedArticleList(memberId, category, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(list));
     }
+
+
 }

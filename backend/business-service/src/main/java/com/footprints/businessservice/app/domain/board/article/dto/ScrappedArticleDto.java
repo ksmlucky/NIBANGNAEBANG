@@ -14,9 +14,12 @@ public class ScrappedArticleDto {
 
     private Long articleId;
 
+    private String category;
+
     @QueryProjection
     public ScrappedArticleDto(ScrappedArticle scrappedArticle) {
         this.id = scrappedArticle.getId();
         this.articleId = scrappedArticle.getArticle().getId();
+        this.category = scrappedArticle.getCategory();
     }
 }
