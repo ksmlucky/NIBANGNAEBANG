@@ -11,7 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -32,8 +34,11 @@ public class ArticleController {
 
     @PostMapping
     @Operation(summary = "게시글 등록")
-    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody CommonRequest request) {
-        articleService.saveArticle(memberId, request);
+    public ResponseEntity<? extends MessageResponse> saveArticle(
+            @RequestHeader(name = "X-Authorization-Id") String memberId,
+            @RequestPart(name = "request") CommonRequest request,
+            @RequestPart(name = "file", required = false) List<MultipartFile> multipartFiles) {
+        articleService.saveArticle(memberId, request, multipartFiles);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
 
