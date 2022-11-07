@@ -42,7 +42,7 @@ public class ArticleDto {
 
     private LocalDateTime createdAt;
 
-    private CategoryDto categoryDto;
+    private CategoryDto categoryDetail;
 
     @QueryProjection
     public ArticleDto(Article article) {
@@ -103,7 +103,7 @@ public class ArticleDto {
         this.createdAt = article.getCreatedAt();
 
         if (article.getCategory().equals("transfer")) {
-            this.categoryDto = new CategoryDto(categoryDto.getTransferDto());
+            this.categoryDetail = new CategoryDto(categoryDto.getTransfer());
         }
     }
 }
