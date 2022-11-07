@@ -49,8 +49,8 @@ public class MessageController {
     // 쪽지 하나 조회
     @GetMapping("/{message-id}")
     @Operation(summary = "쪽지 상세 조회")
-    public ResponseEntity<? extends DataResponse> getMessage(@PathVariable(name = "message-id") Long messageId) {
-        MessageDto messageDto = messageService.getMessage(messageId);
+    public ResponseEntity<? extends DataResponse> getMessage(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "message-id") Long messageId) {
+        MessageDto messageDto = messageService.getMessage(memberId, messageId);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(messageDto));
     }
 
