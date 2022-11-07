@@ -22,7 +22,7 @@ spring:
       globalcors:
         cors-configurations:
           "[/**]":
-            allowedOrigins: "http://k7c109.p.ssafy.io"
+            allowedOrigins: "https://k7c109.p.ssafy.io"
             allowedHeaders:
               - authorization
               - content-type
@@ -45,7 +45,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: https://localhost:8761/eureka
 
 management:
   endpoints:
