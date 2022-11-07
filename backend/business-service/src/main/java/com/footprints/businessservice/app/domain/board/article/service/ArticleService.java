@@ -20,7 +20,9 @@ public interface ArticleService {
 
     List<ArticleDto> searchArticle(SearchCondition condition, Pageable pageable);
 
-    void scrapArticle(Long articleId);
+    void scrapArticle(String memberId, Long articleId);
 
-    List<ScrappedArticleDto> getScrappedArticleList(String memberId, Pageable pageable);
+    void unscrapArticle(String memberId, Long articleId);
+
+    List<ScrappedArticleDto> getScrappedArticleList(String memberId, String category, Pageable pageable);
 }

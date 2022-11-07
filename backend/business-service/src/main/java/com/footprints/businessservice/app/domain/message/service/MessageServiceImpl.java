@@ -43,7 +43,6 @@ public class MessageServiceImpl implements MessageService {
                 .receiveMember(request.getReceiveMember())
                 .title(request.getTitle())
                 .content(request.getContent())
-                .boardClassification(request.getBoardClassification())
                 .build();
 
         messageRepository.save(message);

@@ -17,13 +17,34 @@ public class ScrappedArticleRepositoryImpl extends QuerydslRepositorySupport imp
 
 
     @Override
-    public Page<ScrappedArticle> getScrappedArticleList(Long memberId, Pageable pageable) {
+    public Page<ScrappedArticle> getScrappedArticleList(Long memberId, String category, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(scrappedArticle)
-                        .where(scrappedArticle.memberId.eq(memberId)),
+                        .where(scrappedArticle.memberId.eq(memberId)
+                                .and(scrappedArticle.article.category.eq(category))
+                        ),
                 countQuery -> countQuery
                         .selectFrom(scrappedArticle)
-                        .where(scrappedArticle.memberId.eq(memberId))
+                        .where(scrappedArticle.memberId.eq(memberId)
+                                .and(scrappedArticle.article.category.eq(category))
+                        )
         );
+    }
+
+    @Override
+    public ScrappedArticle findByMemberIdAndArticleId(Long memberId, Long articleId) {
+        return selectFrom(scrappedArticle)
+                .where(
+                        scrappedArticle.article.id.eq(articleId)
+                                .and(scrappedArticle.memberId.eq(memberId))
+                )
+                .fetchOne();
+    }
+
+    @Override
+    public ScrappedArticle getScrappedArticle(Long articleId) {
+        return selectFrom(scrappedArticle)
+                .where(scrappedArticle.article.id.eq(articleId))
+                .fetchOne();
     }
 }
