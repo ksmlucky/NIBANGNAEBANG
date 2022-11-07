@@ -47,7 +47,7 @@ public class MessageController {
     }
 
     // 쪽지 하나 조회
-    @GetMapping("/received/{message-id}")
+    @GetMapping("/{message-id}")
     @Operation(summary = "쪽지 상세 조회")
     public ResponseEntity<? extends DataResponse> getMessage(@PathVariable(name = "message-id") Long messageId) {
         MessageDto messageDto = messageService.getMessage(messageId);
@@ -63,7 +63,7 @@ public class MessageController {
     }
 
     // 받은 쪽지 삭제
-    @DeleteMapping("/received/delete/{message-id}")
+    @DeleteMapping("/received/{message-id}")
     @Operation(summary = "받은 쪽지 삭제")
     public ResponseEntity<? extends MessageResponse> deleteReceivedMessage(@RequestHeader(name = "X-Authorization-Id") String receiveMember, @PathVariable("message-id") Long messageId) {
         messageService.deleteMessageByReceiveMember(receiveMember, messageId);
@@ -71,7 +71,7 @@ public class MessageController {
     }
 
     // 보낸 쪽지 삭제
-    @DeleteMapping("/sent/delete/{message-id}")
+    @DeleteMapping("/sent/{message-id}")
     @Operation(summary = "보낸 쪽지 삭제")
     public ResponseEntity<? extends MessageResponse> deleteSentMessage(@RequestHeader(name = "X-Authorization-Id") String sendMember, @PathVariable("message-id") Long messageId) {
         messageService.deleteMessageBySendMember(sendMember, messageId);
