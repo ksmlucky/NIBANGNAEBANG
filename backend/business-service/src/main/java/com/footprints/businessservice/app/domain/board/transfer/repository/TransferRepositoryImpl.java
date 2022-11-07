@@ -1,6 +1,7 @@
 package com.footprints.businessservice.app.domain.board.transfer.repository;
 
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;
+import com.footprints.businessservice.app.domain.board.transfer.entity.QTransfer;
 import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.footprints.businessservice.app.domain.board.transfer.repository.custom.TransferRepositoryCustom;
 
