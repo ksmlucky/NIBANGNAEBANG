@@ -18,16 +18,6 @@ public class Message extends BaseEntity {
     @Column(name = "message_id")
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "send_member")
-//    @OnDelete(action = OnDeleteAction.NO_ACTION)
-//    private Long sendMember;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "receive_member")
-//    @OnDelete(action = OnDeleteAction.NO_ACTION)
-//    private String receiveMember;
-
     private Long sendMember;
 
     private Long receiveMember;
@@ -47,8 +37,6 @@ public class Message extends BaseEntity {
     private boolean isDeletedByReceiveMember;
 
     private boolean isRead;
-
-    private String boardClassification;
 
     public void deleteBySendMember() {
         this.isDeletedBySendMember = true;
