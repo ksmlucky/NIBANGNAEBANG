@@ -120,8 +120,13 @@ public class MessageServiceImpl implements MessageService {
             throw new MessageException(MessageExceptionType.NOT_FOUND_MESSAGE);
         }
 
-        if (Long.parseLong(memberId) == message.getSendMember() || Long.parseLong(memberId) == message.getReceiveMember()) {
-            message.readCheck();
+        Long longMemberId = Long.parseLong(memberId);
+        // 권한이 있으면
+        if (longMemberId == message.getSendMember() || longMemberId == message.getReceiveMember()) {
+            if (longMemberId == message.getReceiveMember()) {
+                message.readCheck();
+            }
+
             return new MessageDto(message);
         } else {
             throw new MessageException(MessageExceptionType.NO_AUTHORIZATION_MESSAGE);
