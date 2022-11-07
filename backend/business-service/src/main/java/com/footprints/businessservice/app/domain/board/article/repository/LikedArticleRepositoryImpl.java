@@ -16,7 +16,7 @@ public class LikedArticleRepositoryImpl extends QuerydslRepositorySupport implem
         return selectFrom(likedArticle)
                 .where(
                         likedArticle.article.id.eq(articleId)
-                                .and(likedArticle.memberId.eq(articleId))
+                                .and(likedArticle.memberId.eq(memberId))
                 )
                 .fetchOne();
     }
