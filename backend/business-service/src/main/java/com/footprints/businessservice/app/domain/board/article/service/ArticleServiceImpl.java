@@ -10,6 +10,7 @@ import com.footprints.businessservice.app.domain.board.article.repository.Articl
 import com.footprints.businessservice.app.domain.board.article.repository.LikedArticleRepository;
 import com.footprints.businessservice.app.domain.board.article.repository.ScrappedArticleRepository;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
+import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
 import com.footprints.businessservice.app.domain.board.image.service.ImageService;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
@@ -95,11 +96,19 @@ public class ArticleServiceImpl implements ArticleService {
 
         article.updateHits();
 
-        List<CommentDto> comments = article.getComments().stream()
+        List<Comment> findComments = articleRepository.getCommentList(articleId);
+        List<CommentDto> comments = findComments.stream()
                 .map(comment -> new CommentDto(comment))
                 .collect(Collectors.toList());
 
-        List<ImageDto> images = imageService.getImages(articleId);
+        List<ImageDto> images = article.getImages().stream()
+                .map(image -> ImageDto.builder()
+                        .id(image.getId())
+                        .imageName(image.getOriginalFileName())
+                        .url(image.getUrl())
+                        .size(image.getSize())
+                        .build())
+                .collect(Collectors.toList());
 
         if (article.getCategory().equals("transfer")) {
             Transfer transfer = transferRepository.getTransferByArticleId(articleId);

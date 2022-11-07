@@ -49,17 +49,16 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     @Override
     public Article getArticle(Long articleId) {
         return selectFrom(article)
-                .distinct()
-                .leftJoin(article.comments, comment)
+                .leftJoin(article.images, image)
                 .fetchJoin()
-                .leftJoin(comment.replies, reply)
-                .where(article.id.in(articleId))
+                .where(article.id.eq(articleId))
                 .fetchOne();
     }
 
     @Override
     public List<Comment> getCommentList(Long articleId) {
         return selectFrom(comment)
+                .distinct()
                 .leftJoin(comment.article, article)
                 .fetchJoin()
                 .leftJoin(comment.replies, reply)
