@@ -6,7 +6,6 @@ import com.footprints.businessservice.app.domain.board.article.repository.suppor
 
 import static com.footprints.businessservice.app.domain.board.article.entity.QLikedArticle.likedArticle;
 
-
 public class LikedArticleRepositoryImpl extends QuerydslRepositorySupport implements LikedArticleRepositoryCustom {
     public LikedArticleRepositoryImpl() {
         super(LikedArticle.class);

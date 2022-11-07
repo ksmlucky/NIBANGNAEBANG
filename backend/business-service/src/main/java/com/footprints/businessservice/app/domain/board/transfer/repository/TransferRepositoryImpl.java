@@ -6,7 +6,6 @@ import com.footprints.businessservice.app.domain.board.transfer.repository.custo
 
 import static com.footprints.businessservice.app.domain.board.transfer.entity.QTransfer.transfer;
 
-
 public class TransferRepositoryImpl extends QuerydslRepositorySupport implements TransferRepositoryCustom {
 
     public TransferRepositoryImpl() {

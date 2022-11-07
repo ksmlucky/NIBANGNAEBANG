@@ -2,12 +2,12 @@ package com.footprints.businessservice.app.domain.board.comment.repository;
 
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
+import com.footprints.businessservice.app.domain.board.comment.entity.QComment;
 import com.footprints.businessservice.app.domain.board.comment.repository.custom.CommentRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import static com.footprints.businessservice.app.domain.board.comment.entity.QComment.comment;
-
 
 public class CommentRepositoryImpl extends QuerydslRepositorySupport implements CommentRepositoryCustom {
 

@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 
 import static com.footprints.businessservice.app.domain.board.article.entity.QScrappedArticle.scrappedArticle;
 
-
 public class ScrappedArticleRepositoryImpl extends QuerydslRepositorySupport implements ScrappedArticleRepositoryCustom {
 
     public ScrappedArticleRepositoryImpl() {
