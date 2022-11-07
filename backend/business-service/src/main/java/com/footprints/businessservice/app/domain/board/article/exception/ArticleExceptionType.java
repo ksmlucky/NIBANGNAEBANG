@@ -6,7 +6,10 @@ import org.springframework.http.HttpStatus;
 public enum ArticleExceptionType implements BaseExceptionType {
     NOT_FOUND_ARTICLE(404, HttpStatus.NOT_FOUND, "게시글이 존재하지 않습니다."),
     ALREADY_LIKED_ARTICLE(409, HttpStatus.CONFLICT, "이미 좋아한 게시글입니다."),
-    NOT_LIKED_ARTICLE(409, HttpStatus.CONFLICT, "좋아한 게시글이 아닙니다.");
+    NOT_LIKED_ARTICLE(409, HttpStatus.CONFLICT, "좋아한 게시글이 아닙니다."),
+    ALREADY_SCRAPPED_ARTICLE(409, HttpStatus.CONFLICT, "이미 스크랩한 게시글입니다."),
+    NOT_SCRAPPED_ARTICLE(409, HttpStatus.CONFLICT, "스크랩한 게시글이 아닙니다.");
+
 
     private int errorCode;
     private HttpStatus httpStatus;

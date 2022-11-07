@@ -22,4 +22,6 @@ public class ScrappedArticle {
     private Article article;
 
     private Long memberId;
+
+    private String category;
 }

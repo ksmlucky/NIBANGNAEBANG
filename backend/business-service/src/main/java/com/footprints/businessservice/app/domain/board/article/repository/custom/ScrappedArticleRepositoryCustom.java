@@ -5,6 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ScrappedArticleRepositoryCustom {
-    Page<ScrappedArticle> getScrappedArticleList(Long memberId, Pageable pageable);
+    Page<ScrappedArticle> getScrappedArticleList(Long memberId, String category, Pageable pageable);
 
+    ScrappedArticle findByMemberIdAndArticleId(Long memberId, Long articleId);
+
+    ScrappedArticle getScrappedArticle(Long articleId);
 }

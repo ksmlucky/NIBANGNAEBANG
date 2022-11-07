@@ -149,22 +149,40 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void scrapArticle(Long articleId) {
+    public void scrapArticle(String memberId, Long articleId) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
 
+        if (findScrappedArticleWithMemberIdAndArticleId(Long.parseLong(memberId), articleId) != null) {
+            throw new ArticleException(ArticleExceptionType.ALREADY_SCRAPPED_ARTICLE);
+        }
+
         ScrappedArticle scrappedArticle = ScrappedArticle.builder()
+                .memberId(Long.parseLong(memberId))
                 .article(article)
+                .category(article.getCategory())
                 .build();
 
         scrappedArticleRepository.save(scrappedArticle);
     }
 
     @Override
-    public List<ScrappedArticleDto> getScrappedArticleList(String memberId, Pageable pageable) {
+    @Transactional
+    public void unscrapArticle(String memberId, Long articleId) {
+        ScrappedArticle scrappedArticle = findScrappedArticleWithMemberIdAndArticleId(Long.parseLong(memberId), articleId);
+
+        if (scrappedArticle == null) {
+            throw new ArticleException(ArticleExceptionType.NOT_SCRAPPED_ARTICLE);
+        }
+
+        scrappedArticleRepository.delete(scrappedArticle);
+    }
+
+    @Override
+    public List<ScrappedArticleDto> getScrappedArticleList(String memberId, String category, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
-        Page<ScrappedArticle> scrappedArticles = scrappedArticleRepository.getScrappedArticleList(Long.parseLong(memberId), pageRequest);
+        Page<ScrappedArticle> scrappedArticles = scrappedArticleRepository.getScrappedArticleList(Long.parseLong(memberId), category, pageRequest);
 
         List<ScrappedArticleDto> result = scrappedArticles.stream()
                 .map(scrappedArticle -> new ScrappedArticleDto(scrappedArticle))
@@ -187,5 +205,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     private LikedArticle findLikedArticleWithMemberIdAndArticleId(Long memberId, Long articleId) {
         return likedArticleRepository.findByMemberIdAndArticleId(memberId, articleId);
+    }
+
+    private ScrappedArticle findScrappedArticleWithMemberIdAndArticleId(Long memberId, Long articleId) {
+        return scrappedArticleRepository.findByMemberIdAndArticleId(memberId, articleId);
     }
 }
