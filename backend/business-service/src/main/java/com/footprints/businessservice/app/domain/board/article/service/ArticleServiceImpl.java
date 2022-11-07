@@ -43,7 +43,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-                Sort.by(Sort.Direction.DESC, condition.getSort()));
+                Sort.by(Sort.Direction.DESC, condition.getSort() == null ? "createdAt" : condition.getSort()));
 
         Page<Article> articles = articleRepository.getArticleList(condition, pageRequest);
 
