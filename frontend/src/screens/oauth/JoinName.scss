@@ -1,0 +1,38 @@
+.joinName {
+  margin-top: (10vh);
+  flex-direction: column;
+  align-items: center;
+  color: #2C4B48;
+  &_box {
+    margin-top: (100px);
+    width: (480px);
+    height: (500px);
+    background-color: #ECF2FF;
+    border-radius: (30px);
+    box-shadow: (8px) (8px) (4px) rgba(58, 118, 255, 0.25);
+    flex-direction: column;
+    align-items: center;
+    &_join {
+      margin: (40px) 0 (20px) 0;
+    }
+    &_txt2 {
+      margin-bottom: (16px);
+    }
+    &_name, &_day {
+      margin-top: (16px);
+      width: (280px);
+      height: (60px);
+      border-radius: (20px);
+      background-color: #F5F5F5;
+      padding-left: (20px);
+      color: #808080;
+    }
+    input:focus {
+      border: 1px solid rgba(58, 118, 255, 0.5);
+      box-shadow: 0 0 (5px) rgba(58, 118, 255, 0.25);
+    }
+    &_btn {
+      margin-top: (24px);
+    }
+  }
+}

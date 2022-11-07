@@ -11,6 +11,8 @@ import Home from "@screens/Home";
 // import FindPwCh from "@screens/user/FindPwCh";
 // import FindPwFinish from "@screens/user/FindPwFinish";
 import Login from "@screens/oauth/Login";
+import JoinName from "@screens/oauth/JoinName";
+import JoinNickname from "@screens/oauth/JoinNickname";
 import KakaoLogin from "@screens/oauth/KakaoLogin";
 import GoogleLogin from "@screens/oauth/GoogleLogin";
 import Join from "@screens/oauth/Join";
@@ -46,7 +48,9 @@ function Router() {
         {/* login */}
         <Route path="/login/*">
           <Route path="" element={<Login />} />
-          <Route path="join" element={<Join />} />
+          <Route path="joinname" element={<JoinName />} />
+          <Route path="joinnickname" element={<JoinNickname />} />
+          {/* <Route path="join" element={<Join />} /> */}
         </Route>
         <Route path="/kakao" element={<KakaoLogin />} />
         <Route path="/google" element={<GoogleLogin />} />

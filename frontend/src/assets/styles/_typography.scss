@@ -77,9 +77,17 @@
   font-size: (52px);
   line-height: (75px);
 }
+.fs-56 {
+  font-size: (56px);
+  line-height: (81px);
+}
 .fs-60 {
   font-size: (60px);
   line-height: (87px);
+}
+.fs-64 {
+  font-size: (64px);
+  line-height: (92px);
 }
 /* 폰트 타이포 */
 .notoMid {
@@ -124,6 +132,38 @@
 
 .roBold {
   font-family: "RobotoBold";
+}
+
+.shBold {
+  font-family: "SeoulHangangB";
+}
+
+.shEBold {
+  font-family: "SeoulHangangEB";
+}
+
+.shMid {
+  font-family: "SeoulHangangM";
+}
+
+.shLight {
+  font-family: "SeoulHangangL";
+}
+
+.snBold {
+  font-family: "SeoulNamsanB";
+}
+
+.snEBold {
+  font-family: "SeoulNamsanEB";
+}
+
+.snMid {
+  font-family: "SeoulNamsanM";
+}
+
+.snLight {
+  font-family: "SeoulNamsanL";
 }
 
 @media screen and (max-width: $DESKTOP-VW) {
@@ -206,9 +246,17 @@
     font-size: vw(52px);
     line-height: vw(75px);
   }
+  .fs-56 {
+    font-size: vw(56px);
+    line-height: vw(81px);
+  }
   .fs-60 {
     font-size: vw(60px);
     line-height: vw(87px);
+  }
+  .fs-64 {
+    font-size: vw(64px);
+    line-height: vw(92px);
   }
 }
 
@@ -292,9 +340,17 @@
     font-size: vw-t(52px);
     line-height: vw-t(75px);
   }
+  .fs-56 {
+    font-size: vw-t(56px);
+    line-height: vw-t(81px);
+  }
   .fs-60 {
     font-size: vw-t(60px);
     line-height: vw-t(87px);
+  }
+  .fs-64 {
+    font-size: vw-t(64px);
+    line-height: vw-t(92px);
   }
 }
 @media screen and (max-width: $PHONE-VW) {
@@ -377,8 +433,16 @@
     font-size: vw-p(52px);
     line-height: vw-p(75px);
   }
+  .fs-56 {
+    font-size: vw-p(56px);
+    line-height: vw-p(81px);
+  }
   .fs-60 {
     font-size: vw-p(60px);
     line-height: vw-p(87px);
+  }
+  .fs-64 {
+    font-size: vw-p(64px);
+    line-height: vw-p(92px);
   }
 }
