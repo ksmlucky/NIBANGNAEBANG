@@ -61,7 +61,7 @@ public class ArticleDto {
         this.comments = article.getComments().stream()
                 .map(comment -> new CommentDto(comment))
                 .collect(Collectors.toList());
-        this.image = image != null ? this.image = image : null;
+        this.image = image != null ? image : null;
         this.createdAt = article.getCreatedAt();
     }
 
