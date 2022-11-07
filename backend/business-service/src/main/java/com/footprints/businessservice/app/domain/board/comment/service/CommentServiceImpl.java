@@ -48,6 +48,8 @@ public class CommentServiceImpl implements CommentService{
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
 
+        // memberId로 해당 멤버의 닉네임을 찾아서 밑에서 build 해줌
+
         Comment comment = Comment.builder()
                 .content(request.getContent())
                 .writer(request.getWriter())
@@ -63,6 +65,8 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
+        // memberId로 해당 멤버의 닉네임을 찾아서 위의 comment.getWriter()와 비교 후 같으면 수정 가능
+
         comment.changeIsUpdated();
         comment.updateContent(request.getContent());
     }
@@ -74,6 +78,8 @@ public class CommentServiceImpl implements CommentService{
 
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
+
+        // memberId로 해당 멤버의 닉네임을 찾아서 위의 comment.getWriter()와 비교 후 같으면 수정 가능
 
         comment.changeIsDeleted();
     }
