@@ -49,10 +49,11 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     @Override
     public Article getArticle(Long articleId) {
         return selectFrom(article)
+                .distinct()
                 .leftJoin(article.comments, comment)
                 .fetchJoin()
                 .leftJoin(comment.replies, reply)
-                .where(article.id.eq(articleId))
+                .where(article.id.in(articleId))
                 .fetchOne();
     }
 
@@ -78,7 +79,7 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                                 writerContains(condition.getWriter()),
                                 contentContains(condition.getContent())
                         )
-                        .orderBy(article.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           createdAt.desc()),
+                        .orderBy(article.createdAt.desc()),
                 countQuery -> countQuery
                         .selectFrom(article)
                         .where(
