@@ -1,5 +1,6 @@
 package com.footprints.businessservice.app.domain.board.article.repository;
 
+import com.footprints.businessservice.app.domain.board.article.entity.QScrappedArticle;
 import com.footprints.businessservice.app.domain.board.article.entity.ScrappedArticle;
 import com.footprints.businessservice.app.domain.board.article.repository.custom.ScrappedArticleRepositoryCustom;
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;

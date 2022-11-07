@@ -2,7 +2,6 @@ package com.footprints.businessservice.app.domain.board.reply.repository;
 
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.footprints.businessservice.app.domain.board.reply.repository.custom.ReplyRepositoryCustom;
-import com.footprints.businessservice.app.domain.board.reply.entity.QReply;
 import com.footprints.businessservice.app.domain.board.reply.entity.Reply;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
