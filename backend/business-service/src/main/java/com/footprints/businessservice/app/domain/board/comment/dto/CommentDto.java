@@ -18,9 +18,7 @@ public class CommentDto {
     private Long articleId;
     private boolean isUpdated;
     private boolean isDeleted;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
     private List<ReplyDto> replies;
 

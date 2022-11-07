@@ -16,9 +16,9 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-import static com.footprints.businessservice.domain.board.article.entity.QArticle.article;
-import static com.footprints.businessservice.domain.board.comment.entity.QComment.comment;
-import static com.footprints.businessservice.domain.board.reply.entity.QReply.reply;
+import static com.footprints.businessservice.app.domain.board.article.entity.QArticle.article;
+import static com.footprints.businessservice.app.domain.board.comment.entity.QComment.comment;
+import static com.footprints.businessservice.app.domain.board.reply.entity.QReply.reply;
 
 public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements ArticleRepositoryCustom {
 
