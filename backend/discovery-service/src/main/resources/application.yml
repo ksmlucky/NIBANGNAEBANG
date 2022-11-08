@@ -6,8 +6,8 @@ server:
     key-store-password: footprints
     enabled: true
     key-alias: footprints
-#    trust-store: classpath:eureka.jks
-#    trust-store-password: 123456
+    trust-store: classpath:keystore.p12
+    trust-store-password: footprints
 
 spring:
 #  https://github.com/piomin/sample-secure-eureka-discovery/blob/master/secure-discovery/src/main/resources/application.yml
