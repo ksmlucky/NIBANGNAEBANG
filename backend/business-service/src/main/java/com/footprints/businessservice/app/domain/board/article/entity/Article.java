@@ -1,6 +1,7 @@
 package com.footprints.businessservice.app.domain.board.article.entity;
 
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
+import com.footprints.businessservice.app.domain.board.image.entity.Image;
 import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
 
@@ -37,7 +38,10 @@ public class Article extends BaseEntity {
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    private List<ScrappedArticle> scrappedArticles = new ArrayList<>();
+    private List<ScrappedArticle> scrappedArticles;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<Image> images;
 
     public void updateLikes(Integer count) {
         this.likes += count;

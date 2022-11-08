@@ -1,6 +1,8 @@
 package com.footprints.businessservice.app.domain.board.article.api;
 
 import com.footprints.businessservice.app.domain.board.article.dto.*;
+import com.footprints.businessservice.app.domain.board.article.exception.ArticleException;
+import com.footprints.businessservice.app.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.app.domain.board.article.service.ArticleService;
 import com.footprints.businessservice.global.common.DataResponse;
 import com.footprints.businessservice.global.common.MessageResponse;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,8 +35,15 @@ public class ArticleController {
 
     @PostMapping
     @Operation(summary = "게시글 등록")
-    public ResponseEntity<? extends MessageResponse> saveArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody CommonRequest request) {
-        articleService.saveArticle(memberId, request);
+    public ResponseEntity<? extends MessageResponse> saveArticle(
+            @RequestHeader(name = "X-Authorization-Id") String memberId,
+            @RequestPart(name = "request") CommonRequest request,
+            @RequestPart(name = "file", required = false) List<MultipartFile> multipartFiles) {
+        if (multipartFiles != null && !checkImageType(multipartFiles)) {
+            throw new ArticleException(ArticleExceptionType.FILE_IS_NOT_IMAGE);
+        }
+
+        articleService.saveArticle(memberId, request, multipartFiles);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
 
@@ -86,5 +96,16 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(list));
     }
 
+    private boolean checkImageType(List<MultipartFile> multipartFiles) {
+        boolean isImage = false;
+        try {
+            for (MultipartFile file : multipartFiles) {
+                isImage = file.getContentType().startsWith("image");
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
 
+        return isImage;
+    }
 }
