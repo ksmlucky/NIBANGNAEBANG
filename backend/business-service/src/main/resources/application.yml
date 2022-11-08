@@ -4,6 +4,8 @@ server:
     key-store: classpath:keystore.p12
     key-store-type: PKCS12
     key-store-password: footprints
+    enabled: true
+    key-alias: footprints
 spring:
   application:
     name: business-service
@@ -41,6 +43,8 @@ logging:
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    non-secure-port-enabled: false
+    secure-port-enabled: true
   client:
     register-with-eureka: true
     fetch-registry: true
