@@ -12,6 +12,7 @@ import com.footprints.businessservice.app.domain.board.article.repository.Scrapp
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
+import com.footprints.businessservice.app.domain.board.image.entity.Image;
 import com.footprints.businessservice.app.domain.board.image.service.ImageService;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
 import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
@@ -106,7 +107,6 @@ public class ArticleServiceImpl implements ArticleService {
                         .id(image.getId())
                         .imageName(image.getOriginalFileName())
                         .url(image.getUrl())
-                        .size(image.getSize())
                         .build())
                 .collect(Collectors.toList());
 
@@ -207,6 +207,26 @@ public class ArticleServiceImpl implements ArticleService {
                 .collect(Collectors.toList());
 
         return result;
+    }
+
+    @Override
+    @Transactional
+    public void updateArticle(String memberId, Long articleId,
+                              ArticleUpdateRequest request, List<MultipartFile> multipartFiles) {
+        Article article = articleRepository.getArticle(articleId);
+        article.updateArticle(request);
+
+        if (request.getImages() != null) {
+            imageService.updateImage(article, multipartFiles, request.getImages());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteArticle(String memberId, Long articleId) {
+        Article article = articleRepository.getArticle(articleId);
+        transferRepository.delete(transferRepository.getTransferByArticleId(articleId));
+        articleRepository.delete(article);
     }
 
     private Article updateLikeCount(Long articleId, int count) {
