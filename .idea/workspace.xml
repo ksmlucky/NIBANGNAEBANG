@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf351363-16cd-4249-b7a8-3f005598459b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/api/ChatController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/config/WebSocketConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatMessageDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatRoom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/repository/ChatRoomRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/util/WebSocketChatHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/dto/MessageDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/dto/MessageDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,8 +76,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -102,6 +113,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelOrder2": "2",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RequestMappingsPanelWidth2": "75",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -233,9 +250,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.ConfigServiceApplication" />
         <item itemvalue="Spring Boot.ApigatewayServiceApplication" />
         <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
-        <item itemvalue="Spring Boot.ConfigServiceApplication" />
         <item itemvalue="Gradle.business-service [compileQuerydsl]" />
         <item itemvalue="Gradle.business-service [initQuerydslSourcesDir]" />
       </list>
