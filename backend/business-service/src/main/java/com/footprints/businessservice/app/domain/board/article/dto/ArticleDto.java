@@ -58,9 +58,6 @@ public class ArticleDto {
         this.hits = article.getHits();
         this.likes = article.getLikes();
         this.category = article.getCategory();
-        this.comments = article.getComments().stream()
-                .map(comment -> new CommentDto(comment))
-                .collect(Collectors.toList());
         this.image = image != null ? image : null;
         this.createdAt = article.getCreatedAt();
     }

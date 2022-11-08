@@ -1,5 +1,6 @@
 package com.footprints.businessservice.app.domain.board.article.entity;
 
+import com.footprints.businessservice.app.domain.board.article.dto.ArticleUpdateRequest;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.entity.Image;
 import com.footprints.businessservice.global.common.BaseEntity;
@@ -40,7 +41,7 @@ public class Article extends BaseEntity {
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<ScrappedArticle> scrappedArticles;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Image> images;
 
     public void updateLikes(Integer count) {
@@ -49,5 +50,10 @@ public class Article extends BaseEntity {
 
     public void updateHits() {
         this.hits++;
+    }
+
+    public void updateArticle(ArticleUpdateRequest articleUpdateRequest) {
+        this.title = articleUpdateRequest.getTitle();
+        this.content = articleUpdateRequest.getContent();
     }
 }

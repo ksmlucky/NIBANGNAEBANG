@@ -9,7 +9,8 @@ public enum ArticleExceptionType implements BaseExceptionType {
     NOT_LIKED_ARTICLE(409, HttpStatus.CONFLICT, "좋아한 게시글이 아닙니다."),
     ALREADY_SCRAPPED_ARTICLE(409, HttpStatus.CONFLICT, "이미 스크랩한 게시글입니다."),
     NOT_SCRAPPED_ARTICLE(409, HttpStatus.CONFLICT, "스크랩한 게시글이 아닙니다."),
-    FILE_IS_NOT_IMAGE(409, HttpStatus.CONFLICT, "이미지 파일이 아닙니다.");
+    FILE_IS_NOT_IMAGE(409, HttpStatus.CONFLICT, "이미지 파일이 아닙니다."),
+    BAD_REQUEST(400, HttpStatus.BAD_REQUEST, "잘못된 요청입니다.");
 
 
     private int errorCode;
