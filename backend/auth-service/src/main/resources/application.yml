@@ -50,9 +50,9 @@ eureka:
     non-secure-port-enabled: false
     secure-port-enabled: true
     securePort: ${server.port}
-    statusPageUrl: https://localhost:${server.port}/info
-    healthCheckUrl: https://localhost:${server.port}/health
-    homePageUrl: https://localhost:${server.port}
+    statusPageUrl: https://k7c109.p.ssafy.io:${server.port}/info
+    healthCheckUrl: https://k7c109.p.ssafy.io:${server.port}/health
+    homePageUrl: https://k7c109.p.ssafy.io:${server.port}
 #    statusPageUrl: https://${eureka.hostname}/info
 #    healthCheckUrl: https://${eureka.hostname}/health
 #    homePageUrl: https://${eureka.hostname}/
