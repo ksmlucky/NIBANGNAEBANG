@@ -6,8 +6,19 @@ server:
     key-store-password: footprints
     enabled: true
     key-alias: footprints
+#    trust-store: classpath:eureka.jks
+#    trust-store-password: 123456
 
 spring:
+#  https://github.com/piomin/sample-secure-eureka-discovery/blob/master/secure-discovery/src/main/resources/application.yml
+#  참고하여 추가
+  instance:
+    hostname: localhost
+    securePort: ${server.port}
+    securePortEnabled: true
+    nonSecurePortEnabled: false
+    homePageUrl: https://${eureka.instance.hostname}:${server.port}/
+    statusPageUrl: https://${eureka.instance.hostname}:${server.port}/admin/info
   application:
     name: discovery-service
 
