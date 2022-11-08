@@ -10,19 +10,19 @@ server:
 #    trust-store-password: footprints
 
 spring:
-#  https://github.com/piomin/sample-secure-eureka-discovery/blob/master/secure-discovery/src/main/resources/application.yml
-#  참고하여 추가
-  instance:
-    hostname: localhost
-    securePort: ${server.port}
-    securePortEnabled: true
-    nonSecurePortEnabled: false
-    homePageUrl: https://${eureka.instance.hostname}:${server.port}/
-    statusPageUrl: https://${eureka.instance.hostname}:${server.port}/admin/info
   application:
     name: discovery-service
 
 eureka:
+  instance:
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    #  https://github.com/piomin/sample-secure-eureka-discovery/blob/master/secure-discovery/src/main/resources/application.yml
+    #  참고하여 추가
+    securePort: ${server.port}
+    statusPageUrl: https://k7c109.p.ssafy.io:${server.port}/info
+    healthCheckUrl: https://k7c109.p.ssafy.io:${server.port}/health
+    homePageUrl: https://k7c109.p.ssafy.io:${server.port}
   client:
     register-with-eureka: false
     fetch-registry: false
