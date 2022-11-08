@@ -58,9 +58,20 @@ public class ArticleController {
     public ResponseEntity<? extends MessageResponse> updateArticle(
             @RequestHeader(name = "X-Authorization-Id") String memberId,
             @PathVariable(name = "article-id") Long articleId,
-            @RequestBody ArticleUpdateRequest articleUpdateRequest) {
+            @RequestPart(name = "request") ArticleUpdateRequest articleUpdateRequest,
+            @RequestPart(name = "file", required = false) List<MultipartFile> multipartFiles) {
 
-        articleService.updateArticle(memberId, articleId, articleUpdateRequest);
+        articleService.updateArticle(memberId, articleId, articleUpdateRequest, multipartFiles);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
+
+    @DeleteMapping("/{article-id}")
+    @Operation(summary = "게시글 삭제")
+    public ResponseEntity<? extends MessageResponse> deleteArticle(
+            @RequestHeader(name = "X-Authorization-Id") String memberId,
+            @PathVariable(name = "article-id") Long articleId) {
+
+        articleService.deleteArticle(memberId, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 

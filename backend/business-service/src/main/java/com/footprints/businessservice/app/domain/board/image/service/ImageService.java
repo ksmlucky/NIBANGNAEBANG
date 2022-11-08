@@ -9,5 +9,5 @@ public interface ImageService {
 
     void saveImage(Article article, List<MultipartFile> multipartFiles);
 
-    void deleteImage(List<Long> images);
+    void updateImage(Article article, List<MultipartFile> multipartFiles, List<Long> images);
 }

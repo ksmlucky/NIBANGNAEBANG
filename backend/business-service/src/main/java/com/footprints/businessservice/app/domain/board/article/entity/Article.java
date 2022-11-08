@@ -41,7 +41,7 @@ public class Article extends BaseEntity {
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<ScrappedArticle> scrappedArticles;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Image> images;
 
     public void updateLikes(Integer count) {

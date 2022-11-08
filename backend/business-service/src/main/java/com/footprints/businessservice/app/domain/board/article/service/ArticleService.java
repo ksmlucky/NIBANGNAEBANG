@@ -26,5 +26,7 @@ public interface ArticleService {
 
     List<ScrappedArticleDto> getScrappedArticleList(String memberId, String category, Pageable pageable);
 
-    void updateArticle(String memberId, Long articleId, ArticleUpdateRequest articleUpdateRequest);
+    void updateArticle(String memberId, Long articleId, ArticleUpdateRequest articleUpdateRequest, List<MultipartFile> multipartFiles);
+
+    void deleteArticle(String memberId, Long articleId);
 }

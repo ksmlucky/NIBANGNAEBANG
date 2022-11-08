@@ -6,6 +6,7 @@ import com.footprints.businessservice.app.domain.board.article.exception.Article
 import com.footprints.businessservice.app.domain.board.image.entity.Image;
 import com.footprints.businessservice.app.domain.board.image.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class ImageServiceImpl implements ImageService {
 
     private final S3Service s3Service;
@@ -43,7 +45,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public void deleteImage(List<Long> images) {
+    public void updateImage(Article article, List<MultipartFile> multipartFiles, List<Long> images) {
         images.forEach(imageId -> {
             Image image = imageRepository.findById(imageId)
                     .orElseThrow(() -> new ArticleException(ArticleExceptionType.BAD_REQUEST));
@@ -51,5 +53,9 @@ public class ImageServiceImpl implements ImageService {
             imageRepository.delete(image);
             s3Service.deleteFile(image.getFileName());
         });
+
+        if (multipartFiles != null) {
+            saveImage(article, multipartFiles);
+        }
     }
 }
