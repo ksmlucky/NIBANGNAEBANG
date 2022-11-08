@@ -107,7 +107,6 @@ public class ArticleServiceImpl implements ArticleService {
                         .id(image.getId())
                         .imageName(image.getOriginalFileName())
                         .url(image.getUrl())
-                        .size(image.getSize())
                         .build())
                 .collect(Collectors.toList());
 
@@ -226,11 +225,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public void deleteArticle(String memberId, Long articleId) {
         Article article = articleRepository.getArticle(articleId);
+        transferRepository.delete(transferRepository.getTransferByArticleId(articleId));
         articleRepository.delete(article);
-
-        List<Image> images = article.getImages();
-        if (images != null && !images.isEmpty()) {
-        }
     }
 
     private Article updateLikeCount(Long articleId, int count) {
