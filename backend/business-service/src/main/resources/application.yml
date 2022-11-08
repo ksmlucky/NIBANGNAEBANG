@@ -24,7 +24,7 @@ spring:
       globalcors:
         cors-configurations:
           "[/**]":
-            allowedOrigins: "https://k7c109.p.ssafy.io"
+            allowedOrigins: "*"
             allowedHeaders:
               - authorization
               - content-type
