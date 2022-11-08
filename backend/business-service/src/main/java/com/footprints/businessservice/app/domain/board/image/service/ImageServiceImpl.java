@@ -1,6 +1,8 @@
 package com.footprints.businessservice.app.domain.board.image.service;
 
 import com.footprints.businessservice.app.domain.board.article.entity.Article;
+import com.footprints.businessservice.app.domain.board.article.exception.ArticleException;
+import com.footprints.businessservice.app.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.app.domain.board.image.entity.Image;
 import com.footprints.businessservice.app.domain.board.image.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +38,18 @@ public class ImageServiceImpl implements ImageService {
                     .build();
 
             imageRepository.save(image);
+        });
+    }
+
+    @Override
+    @Transactional
+    public void deleteImage(List<Long> images) {
+        images.forEach(imageId -> {
+            Image image = imageRepository.findById(imageId)
+                    .orElseThrow(() -> new ArticleException(ArticleExceptionType.BAD_REQUEST));
+
+            imageRepository.delete(image);
+            s3Service.deleteFile(image.getFileName());
         });
     }
 }

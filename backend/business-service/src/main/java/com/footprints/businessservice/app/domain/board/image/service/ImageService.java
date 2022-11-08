@@ -8,4 +8,6 @@ import java.util.List;
 public interface ImageService {
 
     void saveImage(Article article, List<MultipartFile> multipartFiles);
+
+    void deleteImage(List<Long> images);
 }

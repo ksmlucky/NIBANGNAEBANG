@@ -1,5 +1,6 @@
 package com.footprints.businessservice.app.domain.board.article.entity;
 
+import com.footprints.businessservice.app.domain.board.article.dto.ArticleUpdateRequest;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.entity.Image;
 import com.footprints.businessservice.global.common.BaseEntity;
@@ -49,5 +50,10 @@ public class Article extends BaseEntity {
 
     public void updateHits() {
         this.hits++;
+    }
+
+    public void updateArticle(ArticleUpdateRequest articleUpdateRequest) {
+        this.title = articleUpdateRequest.getTitle();
+        this.content = articleUpdateRequest.getContent();
     }
 }

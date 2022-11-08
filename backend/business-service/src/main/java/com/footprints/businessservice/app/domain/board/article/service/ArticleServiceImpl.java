@@ -209,6 +209,17 @@ public class ArticleServiceImpl implements ArticleService {
         return result;
     }
 
+    @Override
+    @Transactional
+    public void updateArticle(String memberId, Long articleId, ArticleUpdateRequest request) {
+        Article article = articleRepository.getArticle(articleId);
+        article.updateArticle(request);
+
+        if (request.getImages() != null) {
+            imageService.deleteImage(request.getImages());
+        }
+    }
+
     private Article updateLikeCount(Long articleId, int count) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
