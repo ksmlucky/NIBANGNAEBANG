@@ -5,7 +5,6 @@ import com.footprints.businessservice.app.domain.board.article.exception.Article
 import com.footprints.businessservice.app.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.app.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
-import com.footprints.businessservice.app.domain.board.comment.dto.CommentUpdateRequest;
 import com.footprints.businessservice.app.domain.board.comment.exception.CommentException;
 import com.footprints.businessservice.app.domain.board.comment.exception.CommentExceptionType;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentRequest;
@@ -44,7 +43,7 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     @Transactional
-    public void saveComment(CommentRequest request, Long articleId) {
+    public void saveComment(String memberId, CommentRequest request, Long articleId) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
 
@@ -52,7 +51,7 @@ public class CommentServiceImpl implements CommentService{
 
         Comment comment = Comment.builder()
                 .content(request.getContent())
-                .writer(request.getWriter())
+//                .writer(request.getWriter())
                 .article(article)
                 .build();
 
@@ -61,7 +60,7 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     @Transactional
-    public void updateComment(CommentUpdateRequest request, Long commentId) {
+    public void updateComment(String memberId, CommentRequest request, Long commentId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
