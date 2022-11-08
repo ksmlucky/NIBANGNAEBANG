@@ -20,7 +20,7 @@ spring:
       globalcors:
         cors-configurations:
           "[/**]":
-            allowedOrigins: "*"
+            allowedOrigins: "https://k7c109.p.ssafy.io"
             allowedHeaders:
               - authorization
               - content-type
@@ -67,6 +67,9 @@ eureka:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     non-secure-port-enabled: false
     secure-port-enabled: true
+    statusPageUrl: https://${eureka.hostname}/info
+    healthCheckUrl: https://${eureka.hostname}/health
+    homePageUrl: https://${eureka.hostname}/
   client:
     register-with-eureka: true
     fetch-registry: true
