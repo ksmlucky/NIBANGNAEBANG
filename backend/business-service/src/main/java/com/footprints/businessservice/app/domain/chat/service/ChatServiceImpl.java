@@ -59,7 +59,7 @@ public class ChatServiceImpl implements ChatService {
                 .fee(request.getFee())
                 .build();
 
-        chatRoomRepository.save(chatRoom);
+//        chatRoomRepository.save(chatRoom);
     }
 
     public <T> void sendMessage(WebSocketSession session, T message) {

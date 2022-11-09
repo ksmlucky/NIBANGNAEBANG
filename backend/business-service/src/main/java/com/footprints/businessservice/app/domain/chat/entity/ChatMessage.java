@@ -1,10 +1,12 @@
 package com.footprints.businessservice.app.domain.chat.entity;
 
 import com.footprints.businessservice.global.common.BaseEntity;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 public class ChatMessage extends BaseEntity {
     public enum MessageType {
         ENTER, TALK, QUIT;

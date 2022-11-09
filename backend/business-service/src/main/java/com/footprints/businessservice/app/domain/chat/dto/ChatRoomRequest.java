@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 public class ChatRoomRequest {
     private String title;
     private Integer totalUserCount;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
-//    private LocalDateTime closingTime;
+    private LocalDateTime closingTime;
     private Integer fee;
 }
