@@ -53,6 +53,27 @@ public class ArticleController {
         ArticleDto response = articleService.getArticle(articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
+    @PutMapping("/{article-id}")
+    @Operation(summary = "게시글 수정")
+    public ResponseEntity<? extends MessageResponse> updateArticle(
+            @RequestHeader(name = "X-Authorization-Id") String memberId,
+            @PathVariable(name = "article-id") Long articleId,
+            @RequestPart(name = "request") ArticleUpdateRequest articleUpdateRequest,
+            @RequestPart(name = "file", required = false) List<MultipartFile> multipartFiles) {
+
+        articleService.updateArticle(memberId, articleId, articleUpdateRequest, multipartFiles);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
+
+    @DeleteMapping("/{article-id}")
+    @Operation(summary = "게시글 삭제")
+    public ResponseEntity<? extends MessageResponse> deleteArticle(
+            @RequestHeader(name = "X-Authorization-Id") String memberId,
+            @PathVariable(name = "article-id") Long articleId) {
+
+        articleService.deleteArticle(memberId, articleId);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
+    }
 
     @PostMapping("/{article-id}/like")
     @Operation(summary = "게시글 좋아요")
