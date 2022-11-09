@@ -3,11 +3,9 @@ package com.footprints.businessservice.app.domain.board.article.repository;
 import com.footprints.businessservice.app.domain.board.article.dto.SearchCondition;
 import com.footprints.businessservice.app.domain.board.article.dto.SortCondition;
 import com.footprints.businessservice.app.domain.board.article.entity.Article;
-import com.footprints.businessservice.app.domain.board.article.entity.QArticle;
 import com.footprints.businessservice.app.domain.board.article.repository.custom.ArticleRepositoryCustom;
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
-import com.footprints.businessservice.app.domain.board.image.entity.QImage;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -51,6 +49,17 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
         return selectFrom(article)
                 .leftJoin(article.images, image)
                 .fetchJoin()
+                .where(article.id.eq(articleId))
+                .fetchOne();
+    }
+
+    @Override
+    public Article getArticleWithCommentList(Long articleId) {
+        return selectFrom(article)
+                .leftJoin(article.images, image)
+                .leftJoin(article.comments, comment)
+                .fetchJoin()
+                .leftJoin(comment.replies, reply)
                 .where(article.id.eq(articleId))
                 .fetchOne();
     }
@@ -113,11 +122,12 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                 Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
                 switch (order.getProperty()) {
                     case "hits":
-                        return new OrderSpecifier(direction, article.hits);
+                        return new OrderSpecifier<>(direction, article.hits);
                     case "likes":
-                        return new OrderSpecifier(direction, article.likes);
+                        return new OrderSpecifier<>(direction, article.likes);
                     case "createdAt":
-                        return new OrderSpecifier(direction, article.createdAt);
+                    default:
+                        return new OrderSpecifier<>(direction, article.createdAt);
                 }
             }
         }

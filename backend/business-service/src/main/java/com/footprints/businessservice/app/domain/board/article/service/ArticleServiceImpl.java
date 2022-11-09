@@ -42,6 +42,8 @@ public class ArticleServiceImpl implements ArticleService {
     private final TransferRepository transferRepository;
     private final ImageService imageService;
 
+    private static final String TRANSFER = "transfer";
+
     @Override
     public List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
@@ -49,11 +51,9 @@ public class ArticleServiceImpl implements ArticleService {
 
         Page<Article> articles = articleRepository.getArticleList(condition, pageRequest);
 
-        List<ArticleDto> result = articles.stream()
-                .map(article -> new ArticleDto(article))
+        return articles.stream()
+                .map(ArticleDto::new)
                 .collect(Collectors.toList());
-
-        return result;
     }
 
     @Override
@@ -70,14 +70,14 @@ public class ArticleServiceImpl implements ArticleService {
                 .category(request.getArticleRequest().getCategory())
                 .build();
 
-        if (request.getArticleRequest().getCategory().equals("transfer")) {
-            Transfer transfer = Transfer.builder()
-                    .roomType(request.getTransferRequest().getRoomType())
-                    .buildingType(request.getTransferRequest().getBuildingType())
-                    .article(article)
-                    .build();
-
-            transferRepository.save(transfer);
+        if (request.getArticleRequest().getCategory().equals(TRANSFER)) {
+            transferRepository.save(
+                    Transfer.builder()
+                            .roomType(request.getTransferRequest().getRoomType())
+                            .buildingType(request.getTransferRequest().getBuildingType())
+                            .article(article)
+                            .build()
+            );
         }
 
         if (multipartFiles != null) {
@@ -99,7 +99,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         List<Comment> findComments = articleRepository.getCommentList(articleId);
         List<CommentDto> comments = findComments.stream()
-                .map(comment -> new CommentDto(comment))
+                .map(CommentDto::new)
                 .collect(Collectors.toList());
 
         List<ImageDto> images = article.getImages().stream()
@@ -110,7 +110,7 @@ public class ArticleServiceImpl implements ArticleService {
                         .build())
                 .collect(Collectors.toList());
 
-        if (article.getCategory().equals("transfer")) {
+        if (article.getCategory().equals(TRANSFER)) {
             Transfer transfer = transferRepository.getTransferByArticleId(articleId);
             TransferDto transferDto = transfer.toDto(transfer);
 
@@ -130,13 +130,12 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         Article article = updateLikeCount(articleId, 1);
-
-        LikedArticle likedArticle = LikedArticle.builder()
-                .article(article)
-                .memberId(findMemberId)
-                .build();
-
-        likedArticleRepository.save(likedArticle);
+        likedArticleRepository.save(
+                LikedArticle.builder()
+                        .article(article)
+                        .memberId(findMemberId)
+                        .build()
+        );
     }
 
     @Override
@@ -158,11 +157,9 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleDto> searchArticle(SearchCondition condition, Pageable pageable) {
         Page<Article> articles = articleRepository.searchArticle(condition, pageable);
 
-        List<ArticleDto> result = articles.stream()
-                .map(article -> new ArticleDto(article))
+        return articles.stream()
+                .map(ArticleDto::new)
                 .collect(Collectors.toList());
-
-        return result;
     }
 
     @Override
@@ -175,13 +172,13 @@ public class ArticleServiceImpl implements ArticleService {
             throw new ArticleException(ArticleExceptionType.ALREADY_SCRAPPED_ARTICLE);
         }
 
-        ScrappedArticle scrappedArticle = ScrappedArticle.builder()
-                .memberId(Long.parseLong(memberId))
-                .article(article)
-                .category(article.getCategory())
-                .build();
-
-        scrappedArticleRepository.save(scrappedArticle);
+        scrappedArticleRepository.save(
+                ScrappedArticle.builder()
+                        .memberId(Long.parseLong(memberId))
+                        .article(article)
+                        .category(article.getCategory())
+                        .build()
+        );
     }
 
     @Override
@@ -202,17 +199,14 @@ public class ArticleServiceImpl implements ArticleService {
 
         Page<ScrappedArticle> scrappedArticles = scrappedArticleRepository.getScrappedArticleList(Long.parseLong(memberId), category, pageRequest);
 
-        List<ScrappedArticleDto> result = scrappedArticles.stream()
-                .map(scrappedArticle -> new ScrappedArticleDto(scrappedArticle))
+        return scrappedArticles.stream()
+                .map(ScrappedArticleDto::new)
                 .collect(Collectors.toList());
-
-        return result;
     }
 
     @Override
     @Transactional
-    public void updateArticle(String memberId, Long articleId,
-                              ArticleUpdateRequest request, List<MultipartFile> multipartFiles) {
+    public void updateArticle(String memberId, Long articleId, ArticleUpdateRequest request, List<MultipartFile> multipartFiles) {
         Article article = articleRepository.getArticle(articleId);
         article.updateArticle(request);
 
@@ -224,18 +218,18 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void deleteArticle(String memberId, Long articleId) {
-        Article article = articleRepository.getArticle(articleId);
-        transferRepository.delete(transferRepository.getTransferByArticleId(articleId));
+        Article article = articleRepository.getArticleWithCommentList(articleId);
+
+        if (article.getCategory().equals(TRANSFER)) {
+            transferRepository.delete(transferRepository.getTransferByArticleId(articleId));
+        }
+
         articleRepository.delete(article);
     }
 
     private Article updateLikeCount(Long articleId, int count) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
-
-        if (article == null) {
-            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
-        }
 
         article.updateLikes(count);
         return article;
