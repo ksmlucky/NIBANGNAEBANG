@@ -46,6 +46,7 @@ logging:
 
 eureka:
   instance:
+    hostname: k7c109.p.ssafy.io
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     non-secure-port-enabled: false
     secure-port-enabled: true
