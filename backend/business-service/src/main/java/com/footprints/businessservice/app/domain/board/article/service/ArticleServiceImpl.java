@@ -71,13 +71,13 @@ public class ArticleServiceImpl implements ArticleService {
                 .build();
 
         if (request.getArticleRequest().getCategory().equals("transfer")) {
-            Transfer transfer = Transfer.builder()
-                    .roomType(request.getTransferRequest().getRoomType())
-                    .buildingType(request.getTransferRequest().getBuildingType())
-                    .article(article)
-                    .build();
-
-            transferRepository.save(transfer);
+            transferRepository.save(
+                    Transfer.builder()
+                            .roomType(request.getTransferRequest().getRoomType())
+                            .buildingType(request.getTransferRequest().getBuildingType())
+                            .article(article)
+                            .build()
+            );
         }
 
         if (multipartFiles != null) {
@@ -130,13 +130,12 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         Article article = updateLikeCount(articleId, 1);
-
-        LikedArticle likedArticle = LikedArticle.builder()
-                .article(article)
-                .memberId(findMemberId)
-                .build();
-
-        likedArticleRepository.save(likedArticle);
+        likedArticleRepository.save(
+                LikedArticle.builder()
+                        .article(article)
+                        .memberId(findMemberId)
+                        .build()
+        );
     }
 
     @Override
@@ -175,13 +174,13 @@ public class ArticleServiceImpl implements ArticleService {
             throw new ArticleException(ArticleExceptionType.ALREADY_SCRAPPED_ARTICLE);
         }
 
-        ScrappedArticle scrappedArticle = ScrappedArticle.builder()
-                .memberId(Long.parseLong(memberId))
-                .article(article)
-                .category(article.getCategory())
-                .build();
-
-        scrappedArticleRepository.save(scrappedArticle);
+        scrappedArticleRepository.save(
+                ScrappedArticle.builder()
+                        .memberId(Long.parseLong(memberId))
+                        .article(article)
+                        .category(article.getCategory())
+                        .build()
+        );
     }
 
     @Override
@@ -211,8 +210,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void updateArticle(String memberId, Long articleId,
-                              ArticleUpdateRequest request, List<MultipartFile> multipartFiles) {
+    public void updateArticle(String memberId, Long articleId, ArticleUpdateRequest request, List<MultipartFile> multipartFiles) {
         Article article = articleRepository.getArticle(articleId);
         article.updateArticle(request);
 
@@ -232,10 +230,6 @@ public class ArticleServiceImpl implements ArticleService {
     private Article updateLikeCount(Long articleId, int count) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
-
-        if (article == null) {
-            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
-        }
 
         article.updateLikes(count);
         return article;
