@@ -31,15 +31,15 @@ public class ImageServiceImpl implements ImageService {
             String fileName = fileInfoList.get("name");
             String url = fileInfoList.get("url");
 
-            Image image = Image.builder()
+            imageRepository.save(
+                    Image.builder()
                     .article(article)
                     .fileName(fileName)
                     .originalFileName(file.getOriginalFilename())
                     .size(file.getSize())
                     .url(url)
-                    .build();
-
-            imageRepository.save(image);
+                    .build()
+            );
         });
     }
 

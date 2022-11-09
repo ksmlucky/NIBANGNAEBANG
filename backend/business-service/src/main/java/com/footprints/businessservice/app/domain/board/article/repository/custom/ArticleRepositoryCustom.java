@@ -14,4 +14,5 @@ public interface ArticleRepositoryCustom {
     List<Comment> getCommentList(Long articleId);
     Page<Article> searchArticle(SearchCondition condition, Pageable pageable);
     Article getArticle(Long articleId);
+    Article getArticleWithCommentList(Long articleId);
 }
