@@ -1,7 +1,6 @@
 package com.footprints.businessservice.app.domain.board.reply.api;
 
 import com.footprints.businessservice.app.domain.board.reply.dto.ReplyRequest;
-import com.footprints.businessservice.app.domain.board.reply.dto.ReplyUpdateRequest;
 import com.footprints.businessservice.app.domain.board.reply.dto.ReplyDto;
 import com.footprints.businessservice.app.domain.board.reply.service.ReplyService;
 import com.footprints.businessservice.global.common.DataResponse;
@@ -42,16 +41,16 @@ public class ReplyController {
     // 대댓글 등록
     @PostMapping("/{comment-id}")
     @Operation(summary = "대댓글 등록")
-    public ResponseEntity<? extends MessageResponse> saveReply(@RequestBody ReplyRequest request, @PathVariable("comment-id") Long commentId) {
-        replyService.saveReply(request, commentId);
+    public ResponseEntity<? extends MessageResponse> saveReply(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody ReplyRequest request, @PathVariable("comment-id") Long commentId) {
+        replyService.saveReply(memberId, request, commentId);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
 
     // 대댓글 수정
     @PutMapping("{reply-id}")
     @Operation(summary = "대댓글 수정")
-    public ResponseEntity<? extends MessageResponse> updateReply(@RequestBody ReplyUpdateRequest request, @PathVariable("reply-id") Long replyId) {
-        replyService.updateReply(request, replyId);
+    public ResponseEntity<? extends MessageResponse> updateReply(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody ReplyRequest request, @PathVariable("reply-id") Long replyId) {
+        replyService.updateReply(memberId, request, replyId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
