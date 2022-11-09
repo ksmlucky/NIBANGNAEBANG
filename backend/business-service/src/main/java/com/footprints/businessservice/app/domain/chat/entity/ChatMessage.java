@@ -1,12 +1,15 @@
 package com.footprints.businessservice.app.domain.chat.entity;
 
 import com.footprints.businessservice.global.common.BaseEntity;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Getter
+@Builder
 public class ChatMessage extends BaseEntity {
     public enum MessageType {
         ENTER, TALK, QUIT;
@@ -24,4 +27,21 @@ public class ChatMessage extends BaseEntity {
 
     private String sender;
     private String message;
+
+    public static ChatMessage createChatMessage(ChatRoom chatRoom, String sender, String message, MessageType type) {
+        return ChatMessage.builder()
+                .chatRoom(chatRoom)
+                .sender(sender)
+                .message(message)
+                .type(type)
+                .build();
+    }
+
+    public void updateSender(String sender) {
+        this.sender = sender;
+    }
+
+    public void updateMessage(String message) {
+        this.message = message;
+    }
 }
