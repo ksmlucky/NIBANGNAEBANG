@@ -33,7 +33,7 @@ public class ReplyServiceImpl implements ReplyService{
         Page<Reply> replies = replyRepository.getReplyList(commentId, pageRequest);
 
         List<ReplyDto> result = replies.stream()
-                .map(reply -> new ReplyDto(reply))
+                .map(ReplyDto::new)
                 .collect(Collectors.toList());
 
         return result;

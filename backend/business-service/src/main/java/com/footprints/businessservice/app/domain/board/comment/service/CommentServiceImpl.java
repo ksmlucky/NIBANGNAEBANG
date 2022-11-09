@@ -36,7 +36,7 @@ public class CommentServiceImpl implements CommentService{
         Page<Comment> comments = commentRepository.getCommentList(articleId, pageRequest);
 
         List<CommentDto> result = comments.stream()
-                .map(comment -> new CommentDto(comment))
+                .map(CommentDto::new)
                 .collect(Collectors.toList());
 
         return result;
