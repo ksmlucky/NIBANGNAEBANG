@@ -5,7 +5,6 @@ import com.footprints.businessservice.app.domain.board.article.exception.Article
 import com.footprints.businessservice.app.domain.board.article.exception.ArticleExceptionType;
 import com.footprints.businessservice.app.domain.board.article.repository.ArticleRepository;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
-import com.footprints.businessservice.app.domain.board.comment.dto.CommentUpdateRequest;
 import com.footprints.businessservice.app.domain.board.comment.exception.CommentException;
 import com.footprints.businessservice.app.domain.board.comment.exception.CommentExceptionType;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentRequest;
@@ -44,13 +43,15 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     @Transactional
-    public void saveComment(CommentRequest request, Long articleId) {
+    public void saveComment(String memberId, CommentRequest request, Long articleId) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
 
+        // memberId로 해당 멤버의 닉네임을 찾아서 밑에서 build 해줌
+
         Comment comment = Comment.builder()
                 .content(request.getContent())
-                .writer(request.getWriter())
+//                .writer(request.getWriter())
                 .article(article)
                 .build();
 
@@ -59,9 +60,11 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     @Transactional
-    public void updateComment(CommentUpdateRequest request, Long commentId) {
+    public void updateComment(String memberId, CommentRequest request, Long commentId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
+
+        // memberId로 해당 멤버의 닉네임을 찾아서 위의 comment.getWriter()와 비교 후 같으면 수정 가능
 
         comment.changeIsUpdated();
         comment.updateContent(request.getContent());
@@ -74,6 +77,8 @@ public class CommentServiceImpl implements CommentService{
 
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
+
+        // memberId로 해당 멤버의 닉네임을 찾아서 위의 comment.getWriter()와 비교 후 같으면 수정 가능
 
         comment.changeIsDeleted();
     }

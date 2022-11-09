@@ -1,7 +1,6 @@
 package com.footprints.businessservice.app.domain.board.reply.service;
 
 import com.footprints.businessservice.app.domain.board.reply.dto.ReplyRequest;
-import com.footprints.businessservice.app.domain.board.reply.dto.ReplyUpdateRequest;
 import com.footprints.businessservice.app.domain.board.reply.exception.ReplyException;
 import com.footprints.businessservice.app.domain.board.reply.exception.ReplyExceptionType;
 import com.footprints.businessservice.app.domain.board.reply.repository.ReplyRepository;
@@ -41,11 +40,14 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     @Transactional
-    public void saveReply(ReplyRequest request, Long commentId) {
+    public void saveReply(String memberId, ReplyRequest request, Long commentId) {
         Comment comment = commentRepository.getComment(commentId);
+
+        // memberId로 해당 멤버의 닉네임을 찾아서 밑에서 build 해줌
+
         Reply reply = Reply.builder()
                 .content(request.getContent())
-                .writer(request.getWriter())
+//                .writer(request.getWriter())
                 .comment(comment)
                 .build();
 
@@ -54,9 +56,11 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     @Transactional
-    public void updateReply(ReplyUpdateRequest request, Long replyId) {
+    public void updateReply(String memberId, ReplyRequest request, Long replyId) {
         Reply reply = replyRepository.findById(replyId)
                 .orElseThrow(() -> new ReplyException(ReplyExceptionType.NOT_FOUND_REPLY));
+
+        // memberId로 해당 멤버의 닉네임을 찾아서 위의 reply.getWriter()와 비교 후 같으면 수정 가능
 
         reply.changeIsUpdated();
         reply.updateContent(request.getContent());
@@ -64,10 +68,12 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     @Transactional
-    public void deleteReply(String token, Long replyId) {
+    public void deleteReply(String memberId, Long replyId) {
 
         Reply reply = replyRepository.findById(replyId)
                 .orElseThrow(() -> new ReplyException(ReplyExceptionType.NOT_FOUND_REPLY));
+
+        // memberId로 해당 멤버의 닉네임을 찾아서 위의 reply.getWriter()와 비교 후 같으면 수정 가능
 
         reply.changeIsDeleted();
     }

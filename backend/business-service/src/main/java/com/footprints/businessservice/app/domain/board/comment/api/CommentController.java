@@ -1,6 +1,5 @@
 package com.footprints.businessservice.app.domain.board.comment.api;
 
-import com.footprints.businessservice.app.domain.board.comment.dto.CommentUpdateRequest;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentRequest;
 import com.footprints.businessservice.app.domain.board.comment.service.CommentService;
@@ -43,16 +42,16 @@ public class CommentController {
     // 댓글 등록
     @PostMapping("/{article-id}")
     @Operation(summary = "댓글 등록")
-    public ResponseEntity<? extends MessageResponse> saveComment(@RequestBody CommentRequest request, @PathVariable("article-id") Long articleId) {
-        commentService.saveComment(request, articleId);
+    public ResponseEntity<? extends MessageResponse> saveComment(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody CommentRequest request, @PathVariable("article-id") Long articleId) {
+        commentService.saveComment(memberId, request, articleId);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
     }
 
     // 댓글 수정
     @PutMapping("/{comment-id}")
     @Operation(summary = "댓글 수정")
-    public ResponseEntity<? extends MessageResponse> updateComment(@RequestBody CommentUpdateRequest request, @PathVariable("comment-id") Long commentId) {
-        commentService.updateComment(request, commentId);
+    public ResponseEntity<? extends MessageResponse> updateComment(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody CommentRequest request, @PathVariable("comment-id") Long commentId) {
+        commentService.updateComment(memberId, request, commentId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
