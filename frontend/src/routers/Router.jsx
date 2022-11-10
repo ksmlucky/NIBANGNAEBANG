@@ -11,24 +11,21 @@ import Home from "@screens/Home";
 // import FindPwCh from "@screens/user/FindPwCh";
 // import FindPwFinish from "@screens/user/FindPwFinish";
 import Login from "@screens/oauth/Login";
+import JoinName from "@screens/oauth/JoinName";
+import JoinNickname from "@screens/oauth/JoinNickname";
 import KakaoLogin from "@screens/oauth/KakaoLogin";
 import GoogleLogin from "@screens/oauth/GoogleLogin";
 import Join from "@screens/oauth/Join";
 import MyPage from "@screens/MyPage";
+import ChangeNickname from "@screens/oauth/ChangeNickname";
 
 import ShowCard from "@components/room/ShowCard";
-// mypage
-// import Drop from "@screens/mypage/Drop";
-// import DropFinish from "@screens/mypage/DropFinish";
-// import InfoEdit from "@screens/mypage/InfoEdit";
-// import PwCh from "@screens/mypage/PwCh";
-// import PwEdit from "@screens/mypage/PwEdit";
-// import MyFeed from "@screens/mypage/MyFeed";
 
 // others
 import NotFound from "@screens/NotFound";
-import Test from "@screens/room/Test";
+
 // room
+import RoomRegister from "@screens/room/RoomRegister";
 import RoomTrs from "@screens/room/RoomTrs";
 import TrsList from "@screens/room/TrsList";
 import RoomShow from "@screens/room/RoomShow";
@@ -51,7 +48,10 @@ function Router() {
         <Route path="/login/*">
           <Route path="" element={<Login />} />
           <Route path="join" element={<Join />} />
+          <Route path="joinname" element={<JoinName />} />
+          <Route path="joinnickname" element={<JoinNickname />} />
         </Route>
+        <Route path="/changenickname" element={<ChangeNickname />} />
         <Route path="/kakao" element={<KakaoLogin />} />
         <Route path="/google" element={<GoogleLogin />} />
         {/* join */}
@@ -77,6 +77,7 @@ function Router() {
 
         {/* Room */}
         <Route path="/room/*">
+          <Route path="register" element={<RoomRegister />} />
           <Route path="roomtrs" element={<RoomTrs />} />
           <Route path="trslist" element={<TrsList />} />
           <Route path="showre" element={<RoomShow />} />

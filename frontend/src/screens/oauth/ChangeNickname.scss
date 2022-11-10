@@ -1,0 +1,66 @@
+.changeNickname {
+  margin-top: (10vh);
+  flex-direction: column;
+  align-items: center;
+  color: #2C4B48;
+  &_box {
+    margin-top: (100px);
+    width: (480px);
+    height: (500px);
+    background-color: #ECF2FF;
+    border-radius: (30px);
+    box-shadow: (8px) (8px) (4px) rgba(58, 118, 255, 0.25);
+    flex-direction: column;
+    align-items: center;
+    &_img {
+      margin: (50px) 0 (30px) 0;
+      width: (80px);
+      height: (80px);
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    &_txt {
+      margin-bottom: (50px);
+    }
+    &_input {
+      width: (300px);
+      flex-direction: column;
+      &_nickname {
+        margin-left: (10px);
+        width: (280px);
+        height: (60px);
+        border-radius: (20px);
+        background-color: #F5F5F5;
+        padding-left: (20px);
+        color: #808080;
+      }
+      input:focus {
+        border: 1px solid rgba(58, 118, 255, 0.5);
+        box-shadow: 0 0 (5px) rgba(58, 118, 255, 0.25);
+      }
+      &_btn {
+        height: (40px);
+        width: (80px);
+        margin: (2px) 0 0 (204px);
+        border-radius: (10px);
+        &_txt {
+          background-color: #3A76FF;
+          color: $WHITE;
+          height: (40px);
+          width: (80px);
+          border-radius: (10px);
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+    &_btns {
+      width: (160px);
+      margin-top: (50px);
+      justify-content: space-between;
+    }
+  }
+}

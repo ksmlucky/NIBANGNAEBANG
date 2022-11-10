@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import moneyIcon from "@images/extra/money.png";
 import searchIcon from "@images/extra/search.png";
 import homeIcon from "@images/extra/house.png";
@@ -9,6 +10,10 @@ function Home() {
   const [option, setOption] = useState(false);
   const handleOption = (event) => {
     setOption(!option);
+  };
+  const navigate = useNavigate();
+  const toRegister = () => {
+    navigate("/room/register");
   };
   return (
     <div className="container">
@@ -35,7 +40,7 @@ function Home() {
                     <img src={homeIcon} alt="" />
                   </div>
                   <input type="text" className="home_contents_box_bot_input shBold fs-32" placeholder="예시) 광주 서구 치평동" />
-                  <button type="button" className="home_contents_box_bot_btn shBold fs-32">등록해줘</button>
+                  <button type="button" className="home_contents_box_bot_btn shBold fs-32" onClick={toRegister}>등록해줘</button>
                 </div>
               </div>
             )}

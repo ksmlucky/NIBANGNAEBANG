@@ -14,7 +14,8 @@ import "./Login.scss";
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 const REDIRECT_URI = "http://j7c105.p.ssafy.io/oauth/kakao";
-const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+// const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+const KAKAO_AUTH_URI = `https://k7c109.p.ssafy.io:8080/auth-service/oauth2/authorization/kakao`;
 
 function Copyright(props) {
   return (
@@ -37,6 +38,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 function Login() {
+  const LoginProceed = `http://localhost:3000/login/joinname`;
   return (
     <div className="container flex">
       <div className="login flex">
@@ -50,7 +52,7 @@ function Login() {
             </a>
           </div>
           <div className="login_box_kakao2">
-            <a href={KAKAO_AUTH_URI} aria-label="Kakao">
+            <a href={LoginProceed} aria-label="Kakao">
               <img src={KakaoLogin} alt="" />
             </a>
           </div>
