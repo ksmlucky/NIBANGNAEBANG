@@ -18,6 +18,7 @@ public class ChatRoom extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_room_id")
     private Long id;
+
     private String title;
 
     @ElementCollection
@@ -41,25 +42,4 @@ public class ChatRoom extends BaseEntity {
 
     }
 
-    public static ChatRoom createRoom(ChatRoomRequest request) {
-        ChatRoom chatRoom = new ChatRoom();
-        chatRoom.title = request.getTitle();
-        chatRoom.currentUserCount = 1;
-        chatRoom.totalUserCount = request.getTotalUserCount();
-        chatRoom.closingTime = request.getClosingTime();
-        chatRoom.fee = request.getFee();
-        return chatRoom;
-    }
-
-//    public static ChatRoom createRoom(String title, List<ChatRoomMember> members,
-//                                      Integer totalUserCount, LocalDateTime closingTime, Integer fee) {
-//        ChatRoom chatRoom = new ChatRoom();
-//        chatRoom.title = title;
-//        chatRoom.members = members;
-//        chatRoom.currentUserCount = 1;
-//        chatRoom.totalUserCount = totalUserCount;
-//        chatRoom.closingTime = closingTime;
-//        chatRoom.fee = fee;
-//        return chatRoom;
-//    }
 }
