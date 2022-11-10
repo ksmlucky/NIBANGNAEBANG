@@ -5,6 +5,7 @@ import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 @Builder
-public class ChatRoom extends BaseEntity {
+public class ChatRoom extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_room_id")
