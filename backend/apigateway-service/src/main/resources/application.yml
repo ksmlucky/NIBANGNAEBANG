@@ -1,4 +1,6 @@
 server:
+  # 소셜로그인 redirect uri를 위한 설정
+  use-forward-headers: true
   port: 8080
   ssl:
     key-store: classpath:keystore.p12
