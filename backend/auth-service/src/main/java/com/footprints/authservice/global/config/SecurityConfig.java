@@ -7,13 +7,17 @@ import com.footprints.authservice.global.jwt.JwtAccessDeniedHandler;
 import com.footprints.authservice.global.jwt.JwtAuthenticationEntryPoint;
 import com.footprints.authservice.global.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 import javax.ws.rs.HttpMethod;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -95,6 +99,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and();
 //                토큰 검증을 위한 jwt filter 추가
 //                .apply(new JwtSecurityConfig(tokenProvider));
+    }
+
+    @Bean
+    FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
+
+        final FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean = new FilterRegistrationBean<ForwardedHeaderFilter>();
+
+        filterRegistrationBean.setFilter(new ForwardedHeaderFilter());
+        filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+
+        return filterRegistrationBean;
     }
 
 }
