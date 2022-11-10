@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^35.2.1",
+    "@ckeditor/ckeditor5-build-classic": "^35.3.0",
     "@ckeditor/ckeditor5-build-inline": "^35.2.1",
     "@ckeditor/ckeditor5-easy-image": "^35.2.1",
     "@ckeditor/ckeditor5-react": "^5.0.2",
@@ -19,6 +19,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@toast-ui/react-editor": "^3.2.2",
     "axios": "^0.27.2",
     "browser-image-compression": "^2.0.0",
     "ckbox": "^1.1.1",
@@ -43,6 +44,8 @@
     "react-scripts": "5.0.1",
     "react-tooltip": "^4.4.3",
     "redux": "^4.2.0",
+    "socket-io": "^1.0.0",
+    "socket.io": "^4.5.3",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },

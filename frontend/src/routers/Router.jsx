@@ -11,13 +11,12 @@ import Home from "@screens/Home";
 // import FindPwCh from "@screens/user/FindPwCh";
 // import FindPwFinish from "@screens/user/FindPwFinish";
 import Login from "@screens/oauth/Login";
-import JoinName from "@screens/oauth/JoinName";
-import JoinNickname from "@screens/oauth/JoinNickname";
 import KakaoLogin from "@screens/oauth/KakaoLogin";
 import GoogleLogin from "@screens/oauth/GoogleLogin";
 import Join from "@screens/oauth/Join";
 import MyPage from "@screens/MyPage";
 
+import ShowCard from "@components/room/ShowCard";
 // mypage
 // import Drop from "@screens/mypage/Drop";
 // import DropFinish from "@screens/mypage/DropFinish";
@@ -28,12 +27,15 @@ import MyPage from "@screens/MyPage";
 
 // others
 import NotFound from "@screens/NotFound";
-
+import Test from "@screens/room/Test";
 // room
 import RoomTrs from "@screens/room/RoomTrs";
 import TrsList from "@screens/room/TrsList";
 import RoomShow from "@screens/room/RoomShow";
 import ShowList from "@screens/room/ShowList";
+import RoomCard from "@components/room/RoomCard";
+import BoastRoom from "@screens/room/BoastRoom";
+import BoastReg from "@screens/room/BoastReg";
 
 // Community
 // import Community from "./Community";
@@ -48,9 +50,7 @@ function Router() {
         {/* login */}
         <Route path="/login/*">
           <Route path="" element={<Login />} />
-          <Route path="joinname" element={<JoinName />} />
-          <Route path="joinnickname" element={<JoinNickname />} />
-          {/* <Route path="join" element={<Join />} /> */}
+          <Route path="join" element={<Join />} />
         </Route>
         <Route path="/kakao" element={<KakaoLogin />} />
         <Route path="/google" element={<GoogleLogin />} />
@@ -81,6 +81,9 @@ function Router() {
           <Route path="trslist" element={<TrsList />} />
           <Route path="showre" element={<RoomShow />} />
           <Route path="showlist" element={<ShowList />} />
+          <Route path="showcard" element={<ShowCard />} />
+          <Route path="boastReg" element={<BoastReg />} />
+          <Route path="boastlist" element={<BoastRoom/>} />
         </Route>
 
         {/* camping */}
@@ -93,8 +96,8 @@ function Router() {
         </Route>
 
         {/* mypage */}
-        <Route path="/mypage/*">
-          <Route path="*" element={<MyPage />} />
+        <Route path="/test/*">
+          <Route path="*" element={<BoastRoom />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

@@ -1,4 +1,4 @@
-/* eslint-disable no-shadow */
+/* eslint-disable */
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
