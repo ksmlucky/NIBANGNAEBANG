@@ -1,0 +1,36 @@
+.container{
+    justify-content: center;
+    width : 80%;
+}
+
+.BoastList{
+    width : 100%;
+
+    &_title{
+        text-align: center;
+    }
+    &_regBtn{
+        margin-top:50px;
+        margin-right : (30px);
+
+        margin-left : (30px);
+        
+    }
+
+    &_line1{
+        padding-top : 30px;
+    }
+    &_line2{
+        color : black;
+    }
+
+    &_tmp{
+        justify-content: center;
+    }
+    &_page{
+        // width : 30%;
+        margin:auto;
+        padding:4px;
+        justify-content:center;
+    }
+}

@@ -30,11 +30,12 @@ import RoomTrs from "@screens/room/RoomTrs";
 import TrsList from "@screens/room/TrsList";
 import RoomShow from "@screens/room/RoomShow";
 import ShowList from "@screens/room/ShowList";
-import RoomCard from "@components/room/RoomCard";
-// import BoastRoom from "@screens/room/BoastRoom";
-// import BoastReg from "@screens/room/BoastReg";
+import BoastRoom from "@screens/room/BoastRoom";
+import BoastReg from "@screens/room/BoastReg";
 
 // Community
+import Payment from "@screens/Payment";
+import PayItem from "@components/PayItem";
 // import Community from "./Community";
 
 function Router() {
@@ -83,8 +84,8 @@ function Router() {
           <Route path="showre" element={<RoomShow />} />
           <Route path="showlist" element={<ShowList />} />
           <Route path="showcard" element={<ShowCard />} />
-          <Route path="boastReg" element={<RoomTrs />} />
-          <Route path="boastlist" element={<RoomTrs/>} />
+          <Route path="boastReg" element={<BoastReg />} />
+          <Route path="boastlist" element={<BoastRoom />} />
         </Route>
 
         {/* camping */}
@@ -101,6 +102,9 @@ function Router() {
           <Route path="*" element={<RoomTrs />} />
         </Route>
 
+        <Route path="/payment/*">
+          <Route path="*" element={<Payment />}></Route>
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

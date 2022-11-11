@@ -75,6 +75,7 @@
     ]
   },
   "devDependencies": {
+    "@ckeditor/ckeditor5-alignment": "^35.3.0",
     "eslint": "^8.26.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
