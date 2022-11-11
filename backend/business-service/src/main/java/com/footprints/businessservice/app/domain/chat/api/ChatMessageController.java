@@ -6,7 +6,6 @@ import com.footprints.businessservice.app.domain.chat.entity.ChatMessage;
 import com.footprints.businessservice.app.domain.chat.service.ChatMessageService;
 import com.footprints.businessservice.global.common.MessageResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @Controller
 //@Api(value = "채팅 메시지 API", tags = {"ChatMessage"})
 //@RequestMapping("/api/message")
-public class MessageController {
+public class ChatMessageController {
 
 //    @Autowired
 //    UserRepositorySupport userRepositorySupport;
@@ -40,7 +39,7 @@ public class MessageController {
 //            @ApiResponse(code = 500, message = "서버 오류")
 //    })
     public ResponseEntity<? extends MessageResponse> sendChatMessage(
-            @RequestHeader String memberId,
+            @RequestHeader("X-Authorization-Id") String memberId,
             @RequestBody ChatMessageReq chatMessageReq) {
 
 //        User user = userRepositorySupport.findUserByUserNickname(chatMessageReq.getSender()).orElse(null);

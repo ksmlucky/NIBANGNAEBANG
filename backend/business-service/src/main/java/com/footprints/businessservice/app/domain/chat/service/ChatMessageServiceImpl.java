@@ -30,13 +30,13 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 
     /** 채팅 메시지 생성 **/
     @Override
-    public ChatMessage registerChatMessage(ChatMessageReq chatMessageReq, String userEmail) {
+    public ChatMessage registerChatMessage(ChatMessageReq chatMessageReq, String memberId) {
         ChatRoom chatRoom = chatRoomRepository.findById(chatMessageReq.getRoomId()).orElse(null);
 
         LocalDateTime localDateTime = LocalDateTime.now();
 
         ChatMessage chatMessage = ChatMessage.create(
-                userEmail,
+                memberId,
                 chatMessageReq.getMessage(),
                 localDateTime,
                 chatMessageReq.getType());

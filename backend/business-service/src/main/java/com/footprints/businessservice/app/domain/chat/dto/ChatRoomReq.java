@@ -1,9 +1,12 @@
 package com.footprints.businessservice.app.domain.chat.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.footprints.businessservice.app.domain.chat.entity.ChatRoom.ChatRoomMember;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -19,5 +22,14 @@ public class ChatRoomReq {
 //    @ApiModelProperty(name = "게시글 번호", example = "1")
 //    Long boardNo;
 
-    private List<ChatRoomMember> members; // 채팅방의 멤버들
+    //    private String roomId;
+    private String title;
+    //    private String sender;
+    private Integer totalMemberCount;
+    private Integer fee;
+    //    @JsonFormat(pattern="YYYY-MM-DD HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime closingTime;
+
+//    private List<ChatRoomMember> members; // 채팅방의 멤버들
 }

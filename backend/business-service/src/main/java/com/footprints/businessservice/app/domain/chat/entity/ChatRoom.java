@@ -1,24 +1,21 @@
 package com.footprints.businessservice.app.domain.chat.entity;
 
-import com.footprints.businessservice.app.domain.chat.dto.ChatRoomRequest;
-import com.footprints.businessservice.global.common.BaseEntity;
+import com.footprints.businessservice.app.domain.chat.dto.ChatRoomReq;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
 @Slf4j
 @ToString
-@Document(collation = "chat")
+@Document(collection = "chats")
 public class ChatRoom {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,22 +32,33 @@ public class ChatRoom {
 
     private Integer currentMemberCount; // 현재 멤버 수
     private Integer totalMemberCount; // 전체 멤버 수
-    @DateTimeFormat(pattern="YYYY-MM-DD HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime closingTime; // 모집 마감 시간
     private Integer fee; // 총 구독료
 
-    public static ChatRoom create(String title, ChatRoomRequest request) {
+    public static ChatRoom create(String memberId, ChatRoomReq request) {
         ChatRoom chatRoom = new ChatRoom();
-        chatRoom.title = title;
+        chatRoom.title = request.getTitle();
         chatRoom.currentMemberCount = 1;
         chatRoom.totalMemberCount = request.getTotalMemberCount();
         chatRoom.closingTime = request.getClosingTime();
         chatRoom.fee = request.getFee();
-        chatRoom.members = new ArrayList<ChatRoomMember>();
+
+
+        List<ChatRoomMember> chatRoomMembers = new ArrayList<>();
+        ChatRoomMember chatRoomMember = new ChatRoomMember();
+        chatRoomMember.setId(Long.parseLong(memberId));
+        chatRoomMember.setNickname("tempnickname"); // 닉네임 받아와서 set 해주기
+        chatRoomMembers.add(chatRoomMember);
+        chatRoom.members = chatRoomMembers;
+
+
         chatRoom.chatMessages = new ArrayList<ChatMessage>();
         return chatRoom;
     }
 
+    @Getter
+    @Setter
     public static class ChatRoomMember {
         // userid
         private Long id;
