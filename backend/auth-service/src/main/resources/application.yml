@@ -1,7 +1,7 @@
 server:
   # 소셜로그인 redirect uri를 위한 설정
   use-forward-headers: true
-  port: 8889
+  port: 8081
   ssl:
     key-store: classpath:keystore.p12
     key-store-type: PKCS12
