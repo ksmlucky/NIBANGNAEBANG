@@ -6,6 +6,7 @@ import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import com.footprints.businessservice.app.domain.board.article.repository.custom.ArticleRepositoryCustom;
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
+import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -20,6 +21,7 @@ import static com.footprints.businessservice.app.domain.board.article.entity.QAr
 import static com.footprints.businessservice.app.domain.board.comment.entity.QComment.comment;
 import static com.footprints.businessservice.app.domain.board.image.entity.QImage.image;
 import static com.footprints.businessservice.app.domain.board.reply.entity.QReply.reply;
+import static com.footprints.businessservice.app.domain.board.transfer.entity.QTransfer.transfer;
 
 public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements ArticleRepositoryCustom {
 
@@ -42,6 +44,27 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                         .where(categoryEq(condition.getCategory()))
                         .orderBy(sort(pageable))
         );
+    }
+
+    @Override
+    public Page<Transfer> searchArticleList(SortCondition condition, Pageable pageable) {
+        return applyPagination(pageable, contentQuery -> contentQuery
+                        .selectFrom(transfer)
+                        .leftJoin(transfer.article, article)
+                        .fetchJoin()
+                        .where(addressEq(condition.getAddress()))
+                        .orderBy(sort(pageable)),
+                countQuery -> countQuery
+                        .selectFrom(transfer)
+                        .leftJoin(transfer.article, article)
+                        .fetchJoin()
+                        .where(addressEq(condition.getAddress()))
+                        .orderBy(sort(pageable))
+        );
+    }
+
+    private BooleanExpression addressEq(String address) {
+        return StringUtils.hasText(address) ? transfer.address.contains(address) : null;
     }
 
     @Override

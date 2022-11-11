@@ -5,6 +5,7 @@ import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
 import com.footprints.businessservice.app.domain.board.image.entity.Image;
+import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -60,6 +61,25 @@ public class ArticleDto {
         this.category = article.getCategory();
         this.image = image != null ? image : null;
         this.createdAt = article.getCreatedAt();
+    }
+
+    public ArticleDto(Article article, CategoryDto category) {
+        ImageDto image = null;
+        if (!article.getImages().isEmpty()) {
+            image = imageToImageDto(article);
+        }
+
+        this.id = article.getId();
+        this.title = article.getTitle();
+        this.writer = article.getWriter();
+        this.content = article.getContent();
+        this.hits = article.getHits();
+        this.likes = article.getLikes();
+        this.category = article.getCategory();
+        this.image = image != null ? image : null;
+        this.createdAt = article.getCreatedAt();
+        this.categoryDetail = category;
+
     }
 
     private ImageDto imageToImageDto(Article article) {
