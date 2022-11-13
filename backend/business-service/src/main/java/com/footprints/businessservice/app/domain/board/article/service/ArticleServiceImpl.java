@@ -12,7 +12,6 @@ import com.footprints.businessservice.app.domain.board.article.repository.Scrapp
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
-import com.footprints.businessservice.app.domain.board.image.entity.Image;
 import com.footprints.businessservice.app.domain.board.image.service.ImageService;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
 import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
@@ -234,10 +233,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void deleteArticle(String memberId, Long articleId) {
-        Article article = articleRepository.getArticleWithCommentList(articleId);
+        Article article = articleRepository.getArticleWithNickname(memberId);
 
-        if (article.getCategory().equals(TRANSFER)) {
-            transferRepository.delete(transferRepository.getTransferByArticleId(articleId));
+        if (article == null) {
+            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
         }
 
         articleRepository.delete(article);

@@ -6,7 +6,6 @@ import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import com.footprints.businessservice.app.domain.board.article.repository.custom.ArticleRepositoryCustom;
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
-import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -66,13 +65,9 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     }
 
     @Override
-    public Article getArticleWithCommentList(Long articleId) {
+    public Article getArticleWithNickname(String nickname) {
         return selectFrom(article)
-                .leftJoin(article.images, image)
-                .leftJoin(article.comments, comment)
-                .fetchJoin()
-                .leftJoin(comment.replies, reply)
-                .where(article.id.eq(articleId))
+                .where(article.writer.eq(nickname))
                 .fetchOne();
     }
 
@@ -88,13 +83,13 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                 .fetch();
     }
 
-
     @Override
     public Page<Article> searchArticle(SearchCondition condition, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(article)
+                        .innerJoin(article.transfer, transfer)
+                        .fetchJoin()
                         .where(
-                                categoryEq(condition.getCategory()),
                                 titleContains(condition.getTitle()),
                                 writerContains(condition.getWriter()),
                                 contentContains(condition.getContent())
@@ -102,8 +97,9 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                         .orderBy(article.createdAt.desc()),
                 countQuery -> countQuery
                         .selectFrom(article)
+                        .innerJoin(article.transfer, transfer)
+                        .fetchJoin()
                         .where(
-                                categoryEq(condition.getCategory()),
                                 titleContains(condition.getTitle()),
                                 writerContains(condition.getWriter()),
                                 contentContains(condition.getContent())
