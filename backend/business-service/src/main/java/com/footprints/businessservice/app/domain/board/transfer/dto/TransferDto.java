@@ -31,9 +31,15 @@ public class TransferDto {
 
     private LocalDate endDate;
 
-    private Integer buildingNumber;
+    private String address;
 
-    private Integer unitNumber;
+    private Double latitude;
+
+    private Double longitude;
+
+    private String buildingNumber;
+
+    private String unitNumber;
 
     private Integer supplyArea;
 
@@ -51,6 +57,6 @@ public class TransferDto {
 
     private Boolean parking;
 
-    private String option;
+    private String options;
 
 }

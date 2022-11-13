@@ -66,15 +66,15 @@ public class Transfer {
      */
     private LocalDate endDate;
 
-    /**
-     * 동
-     */
-    private Integer buildingNumber;
+    private String address;
 
-    /**
-     * 호
-     */
-    private Integer unitNumber;
+    private Double latitude;
+
+    private Double longitude;
+
+    private String buildingNumber;
+
+    private String unitNumber;
 
     /**
      * 공급 면적
@@ -119,30 +119,33 @@ public class Transfer {
     /**
      * 옵션
      */
-    private String option;
+    private String options;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public TransferDto toDto(Transfer transfer) {
+    public TransferDto toDto() {
         return TransferDto.builder()
-                .transferId(transfer.getId())
-                .roomType(transfer.getRoomType())
-                .buildingType(transfer.getBuildingType())
-                .contractType(transfer.getContractType())
-                .deposit(transfer.getDeposit())
-                .rent(transfer.getRent())
-                .startDate(transfer.getStartDate())
-                .endDate(transfer.getEndDate())
-                .buildingNumber(transfer.getBuildingNumber())
-                .unitNumber(transfer.getUnitNumber())
-                .supplyArea(transfer.getSupplyArea())
-                .leasableArea(transfer.getLeasableArea())
-                .roomSize(transfer.getRoomSize())
-                .totalFloor(transfer.getTotalFloor())
-                .floor(transfer.getFloor())
-                .heatingType(transfer.getHeatingType())
-                .elevator(transfer.getElevator())
-                .parking(transfer.getParking())
-                .option(transfer.getOption())
+                .transferId(id)
+                .roomType(roomType)
+                .buildingType(buildingType)
+                .contractType(contractType)
+                .deposit(deposit)
+                .rent(rent)
+                .startDate(startDate)
+                .endDate(endDate)
+                .address(address)
+                .latitude(latitude)
+                .longitude(longitude)
+                .buildingNumber(buildingNumber)
+                .unitNumber(unitNumber)
+                .supplyArea(supplyArea)
+                .leasableArea(leasableArea)
+                .roomSize(roomSize)
+                .totalFloor(totalFloor)
+                .floor(floor)
+                .heatingType(heatingType)
+                .elevator(elevator)
+                .parking(parking)
+                .options(options)
                 .build();
     }
 }

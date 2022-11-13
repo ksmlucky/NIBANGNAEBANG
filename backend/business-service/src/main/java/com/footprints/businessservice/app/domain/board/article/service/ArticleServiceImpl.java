@@ -12,7 +12,6 @@ import com.footprints.businessservice.app.domain.board.article.repository.Scrapp
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
-import com.footprints.businessservice.app.domain.board.image.entity.Image;
 import com.footprints.businessservice.app.domain.board.image.service.ImageService;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
 import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
@@ -52,7 +51,7 @@ public class ArticleServiceImpl implements ArticleService {
         Page<Article> articles = articleRepository.getArticleList(condition, pageRequest);
 
         return articles.stream()
-                .map(ArticleDto::new)
+                .map(article -> new ArticleDto(article, condition))
                 .collect(Collectors.toList());
     }
 
@@ -75,6 +74,21 @@ public class ArticleServiceImpl implements ArticleService {
                     Transfer.builder()
                             .roomType(request.getTransferRequest().getRoomType())
                             .buildingType(request.getTransferRequest().getBuildingType())
+                            .contractType(request.getTransferRequest().getContractType())
+                            .address(request.getTransferRequest().getAddress())
+                            .elevator(request.getTransferRequest().getElevator())
+                            .deposit(request.getTransferRequest().getDeposit())
+                            .startDate(request.getTransferRequest().getStartDate())
+                            .endDate(request.getTransferRequest().getEndDate())
+                            .floor(request.getTransferRequest().getFloor())
+                            .heatingType(request.getTransferRequest().getHeatingType())
+                            .rent(request.getTransferRequest().getRent())
+                            .options(request.getTransferRequest().getOptions())
+                            .parking(request.getTransferRequest().getParking())
+                            .roomSize(request.getTransferRequest().getRoomSize())
+                            .leasableArea(request.getTransferRequest().getLeasableArea())
+                            .supplyArea(request.getTransferRequest().getSupplyArea())
+                            .totalFloor(request.getTransferRequest().getTotalFloor())
                             .article(article)
                             .build()
             );
@@ -88,6 +102,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public ArticleDto getArticle(Long articleId) {
         Article article = articleRepository.getArticle(articleId);
 
@@ -112,7 +127,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         if (article.getCategory().equals(TRANSFER)) {
             Transfer transfer = transferRepository.getTransferByArticleId(articleId);
-            TransferDto transferDto = transfer.toDto(transfer);
+            TransferDto transferDto = transfer.toDto();
 
             return new ArticleDto(article, comments, new CategoryDto(transferDto), images);
         }
@@ -218,10 +233,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void deleteArticle(String memberId, Long articleId) {
-        Article article = articleRepository.getArticleWithCommentList(articleId);
+        Article article = articleRepository.getArticleWithNickname(memberId);
 
-        if (article.getCategory().equals(TRANSFER)) {
-            transferRepository.delete(transferRepository.getTransferByArticleId(articleId));
+        if (article == null) {
+            throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
         }
 
         articleRepository.delete(article);

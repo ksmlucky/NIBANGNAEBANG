@@ -8,4 +8,6 @@ public class SortCondition {
     private String category;
 
     private String sort;
+
+    private String address;
 }
