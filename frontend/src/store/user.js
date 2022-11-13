@@ -1,24 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { nominalTypeHack } from "prop-types";
 
-export const initialUserState = {
+const initialState = {
   auth: null,
+  name: null,
   birth: null,
   email: null,
   joinDate: null,
   nickname: null,
   profileImg: null,
   tel: null,
+  provider: null,
+  providerId: null,
   // isSocial: null,
 };
 export const userSlice = createSlice({
   name: "user",
-  initialState: initialUserState,
+  // initialState: initialUserState,
+  initialState,
   reducers: {
-    setEmail: (state, action) => {
-      state.email = action.payload.email;
+    setName: (state, action) => {
+      state.name = action.payload;
+    },
+    setBirth: (state, action) => {
+      state.birth = action.payload;
+    },
+    setProvider: (state, action) => {
+      state.provider = action.payload;
+    },
+    setProviderId: (state, action) => {
+      state.providerId = action.payload;
     },
     setNickname: (state, action) => {
-      state.nickname = action.payload.nickname;
+      state.nickname = action.payload;
     },
     setTel: (state, action) => {
       state.tel = action.payload.tel;
@@ -29,11 +43,14 @@ export const userSlice = createSlice({
     setUserInfo: (state, action) => {
       state.auth = action.payload.auth;
       state.email = action.payload.email;
+      state.name = action.payload.name;
       state.birth = action.payload.birth;
       state.joinDate = action.payload.joinDate.substr(0, 10);
       state.nickname = action.payload.nickname;
       state.profileImg = `data:image/png;base64,${action.payload.profileImg}`;
       state.tel = action.payload.tel;
+      state.provider = action.payload.provider;
+      state.providerId = action.payload.providerId;
       // state.isSocial = action.payload.isSocial;
     },
     updateUserInfo: (state, action) => {
@@ -68,6 +85,13 @@ export const {
   setNickname,
   findId,
   findPw,
+  setProvider,
+  setProviderId,
+  setName,
+  setBirth,
 } = userSlice.actions;
+
+// export const setProvider = userSlice.actions.setProvider;
+// export const setProviderId = userSlice.actions.setProviderId;
 
 export default userSlice.reducer;

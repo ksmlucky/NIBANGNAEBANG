@@ -44,7 +44,6 @@ function ShowList() {
             onChange={handleChange}
             hidePrevButton
             hideNextButton
-            // boundaryCount={2}
             size="large"
           />
         </div>

@@ -1,0 +1,28 @@
+.roomDetail {
+  flex-direction: column;
+  align-items: center;
+  &_photo {
+    margin: (2vh) 0 (4vh) 0;
+    width: (800px);
+    height: (500px);
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &_contents {
+    width: (1200px);
+    &_top {
+      &_contract {
+        width: (400px);
+      }
+      justify-content: space-between;
+      align-items: flex-end;
+      color: #2c4b48;
+      margin: 0 (200px) 0 (200px);
+      width: (800px);
+    }
+  }
+}

@@ -1,33 +1,31 @@
-import React, { useState } from "react";
-import "./RoomCard.scss";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import tmpImg from "@images/room.png";
-function RoomCard() {
-  const [room, setRoom] = useState("");
+import "./RoomCard.scss";
 
+function RoomCard({
+  roomId
+}) {
+  const navigate = useNavigate();
+  const onClickThumbnail = () => {
+    navigate(`/room/detail/${roomId}`);
+  };
   return (
-    <div className="roomCard">
-      <img src={tmpImg} alt="방 사진" />
-      <div className="roomCard_detail flex">
-        <div className="roomCard_detail_line1 flex notoBold fs-20">
-          <div className="roomCard_detail_line1_price">월세 300/25</div>
-          <div className="roomCard_detail_line1_shape">원룸</div>
+    <button type="button" onClick={onClickThumbnail}>
+      <div className="roomCard flex">
+        <div className="roomCard_img">
+          <img src={tmpImg} alt="방 사진" />
         </div>
-        <div className="roomCard_detail_line2 flex notoReg fs-15">
-          <div className="roomCard_detail_line2_region flex">광주 치평동</div>
-          <div className="roomCard_detail_line2_floor flex">3층</div>
-          <div className="roomCard_detail_line2_area flex">19.83㎡</div>
-        </div>
-        <div className="roomCard_detail_line3 flex notoReg fs-15">
-          <div className="roomCard_detail_line3_adminCost flex">
-            관리비 5만원
-          </div>
-          <div className="roomCard_detail_line3_elevator flex">
-            엘리베이터 O
+        <div className="roomCard_contents flex">
+          <div className="roomCard_contents_address shBold fs-24 flex">광주광역시 서구 치평동</div>
+          <div className="roomCard_contents_contract shBold fs-28 flex">월세 5000 / 100</div>
+          <div className="roomCard_contents_detail flex shBold fs-24">
+            <div className="roomCard_contents_detail_room">투룸 19.83㎡</div>
+            <div className="roomCard_contents_detail_floor">5층</div>
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
-
 export default RoomCard;

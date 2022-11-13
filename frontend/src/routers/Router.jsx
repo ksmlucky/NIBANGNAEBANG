@@ -11,6 +11,7 @@ import Home from "@screens/Home";
 // import FindPwCh from "@screens/user/FindPwCh";
 // import FindPwFinish from "@screens/user/FindPwFinish";
 import Login from "@screens/oauth/Login";
+import Oauth from "@screens/oauth/Oauth";
 import JoinName from "@screens/oauth/JoinName";
 import JoinNickname from "@screens/oauth/JoinNickname";
 import KakaoLogin from "@screens/oauth/KakaoLogin";
@@ -26,6 +27,8 @@ import NotFound from "@screens/NotFound";
 
 // room
 import RoomRegister from "@screens/room/RoomRegister";
+import RoomDetail from "@screens/room/RoomDetail";
+import RoomList from "@screens/room/RoomList";
 import RoomTrs from "@screens/room/RoomTrs";
 import TrsList from "@screens/room/TrsList";
 import RoomShow from "@screens/room/RoomShow";
@@ -45,6 +48,8 @@ function Router() {
       <Routes>
         {/* main */}
         <Route path="/" element={<Home />} />
+        {/* oauth */}
+        <Route path="/oauth" element={<Oauth />} />
         {/* login */}
         <Route path="/login/*">
           <Route path="" element={<Login />} />
@@ -79,6 +84,8 @@ function Router() {
         {/* Room */}
         <Route path="/room/*">
           <Route path="register" element={<RoomRegister />} />
+          <Route path="detail" element={<RoomDetail />} />
+          <Route path="roomlist" element={<RoomList />} />
           <Route path="roomtrs" element={<RoomTrs />} />
           <Route path="trslist" element={<TrsList />} />
           <Route path="showre" element={<RoomShow />} />

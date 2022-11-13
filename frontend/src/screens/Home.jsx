@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import moneyIcon from "@images/extra/money.png";
 import searchIcon from "@images/extra/search.png";
 import homeIcon from "@images/extra/house.png";
@@ -15,6 +16,9 @@ function Home() {
   const toRegister = () => {
     navigate("/room/register");
   };
+  const user = useSelector(state => state.user);
+  console.log(user);
+
   return (
     <div className="container">
       <div className="home_back  flex">

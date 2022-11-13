@@ -7,7 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import RoomCardList from "@components/room/RoomCardList";
+import RoomCardsList from "@components/room/RoomCardsList";
 import "./TrsList.scss";
 import KakaoMap from "@components/KakaoMap";
 
@@ -80,7 +80,7 @@ function TrsList() {
           </div>
           <div className="divide" />
           <div className="trsList_detail_rooms">
-            <RoomCardList />
+            <RoomCardsList />
           </div>
         </div>
       </div>

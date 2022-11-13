@@ -9,8 +9,6 @@ function RoomCardList() {
       <RoomCard />
       <RoomCard />
       <RoomCard />
-      <RoomCard />
-      <RoomCard />
     </div>
   );
 }
