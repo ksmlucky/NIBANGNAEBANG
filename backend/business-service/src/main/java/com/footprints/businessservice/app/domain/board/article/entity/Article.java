@@ -47,8 +47,7 @@ public class Article extends BaseEntity {
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Image> images;
 
-    @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "transfer_id")
+    @OneToOne(mappedBy = "article", cascade = CascadeType.ALL)
     private Transfer transfer;
 
     public void updateLikes(Integer count) {

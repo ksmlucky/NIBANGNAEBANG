@@ -52,20 +52,7 @@ public class ArticleServiceImpl implements ArticleService {
         Page<Article> articles = articleRepository.getArticleList(condition, pageRequest);
 
         return articles.stream()
-                .map(article -> {
-                    if (article != null && article.getCategory().equals("transfer")) {
-                        log.info("service| article.id -> {}, address -> {}", article.getId(), condition.getAddress());
-                        Transfer transfer = transferRepository
-                                .searchTransfer(article.getId(), condition.getAddress());
-                        log.info("service| transfer -> {}", transfer);
-                        TransferDto transferDto = null;
-                        if (transfer != null) {
-                            transferDto = transfer.toDto();
-                            return new ArticleDto(article, new CategoryDto(transferDto));
-                        }
-                    }
-                    return new ArticleDto(article);
-                })
+                .map(article -> new ArticleDto(article, condition))
                 .collect(Collectors.toList());
     }
 
@@ -97,7 +84,7 @@ public class ArticleServiceImpl implements ArticleService {
                             .floor(request.getTransferRequest().getFloor())
                             .heatingType(request.getTransferRequest().getHeatingType())
                             .rent(request.getTransferRequest().getRent())
-                            .option(request.getTransferRequest().getOption())
+                            .options(request.getTransferRequest().getOptions())
                             .parking(request.getTransferRequest().getParking())
                             .roomSize(request.getTransferRequest().getRoomSize())
                             .leasableArea(request.getTransferRequest().getLeasableArea())
@@ -116,6 +103,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public ArticleDto getArticle(Long articleId) {
         Article article = articleRepository.getArticle(articleId);
 

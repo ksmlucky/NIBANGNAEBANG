@@ -33,33 +33,22 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     public Page<Article> getArticleList(SortCondition condition, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(article)
-                        .leftJoin(article.images, image)
+                        .leftJoin(article.transfer, transfer)
                         .fetchJoin()
-                        .where(categoryEq(condition.getCategory()))
-                        .orderBy(sort(pageable)),
+                        .leftJoin(article.images, image)
+                        .where(
+                                categoryEq(condition.getCategory()),
+                                addressEq(condition.getAddress())
+                        ),
                 countQuery -> countQuery
                         .selectFrom(article)
+                        .leftJoin(article.transfer, transfer)
+                        .fetchJoin()
                         .leftJoin(article.images, image)
-                        .fetchJoin()
-                        .where(categoryEq(condition.getCategory()))
-                        .orderBy(sort(pageable))
-        );
-    }
-
-    @Override
-    public Page<Transfer> searchArticleList(SortCondition condition, Pageable pageable) {
-        return applyPagination(pageable, contentQuery -> contentQuery
-                        .selectFrom(transfer)
-                        .leftJoin(transfer.article, article)
-                        .fetchJoin()
-                        .where(addressEq(condition.getAddress()))
-                        .orderBy(sort(pageable)),
-                countQuery -> countQuery
-                        .selectFrom(transfer)
-                        .leftJoin(transfer.article, article)
-                        .fetchJoin()
-                        .where(addressEq(condition.getAddress()))
-                        .orderBy(sort(pageable))
+                        .where(
+                                categoryEq(condition.getCategory()),
+                                addressEq(condition.getAddress())
+                        )
         );
     }
 

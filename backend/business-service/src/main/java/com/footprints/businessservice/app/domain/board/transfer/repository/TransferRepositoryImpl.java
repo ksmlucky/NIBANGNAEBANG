@@ -20,21 +20,12 @@ public class TransferRepositoryImpl extends QuerydslRepositorySupport implements
     @Override
     public Transfer getTransferByArticleId(Long articleId) {
         return selectFrom(transfer)
+                .innerJoin(transfer.article)
                 .where(articleEq(articleId))
                 .fetchOne();
     }
 
     private BooleanExpression articleEq(Long articleId) {
         return transfer.article.id.eq(articleId);
-    }
-
-    @Override
-    public Transfer searchTransfer(Long articleId, String address) {
-        log.info("repo| articleId -> {}, address -> {}", articleId, address);
-        return selectFrom(transfer)
-                .leftJoin(transfer.article, article)
-                .fetchJoin()
-                .where(articleEq(articleId).and(transfer.address.contains(address)))
-                .fetchOne();
     }
 }

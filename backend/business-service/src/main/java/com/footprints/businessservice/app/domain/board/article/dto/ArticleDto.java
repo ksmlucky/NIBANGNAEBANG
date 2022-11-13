@@ -10,6 +10,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Slf4j
 public class ArticleDto {
 
     private Long id;
@@ -63,10 +65,14 @@ public class ArticleDto {
         this.createdAt = article.getCreatedAt();
     }
 
-    public ArticleDto(Article article, CategoryDto category) {
+    public ArticleDto(Article article, SortCondition condition) {
         ImageDto image = null;
         if (!article.getImages().isEmpty()) {
             image = imageToImageDto(article);
+        }
+
+        if (condition.getCategory() != null && condition.getCategory().equals("transfer")) {
+            this.categoryDetail = new CategoryDto(article.getTransfer().toDto());
         }
 
         this.id = article.getId();
@@ -78,8 +84,6 @@ public class ArticleDto {
         this.category = article.getCategory();
         this.image = image != null ? image : null;
         this.createdAt = article.getCreatedAt();
-        this.categoryDetail = category;
-
     }
 
     private ImageDto imageToImageDto(Article article) {
