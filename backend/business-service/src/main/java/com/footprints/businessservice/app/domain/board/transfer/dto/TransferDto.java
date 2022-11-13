@@ -57,6 +57,6 @@ public class TransferDto {
 
     private Boolean parking;
 
-    private String option;
+    private String options;
 
 }

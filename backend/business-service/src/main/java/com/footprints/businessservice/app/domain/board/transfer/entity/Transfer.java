@@ -119,7 +119,7 @@ public class Transfer {
     /**
      * 옵션
      */
-    private String option;
+    private String options;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public TransferDto toDto() {
@@ -145,7 +145,7 @@ public class Transfer {
                 .heatingType(heatingType)
                 .elevator(elevator)
                 .parking(parking)
-                .option(option)
+                .options(options)
                 .build();
     }
 }

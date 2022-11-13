@@ -1,10 +1,12 @@
 package com.footprints.businessservice.app.domain.board.transfer.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransferRequest {
 
     /**
@@ -95,5 +97,5 @@ public class TransferRequest {
     /**
      * 옵션
      */
-    private String option;
+    private String options;
 }
