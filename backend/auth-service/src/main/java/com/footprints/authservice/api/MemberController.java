@@ -167,7 +167,7 @@ public class MemberController {
         String selectNickname = memberService.selectNickname(memberId);
         SelectNicknameResponse selectNicknameResponse = new SelectNicknameResponse(selectNickname);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("닉네임 조회 완료", selectNicknameResponse));
+        return ResponseEntity.status(HttpStatus.OK).body(selectNicknameResponse);
     }
 
 
