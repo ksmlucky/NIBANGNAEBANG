@@ -22,16 +22,16 @@ spring:
       httpclient:
         ssl:
           useInsecureTrustManager: true
-#      default-filters:
-#        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
       globalcors:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           "[/**]":
             allowedOrigins: "http://localhost:3000" #"https://k7c109.p.ssafy.io"
-            allowedHeaders:
-              - authorization
-              - content-type
+            allowedHeaders: '*'
+#              - authorization
+#              - content-type
             allowedMethods:
               - GET
               - POST
@@ -69,7 +69,7 @@ spring:
             - Path=/auth-service/**
           filters:
             - RewritePath=/auth-service/(?<segment>.*), /$\{segment}
-            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+#            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
 
 eureka:
   instance:
