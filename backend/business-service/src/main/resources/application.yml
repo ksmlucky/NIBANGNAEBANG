@@ -88,5 +88,5 @@ cloud:
 
 auth_service:
   url: http://AUTH-SERVICE/api/%d/nickname
-    exception:
-      not_found_member: Member does not exist.
+  exception:
+    not_found_member: Member does not exist.
