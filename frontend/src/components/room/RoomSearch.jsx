@@ -23,6 +23,7 @@ const Post = (props) => {
   return (
     <>
       <DaumPostcode
+        defaultQuery="치평동"
         style={postCodeStyle}
         autoClose
         onComplete={onCompletePost}
