@@ -224,7 +224,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void updateArticle(String memberId, Long articleId, ArticleUpdateRequest request, List<MultipartFile> multipartFiles) {
-        Article article = articleRepository.getArticle(articleId);
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
+        Article article = articleRepository.getArticleWithNicknameAndArticleId(nickname, articleId);
         article.updateArticle(request);
 
         if (request.getImages() != null) {
@@ -235,7 +236,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void deleteArticle(String memberId, Long articleId) {
-        Article article = articleRepository.getArticleWithNickname(memberId);
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
+        Article article = articleRepository.getArticleWithNickname(nickname, articleId);
 
         if (article == null) {
             throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);

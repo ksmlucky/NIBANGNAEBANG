@@ -65,9 +65,19 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     }
 
     @Override
-    public Article getArticleWithNickname(String nickname) {
+    public Article getArticleWithNicknameAndArticleId(String nickname, Long articleId) {
         return selectFrom(article)
-                .where(article.writer.eq(nickname))
+                .leftJoin(article.images, image)
+                .fetchJoin()
+                .where(nicknameAndArticleEq(nickname, articleId))
+                .fetchOne();
+    }
+
+
+    @Override
+    public Article getArticleWithNickname(String nickname, Long articleId) {
+        return selectFrom(article)
+                .where(nicknameAndArticleEq(nickname, articleId))
                 .fetchOne();
     }
 
@@ -122,6 +132,10 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
 
     private BooleanExpression contentContains(String content) {
         return StringUtils.hasText(content) ? article.content.contains(content) : null;
+    }
+
+    private BooleanExpression nicknameAndArticleEq(String nickname, Long articleId) {
+        return article.writer.eq(nickname).and(article.id.eq(articleId));
     }
 
     private OrderSpecifier<?> sort(Pageable pageable) {
