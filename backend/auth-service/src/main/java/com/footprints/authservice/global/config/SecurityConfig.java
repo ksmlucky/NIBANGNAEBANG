@@ -28,33 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PERMIT_URL_ARRAY = {
             /* swagger v2 */
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
-            /* swagger v3 */
-            "/v3/api-docs/**",
-            "/swagger-ui/**",
-            "/favicon.ico",
-            /* custom oauth api */
-            "/oauth2/authorization/kakao",
-            "/oauth2/authorization/google",
-            "/test",
-            "/error",
-            "/health_check",
-            "/logout",
-            "/token/reissuance/*",
-            "/signup/**",
-            "/api/**",
-            "/ccccccc",
-            "/swagger-ui/index.html",
-            "/auth-service/swagger-ui/index.html",
-            "signup/members/info",
-            "/auth-service/actuator/busrefresh",
-            "/actuator/busrefresh"
+            "/**"
 
     };
 
@@ -89,10 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()// URL별 권한 권리
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().authenticated();
 
-                .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+//                .and()
+//                .apply(new JwtSecurityConfig(tokenProvider));
     }
 
 }

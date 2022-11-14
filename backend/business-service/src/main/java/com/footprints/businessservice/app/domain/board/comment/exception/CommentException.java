@@ -1,7 +1,7 @@
 package com.footprints.businessservice.app.domain.board.comment.exception;
 
-import com.footprints.businessservice.global.Exception.BaseException;
-import com.footprints.businessservice.global.Exception.BaseExceptionType;
+import com.footprints.businessservice.global.exception.BaseException;
+import com.footprints.businessservice.global.exception.BaseExceptionType;
 
 public class CommentException extends BaseException {
 
