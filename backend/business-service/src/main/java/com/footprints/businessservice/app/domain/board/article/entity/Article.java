@@ -3,12 +3,15 @@ package com.footprints.businessservice.app.domain.board.article.entity;
 import com.footprints.businessservice.app.domain.board.article.dto.ArticleUpdateRequest;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.entity.Image;
+import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -43,6 +46,9 @@ public class Article extends BaseEntity {
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Image> images;
+
+    @OneToOne(mappedBy = "article", cascade = CascadeType.ALL)
+    private Transfer transfer;
 
     public void updateLikes(Integer count) {
         this.likes += count;

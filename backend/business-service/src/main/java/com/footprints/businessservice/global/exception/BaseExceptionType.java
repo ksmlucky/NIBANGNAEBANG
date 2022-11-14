@@ -1,4 +1,4 @@
-package com.footprints.businessservice.global.Exception;
+package com.footprints.businessservice.global.exception;
 
 import org.springframework.http.HttpStatus;
 

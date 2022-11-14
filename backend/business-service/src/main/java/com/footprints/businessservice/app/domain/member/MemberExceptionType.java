@@ -1,16 +1,16 @@
-package com.footprints.businessservice.app.domain.board.comment.exception;
+package com.footprints.businessservice.app.domain.member;
 
 import com.footprints.businessservice.global.exception.BaseExceptionType;
 import org.springframework.http.HttpStatus;
 
-public enum CommentExceptionType implements BaseExceptionType {
-    NOT_FOUND_COMMENT(404,HttpStatus.NOT_FOUND,"댓글이 존재하지 않습니다.");
+public enum MemberExceptionType implements BaseExceptionType {
+    NOT_FOUND_MEMBER(404,HttpStatus.NOT_FOUND,"회원 정보가 올바르지 않습니다.");
 
     private int errorCode;
     private HttpStatus httpStatus;
     private String errorMessage;
 
-    CommentExceptionType(int errorCode, HttpStatus httpStatus, String errorMessage) {
+    MemberExceptionType(int errorCode, HttpStatus httpStatus, String errorMessage) {
         this.errorCode = errorCode;
         this.httpStatus = httpStatus;
         this.errorMessage = errorMessage;

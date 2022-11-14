@@ -1,16 +1,15 @@
-package com.footprints.businessservice.app.domain.board.article.exception;
+package com.footprints.businessservice.app.domain.member;
 
 import com.footprints.businessservice.global.exception.BaseException;
 import com.footprints.businessservice.global.exception.BaseExceptionType;
 
-public class ArticleException extends BaseException {
+public class MemberException extends BaseException {
 
     private BaseExceptionType exceptionType;
 
-    public ArticleException(BaseExceptionType exceptionType) {
+    public MemberException(BaseExceptionType exceptionType) {
         this.exceptionType = exceptionType;
     }
-
     @Override
     public BaseExceptionType getExceptionType() {
         return exceptionType;
