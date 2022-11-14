@@ -20,6 +20,7 @@ import static com.footprints.businessservice.app.domain.board.article.entity.QAr
 import static com.footprints.businessservice.app.domain.board.comment.entity.QComment.comment;
 import static com.footprints.businessservice.app.domain.board.image.entity.QImage.image;
 import static com.footprints.businessservice.app.domain.board.reply.entity.QReply.reply;
+import static com.footprints.businessservice.app.domain.board.transfer.entity.QTransfer.transfer;
 
 public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements ArticleRepositoryCustom {
 
@@ -31,17 +32,27 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     public Page<Article> getArticleList(SortCondition condition, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(article)
-                        .leftJoin(article.images, image)
+                        .leftJoin(article.transfer, transfer)
                         .fetchJoin()
-                        .where(categoryEq(condition.getCategory()))
-                        .orderBy(sort(pageable)),
+                        .leftJoin(article.images, image)
+                        .where(
+                                categoryEq(condition.getCategory()),
+                                addressEq(condition.getAddress())
+                        ),
                 countQuery -> countQuery
                         .selectFrom(article)
-                        .leftJoin(article.images, image)
+                        .leftJoin(article.transfer, transfer)
                         .fetchJoin()
-                        .where(categoryEq(condition.getCategory()))
-                        .orderBy(sort(pageable))
+                        .leftJoin(article.images, image)
+                        .where(
+                                categoryEq(condition.getCategory()),
+                                addressEq(condition.getAddress())
+                        )
         );
+    }
+
+    private BooleanExpression addressEq(String address) {
+        return StringUtils.hasText(address) ? transfer.address.contains(address) : null;
     }
 
     @Override
@@ -54,13 +65,9 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     }
 
     @Override
-    public Article getArticleWithCommentList(Long articleId) {
+    public Article getArticleWithNickname(String nickname) {
         return selectFrom(article)
-                .leftJoin(article.images, image)
-                .leftJoin(article.comments, comment)
-                .fetchJoin()
-                .leftJoin(comment.replies, reply)
-                .where(article.id.eq(articleId))
+                .where(article.writer.eq(nickname))
                 .fetchOne();
     }
 
@@ -76,13 +83,13 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                 .fetch();
     }
 
-
     @Override
     public Page<Article> searchArticle(SearchCondition condition, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(article)
+                        .innerJoin(article.transfer, transfer)
+                        .fetchJoin()
                         .where(
-                                categoryEq(condition.getCategory()),
                                 titleContains(condition.getTitle()),
                                 writerContains(condition.getWriter()),
                                 contentContains(condition.getContent())
@@ -90,8 +97,9 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                         .orderBy(article.createdAt.desc()),
                 countQuery -> countQuery
                         .selectFrom(article)
+                        .innerJoin(article.transfer, transfer)
+                        .fetchJoin()
                         .where(
-                                categoryEq(condition.getCategory()),
                                 titleContains(condition.getTitle()),
                                 writerContains(condition.getWriter()),
                                 contentContains(condition.getContent())

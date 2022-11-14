@@ -5,10 +5,12 @@ import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentDto;
 import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
 import com.footprints.businessservice.app.domain.board.image.entity.Image;
+import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Slf4j
 public class ArticleDto {
 
     private Long id;
@@ -49,6 +52,27 @@ public class ArticleDto {
         ImageDto image = null;
         if (!article.getImages().isEmpty()) {
             image = imageToImageDto(article);
+        }
+
+        this.id = article.getId();
+        this.title = article.getTitle();
+        this.writer = article.getWriter();
+        this.content = article.getContent();
+        this.hits = article.getHits();
+        this.likes = article.getLikes();
+        this.category = article.getCategory();
+        this.image = image != null ? image : null;
+        this.createdAt = article.getCreatedAt();
+    }
+
+    public ArticleDto(Article article, SortCondition condition) {
+        ImageDto image = null;
+        if (!article.getImages().isEmpty()) {
+            image = imageToImageDto(article);
+        }
+
+        if (condition.getCategory() != null && condition.getCategory().equals("transfer")) {
+            this.categoryDetail = new CategoryDto(article.getTransfer().toDto());
         }
 
         this.id = article.getId();

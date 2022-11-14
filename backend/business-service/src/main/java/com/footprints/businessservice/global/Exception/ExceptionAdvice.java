@@ -38,11 +38,11 @@ public class ExceptionAdvice {
         return new ResponseEntity(new ExceptionDto("json 파싱 과정에서 예외가 발생했습니다."), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity handleNullEx(Exception exception) {
-        log.error("NullPointerException 발생! {}", exception.getMessage());
-        return new ResponseEntity<>(new ExceptionDto("null 값을 참조하여 예외가 발생했습니다."), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(NullPointerException.class)
+//    public ResponseEntity handleNullEx(Exception exception) {
+//        log.error("NullPointerException 발생! {}", exception.getMessage());
+//        return new ResponseEntity<>(new ExceptionDto("null 값을 참조하여 예외가 발생했습니다."), HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity handleIoEx(IOException exception) {
