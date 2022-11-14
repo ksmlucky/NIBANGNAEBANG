@@ -10,11 +10,7 @@ plugins {
 	// querydsl 추가
 	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 	id 'java'
-<<<<<<< HEAD
-	//sonarqube
-=======
 	// sonarqube
->>>>>>> backend
 	id 'org.sonarqube' version '3.0'
 }
 
