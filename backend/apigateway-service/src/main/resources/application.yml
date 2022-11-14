@@ -66,9 +66,17 @@ spring:
         - id: auth-service
           uri: lb://AUTH-SERVICE
           predicates:
+            - Path=/auth-service/api/AT/**
+          filters:
+            - RewritePath=/auth-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
             - Path=/auth-service/**
           filters:
             - RewritePath=/auth-service/(?<segment>.*), /$\{segment}
+
 #            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
 
 eureka:
