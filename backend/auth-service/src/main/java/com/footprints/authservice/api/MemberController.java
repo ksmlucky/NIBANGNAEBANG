@@ -54,7 +54,7 @@ public class MemberController {
             @ApiResponse(responseCode = "409", description = "닉네임 중복입니다."),
             @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
     })
-    @PostMapping("/signup/{memberId}/nickname/duplicate")
+    @PostMapping("/nickname/duplicate")
     public ResponseEntity checkNickname(@PathVariable Long memberId, @RequestBody NicknameRequest nicknameRequest){
 
         if(memberService.checkNickname(memberId, nicknameRequest)){
@@ -73,7 +73,7 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
             @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
     })
-    @PostMapping("/{memberId}/di")
+    @PostMapping("/di")
     public ResponseEntity getDi(@RequestBody MemberInfoForDiRequest memberInfoForDiRequest) throws NoSuchAlgorithmException {
         String di = memberService.getDi(memberInfoForDiRequest);
 
@@ -87,7 +87,7 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
             @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
     })
-    @PostMapping("members")
+    @PostMapping("/signup")
     public ResponseEntity signUpAndSignInMember(@RequestBody MemberInfoRequest memberInfoRequest){
 
         //회원가입
