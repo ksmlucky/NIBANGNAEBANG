@@ -55,9 +55,9 @@ public class MemberController {
             @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
     })
     @PostMapping("/nickname/duplicate")
-    public ResponseEntity checkNickname(@PathVariable Long memberId, @RequestBody NicknameRequest nicknameRequest){
+    public ResponseEntity checkNickname(@RequestBody NicknameRequest nicknameRequest){
 
-        if(memberService.checkNickname(memberId, nicknameRequest)){
+        if(memberService.checkNickname(nicknameRequest)){
             // 닉네임 중복일때
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new MessageResponse("닉네임 중복입니다."));
         }else{

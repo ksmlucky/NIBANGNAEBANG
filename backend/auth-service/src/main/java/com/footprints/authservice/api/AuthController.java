@@ -29,16 +29,23 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
     })
     @GetMapping("/reissuance/{refreshToken}")
-    public ResponseEntity reissueRefreshToken(HttpServletResponse response, @RequestHeader("X-Authorization-Id") String memberId, @PathVariable String refreshToken){
+    public ResponseEntity reissueRefreshToken(HttpServletResponse response,
+                                              @RequestHeader("X-Authorization-Id") String memberId,
+                                              @PathVariable String refreshToken) {
 
         String newRefreshToken = authService.reissueRefreshToken(memberId, refreshToken);
 
-//        ResponseCookie cookie = new ResponseCookie.from("refreshToken", newRefreshToken)
-//                .maxAge(7*24*60*60)
-//                .path("/")
-//                .secure(true)
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", newRefreshToken)
+                .maxAge(7 * 24 * 60 * 60)
+                .path("/")
+                .secure(true)
+                .sameSite("None")
+                .httpOnly(true)
+                .build();
 
-        if(newRefreshToken == null){
+        response.setHeader("Set-Cookie", cookie.toString());
+
+        if (newRefreshToken == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponse("유효하지 않은 리프레쉬 토큰입니다."));
         }
 
