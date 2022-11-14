@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Data
 public class MessageDto {
     private Long id;
-    private Long sendMember;
-    private Long receiveMember;
+    private String sendMember;
+    private String receiveMember;
     private LocalDateTime createdAt;
     private String title;
     private String content;

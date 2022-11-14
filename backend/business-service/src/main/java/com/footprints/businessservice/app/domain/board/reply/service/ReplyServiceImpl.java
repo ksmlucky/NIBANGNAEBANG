@@ -1,5 +1,7 @@
 package com.footprints.businessservice.app.domain.board.reply.service;
 
+import com.footprints.businessservice.app.domain.board.comment.exception.CommentException;
+import com.footprints.businessservice.app.domain.board.comment.exception.CommentExceptionType;
 import com.footprints.businessservice.app.domain.board.reply.dto.ReplyRequest;
 import com.footprints.businessservice.app.domain.board.reply.exception.ReplyException;
 import com.footprints.businessservice.app.domain.board.reply.exception.ReplyExceptionType;
@@ -8,6 +10,7 @@ import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.comment.repository.CommentRepository;
 import com.footprints.businessservice.app.domain.board.reply.dto.ReplyDto;
 import com.footprints.businessservice.app.domain.board.reply.entity.Reply;
+import com.footprints.businessservice.app.domain.member.MemberServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
 public class ReplyServiceImpl implements ReplyService{
     private final ReplyRepository replyRepository;
     private final CommentRepository commentRepository;
+    private final MemberServiceClient memberServiceClient;
 
 
     @Override
@@ -44,10 +48,11 @@ public class ReplyServiceImpl implements ReplyService{
         Comment comment = commentRepository.getComment(commentId);
 
         // memberId로 해당 멤버의 닉네임을 찾아서 밑에서 build 해줌
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
         Reply reply = Reply.builder()
                 .content(request.getContent())
-//                .writer(request.getWriter())
+                .writer(nickname)
                 .comment(comment)
                 .build();
 
@@ -61,9 +66,14 @@ public class ReplyServiceImpl implements ReplyService{
                 .orElseThrow(() -> new ReplyException(ReplyExceptionType.NOT_FOUND_REPLY));
 
         // memberId로 해당 멤버의 닉네임을 찾아서 위의 reply.getWriter()와 비교 후 같으면 수정 가능
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
-        reply.changeIsUpdated();
-        reply.updateContent(request.getContent());
+        if (reply.getWriter().equals(nickname)) {
+            reply.updateContent(request.getContent());
+            reply.changeIsUpdated();
+        } else {
+            throw new ReplyException(ReplyExceptionType.NOT_MATCH_NICKNAME);
+        }
     }
 
     @Override
@@ -74,7 +84,12 @@ public class ReplyServiceImpl implements ReplyService{
                 .orElseThrow(() -> new ReplyException(ReplyExceptionType.NOT_FOUND_REPLY));
 
         // memberId로 해당 멤버의 닉네임을 찾아서 위의 reply.getWriter()와 비교 후 같으면 수정 가능
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
-        reply.changeIsDeleted();
+        if (reply.getWriter().equals(nickname)) {
+            reply.changeIsDeleted();
+        } else {
+            throw new ReplyException(ReplyExceptionType.NOT_MATCH_NICKNAME);
+        }
     }
 }

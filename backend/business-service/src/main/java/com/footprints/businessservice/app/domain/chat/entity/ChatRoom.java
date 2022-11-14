@@ -64,6 +64,5 @@ public class ChatRoom {
         private Long id;
         // nickname
         private String nickname;
-
     }
 }

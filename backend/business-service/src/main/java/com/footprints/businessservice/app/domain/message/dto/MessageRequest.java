@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MessageRequest {
-    private Long receiveMember;
+    private String receiveMember;
     private String title;
     private String content;
 }
