@@ -10,14 +10,16 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/sub");
-        registry.setApplicationDestinationPrefixes("/pub");
+//        registry.enableSimpleBroker("/sub", "/topic");
+//        registry.enableSimpleBroker("/sub");
+        registry.enableSimpleBroker("/topic");
+//        registry.setApplicationDestinationPrefixes("/pub");
+        registry.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws/chat")
-                .setAllowedOriginPatterns("*")
+        registry.addEndpoint("/ws/chat").setAllowedOriginPatterns("*")
                 .withSockJS();
     }
 }

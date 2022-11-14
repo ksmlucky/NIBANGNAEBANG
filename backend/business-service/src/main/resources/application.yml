@@ -25,3 +25,13 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
+
+# freemarker
+  devtools:
+    restart:
+      enabled: false
+  freemarker:
+    cache: false
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
