@@ -46,6 +46,7 @@ function JoinNickname() {
       nickname: userNickname,
     });
     if (res.message === "성공") {
+      console.log(res.data);
       navigate("/");
     }
   };
