@@ -14,6 +14,7 @@ import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
 import com.footprints.businessservice.app.domain.board.image.service.ImageService;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
+import com.footprints.businessservice.app.domain.board.transfer.dto.TransferRequest;
 import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.footprints.businessservice.app.domain.board.transfer.repository.TransferRepository;
 import com.footprints.businessservice.app.domain.member.MemberServiceClient;
@@ -62,35 +63,37 @@ public class ArticleServiceImpl implements ArticleService {
     public void saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles) {
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
+        ArticleRequest articleRequest = request.getArticleRequest();
         Article article = Article.builder()
-                .title(request.getArticleRequest().getTitle())
+                .title(articleRequest.getTitle())
                 .writer(nickname)
-                .content(request.getArticleRequest().getContent())
+                .content(articleRequest.getContent())
                 .hits(0)
                 .likes(0)
-                .category(request.getArticleRequest().getCategory())
+                .category(articleRequest.getCategory())
                 .build();
 
-        if (request.getArticleRequest().getCategory().equals(TRANSFER)) {
+        if (articleRequest.getCategory().equals(TRANSFER)) {
+            TransferRequest transferRequest = request.getTransferRequest();
             transferRepository.save(
                     Transfer.builder()
-                            .roomType(request.getTransferRequest().getRoomType())
-                            .buildingType(request.getTransferRequest().getBuildingType())
-                            .contractType(request.getTransferRequest().getContractType())
-                            .address(request.getTransferRequest().getAddress())
-                            .elevator(request.getTransferRequest().getElevator())
-                            .deposit(request.getTransferRequest().getDeposit())
-                            .startDate(request.getTransferRequest().getStartDate())
-                            .endDate(request.getTransferRequest().getEndDate())
-                            .floor(request.getTransferRequest().getFloor())
-                            .heatingType(request.getTransferRequest().getHeatingType())
-                            .rent(request.getTransferRequest().getRent())
-                            .options(request.getTransferRequest().getOptions())
-                            .parking(request.getTransferRequest().getParking())
-                            .roomSize(request.getTransferRequest().getRoomSize())
-                            .leasableArea(request.getTransferRequest().getLeasableArea())
-                            .supplyArea(request.getTransferRequest().getSupplyArea())
-                            .totalFloor(request.getTransferRequest().getTotalFloor())
+                            .roomType(transferRequest.getRoomType())
+                            .buildingType(transferRequest.getBuildingType())
+                            .contractType(transferRequest.getContractType())
+                            .address(transferRequest.getAddress())
+                            .elevator(transferRequest.getElevator())
+                            .deposit(transferRequest.getDeposit())
+                            .startDate(transferRequest.getStartDate())
+                            .endDate(transferRequest.getEndDate())
+                            .floor(transferRequest.getFloor())
+                            .heatingType(transferRequest.getHeatingType())
+                            .rent(transferRequest.getRent())
+                            .options(transferRequest.getOptions())
+                            .parking(transferRequest.getParking())
+                            .roomSize(transferRequest.getRoomSize())
+                            .leasableArea(transferRequest.getLeasableArea())
+                            .supplyArea(transferRequest.getSupplyArea())
+                            .totalFloor(transferRequest.getTotalFloor())
                             .article(article)
                             .build()
             );
