@@ -16,6 +16,7 @@ import com.footprints.businessservice.app.domain.board.image.service.ImageServic
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
 import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.footprints.businessservice.app.domain.board.transfer.repository.TransferRepository;
+import com.footprints.businessservice.app.domain.member.MemberServiceClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -40,6 +41,7 @@ public class ArticleServiceImpl implements ArticleService {
     private final ScrappedArticleRepository scrappedArticleRepository;
     private final TransferRepository transferRepository;
     private final ImageService imageService;
+    private final MemberServiceClient memberServiceClient;
 
     private static final String TRANSFER = "transfer";
 
@@ -59,10 +61,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public void saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles) {
         // Auth-Service 에 memberId로 로그인한 사용자 이름 조회 후 writer 필드에 저장
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
         Article article = Article.builder()
                 .title(request.getArticleRequest().getTitle())
-                .writer(request.getArticleRequest().getWriter())
+                .writer(nickname)
                 .content(request.getArticleRequest().getContent())
                 .hits(0)
                 .likes(0)
