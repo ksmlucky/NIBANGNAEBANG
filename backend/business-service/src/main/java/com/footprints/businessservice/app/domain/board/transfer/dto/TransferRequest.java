@@ -44,14 +44,29 @@ public class TransferRequest {
      */
     private LocalDate endDate;
 
+    /**
+     * 주소
+     */
     private String address;
 
+    /**
+     * 위도
+     */
     private Double latitude;
 
+    /**
+     * 경도
+     */
     private Double longitude;
 
+    /**
+     * 동 수
+     */
     private String buildingNumber;
 
+    /**
+     * 호 수
+     */
     private String unitNumber;
 
     /**

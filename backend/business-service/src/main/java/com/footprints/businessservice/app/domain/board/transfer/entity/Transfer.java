@@ -3,6 +3,7 @@ package com.footprints.businessservice.app.domain.board.transfer.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
+import com.footprints.businessservice.app.domain.board.transfer.dto.TransferRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -147,5 +148,27 @@ public class Transfer {
                 .parking(parking)
                 .options(options)
                 .build();
+    }
+
+    public void updateTransfer(TransferRequest request) {
+        this.roomType = request.getRoomType();
+        this.buildingType = request.getBuildingType();
+        this.contractType = request.getContractType();
+        this.deposit = request.getDeposit();
+        this.rent = request.getRent();
+        this.startDate = request.getStartDate();
+        this.endDate = request.getEndDate();
+        this.address = request.getAddress();
+        this.latitude = request.getLatitude();
+        this.longitude = request.getLongitude();
+        this.buildingNumber = request.getBuildingNumber();
+        this.unitNumber = request.getUnitNumber();
+        this.supplyArea = request.getSupplyArea();
+        this.leasableArea = request.getLeasableArea();
+        this.roomSize = request.getRoomSize();
+        this.totalFloor = request.getTotalFloor();
+        this.elevator = request.getElevator();
+        this.parking = request.getParking();
+        this.options = request.getOptions();
     }
 }

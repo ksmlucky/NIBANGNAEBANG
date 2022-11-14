@@ -229,6 +229,11 @@ public class ArticleServiceImpl implements ArticleService {
     public void updateArticle(String memberId, Long articleId, ArticleUpdateRequest request, List<MultipartFile> multipartFiles) {
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
         Article article = articleRepository.getArticleWithNicknameAndArticleId(nickname, articleId);
+
+        if (request.getTransfer() != null && article.getCategory().equals(TRANSFER)) {
+            article.getTransfer().updateTransfer(request.getTransfer());
+        }
+
         article.updateArticle(request);
 
         if (request.getImages() != null) {
