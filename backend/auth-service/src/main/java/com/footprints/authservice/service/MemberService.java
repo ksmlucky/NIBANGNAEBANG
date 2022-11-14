@@ -34,7 +34,7 @@ public class MemberService {
         findMember.updateNickname(nicknameRequest.getNickname());
     }
 
-    public boolean checkNickname(Long memberId, NicknameRequest nicknameRequest) {
+    public boolean checkNickname(NicknameRequest nicknameRequest) {
         Optional<Member> findMember = memberRepository.findByNickname(nicknameRequest.getNickname());
 
         if (findMember.isPresent()) {
