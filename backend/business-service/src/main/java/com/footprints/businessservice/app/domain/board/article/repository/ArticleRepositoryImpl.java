@@ -60,7 +60,7 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
         return selectFrom(article)
                 .leftJoin(article.images, image)
                 .fetchJoin()
-                .where(article.id.eq(articleId))
+                .where(articleEq(articleId))
                 .fetchOne();
     }
 
@@ -89,8 +89,12 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                 .fetchJoin()
                 .leftJoin(comment.replies, reply)
                 .fetchJoin()
-                .where(article.id.eq(articleId))
+                .where(articleEq(articleId))
                 .fetch();
+    }
+
+    private static BooleanExpression articleEq(Long articleId) {
+        return article.id.eq(articleId);
     }
 
     @Override
@@ -135,7 +139,7 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     }
 
     private BooleanExpression nicknameAndArticleEq(String nickname, Long articleId) {
-        return article.writer.eq(nickname).and(article.id.eq(articleId));
+        return article.writer.eq(nickname).and(articleEq(articleId));
     }
 
     private OrderSpecifier<?> sort(Pageable pageable) {
