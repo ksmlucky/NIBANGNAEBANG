@@ -34,18 +34,18 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @Operation(summary = "닉네임 추가하기", description = "닉네임을 추가합니다.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "닉네임 설정 완료"),
-            @ApiResponse(responseCode = "400", description = "잘못된 접근입니다."),
-            @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
-            @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
-    })
-    @PutMapping("/signup/{memberId}/nickname")
-    public ResponseEntity insertNickname(@PathVariable Long memberId, @RequestBody NicknameRequest nicknameRequest){
-        memberService.insertNickname(memberId, nicknameRequest);
-        return new ResponseEntity<>(new MessageResponse("닉네임 설정 완료"), HttpStatus.OK);
-    }
+//    @Operation(summary = "닉네임 추가하기", description = "닉네임을 추가합니다.")
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "200", description = "닉네임 설정 완료"),
+//            @ApiResponse(responseCode = "400", description = "잘못된 접근입니다."),
+//            @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
+//            @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
+//    })
+//    @PutMapping("/signup/{memberId}/nickname")
+//    public ResponseEntity insertNickname(@PathVariable Long memberId, @RequestBody NicknameRequest nicknameRequest){
+//        memberService.insertNickname(memberId, nicknameRequest);
+//        return new ResponseEntity<>(new MessageResponse("닉네임 설정 완료"), HttpStatus.OK);
+//    }
 
     @Operation(summary = "닉네임 중복 체크하기", description = "사용하려는 닉네임 중복 체크를 진행합니다.")
     @ApiResponses({
@@ -106,7 +106,7 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
             @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
     })
-    @PutMapping("/{memberId}/nickname")
+    @PutMapping("/AT/{memberId}/nickname")
     public ResponseEntity updateNickname(@PathVariable Long memberId, @RequestBody NicknameRequest nicknameRequest){
         memberService.updateNickname(memberId, nicknameRequest);
 
@@ -146,7 +146,7 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
             @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
     })
-    @DeleteMapping("withdrawal/{memberId}")
+    @DeleteMapping("/AT/withdrawal/{memberId}")
     public ResponseEntity memberWithdrawal(@PathVariable Long memberId){
         memberService.memberWithdrawal(memberId);
 

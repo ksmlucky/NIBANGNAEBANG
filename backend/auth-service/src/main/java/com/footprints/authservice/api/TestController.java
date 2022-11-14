@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("/api")
 public class TestController {
 
-    @GetMapping("/")
+    @GetMapping("/test")
     public String test(){
         return "보이냐?";
     }
 
-    @GetMapping("/header")
+    @GetMapping("/AT/header")
     public String header(@RequestHeader("X-Authorization-Id") String memberId, HttpServletRequest request){
         log.info(request.toString());
         log.info("===================================");
