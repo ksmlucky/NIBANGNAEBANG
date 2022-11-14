@@ -6,17 +6,17 @@ export const login = async (body) => {
 };
 // di 보내기
 export const sendDi = async (body) => {
-  const res = await API.post("di", body);
+  const res = await API.post("auth-service/api/di", body);
   return res.data;
 };
 // 닉네임 중복체크
 export const checkNickname = async (body) => {
-  const res = await API.post("nickname/duplicate", body);
+  const res = await API.post("auth-service/api/nickname/duplicate", body);
   return res.data;
 };
 // 가입 최종절차
 export const checkJoin = async (body) => {
-  const res = await API.post("api/signup", body);
+  const res = await API.post("auth-service/api/signup", body);
   return res.data;
 };
 // 아이디 찾기

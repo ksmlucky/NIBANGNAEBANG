@@ -21,12 +21,13 @@ function JoinNickname() {
   const [passNickname, setPassNickname] = useState(false);
   const pvd = useSelector((state) => state.user);
   console.log(pvd);
+  // const currentNickname = nicknameInput.current.value;
   const checkNick = async () => {
     if (nicknameInput.current.value !== "") {
       const res = await checkNickname({
         nickname: nicknameInput.current.value,
       });
-      setPassNickname(true);
+      // setPassNickname(true);
       console.log(res);
     } else {
       window.alert("닉네임을 입력해주세요");
@@ -34,12 +35,19 @@ function JoinNickname() {
   };
   const joinFinish = async () => {
     dispatch(setNickname(nicknameInput.current.value));
+    const userDi = pvd.di;
+    const userProvider = pvd.provider;
+    const userProviderId = pvd.providerId;
+    const userNickname = nicknameInput.current.value;
     const res = await checkJoin({
-      di: "",
-      provider: "",
-      providerId: "",
-      nickname: nicknameInput.current.value,
+      di: userDi,
+      provider: userProvider,
+      providerId: userProviderId,
+      nickname: userNickname,
     });
+    if (res.message === "성공") {
+      navigate("/");
+    }
   };
   return (
     <div className="container flex">

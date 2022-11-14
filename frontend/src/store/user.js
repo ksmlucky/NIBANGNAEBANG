@@ -12,6 +12,7 @@ const initialState = {
   tel: null,
   provider: null,
   providerId: null,
+  di: null,
   // isSocial: null,
 };
 export const userSlice = createSlice({
@@ -30,6 +31,9 @@ export const userSlice = createSlice({
     },
     setProviderId: (state, action) => {
       state.providerId = action.payload;
+    },
+    setDi: (state, action) => {
+      state.di = action.payload;
     },
     setNickname: (state, action) => {
       state.nickname = action.payload;
@@ -51,6 +55,7 @@ export const userSlice = createSlice({
       state.tel = action.payload.tel;
       state.provider = action.payload.provider;
       state.providerId = action.payload.providerId;
+      state.di = action.payload.di;
       // state.isSocial = action.payload.isSocial;
     },
     updateUserInfo: (state, action) => {
@@ -89,6 +94,7 @@ export const {
   setProviderId,
   setName,
   setBirth,
+  setDi,
 } = userSlice.actions;
 
 // export const setProvider = userSlice.actions.setProvider;

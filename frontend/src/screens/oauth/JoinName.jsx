@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import queryString from "query-string";
-import { setName, setBirth } from "@store/user";
+import { setName, setBirth, setDi } from "@store/user";
 import { sendDi } from "../../apis/user";
 import "./JoinName.scss";
 
@@ -33,17 +33,22 @@ function JoinName() {
     }
   };
   const toNickname = async () => {
-    // setUserName(nameInput.current.value);
-    console.log(birthError);
-    if (birthError === false && nameInput.current.value !== "") {
-      dispatch(setName(nameInput.current.value));
-      dispatch(setBirth(birthInput.current.value));
-      // setTimeout(() => {
+    // console.log(birthError);
+    // console.log(pvd);
+    const userName = nameInput.current.value;
+    const birthday = birthInput.current.value;
+    if (birthError === false && userName !== "") {
+      dispatch(setName(userName));
+      dispatch(setBirth(birthday));
       const res = await sendDi({
-        name: nameInput.current.value,
-        birth: birthInput.current.value,
+        name: userName,
+        birth: birthday,
       });
-      console.log(res);
+      if (res.message === "본인 인증 완료") {
+        dispatch(setDi(res.data.di));
+        navigate("/login/joinnickname");
+      }
+      // .then(navigate("/login/joinnickname"));
       // navigate("/login/joinnickname");
       // }, 500);
     } else {

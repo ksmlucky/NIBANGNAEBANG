@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "https://k7c109.p.ssafy.io/";
+export const BASE_URL = "https://k7c109.p.ssafy.io:8080/";
 
 export const API = axios.create({
   baseURL: BASE_URL,
@@ -10,7 +10,7 @@ export const API = axios.create({
 export const API_USER = axios.create({
   baseURL: BASE_URL, // 기본 서버 url
   headers: {
-    "Access-Control-Allow-Origin": "https://k7c109.p.ssafy.io/",
+    "Access-Control-Allow-Origin": "https://k7c109.p.ssafy.io:8080/",
     Authorization: `Bearer-${sessionStorage.getItem("accessToken")}`,
   },
 });

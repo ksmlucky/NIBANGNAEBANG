@@ -14,15 +14,42 @@
   }
   &_contents {
     width: (1200px);
+    align-items: center;
+    flex-direction: column;
     &_top {
       &_contract {
+        color: #2c4b48;
         width: (400px);
+        border: 1px solid rgba(219, 219, 219, 0.5);
+        background-color: rgba(219, 219, 219, 0.25);
+        border-radius: (12px);
+        &_txt {
+          // width: auto;
+          margin-left: (12px);
+        }
       }
+      // margin: 0 (200px) 0 (200px);
       justify-content: space-between;
       align-items: flex-end;
       color: #2c4b48;
-      margin: 0 (200px) 0 (200px);
       width: (800px);
+    }
+    &_body {
+      margin-top: (30px);
+      &_detail {
+        width: (600px);
+        justify-content: center;
+        margin: 0 (100px) 0 (100px);
+        border-radius: (20px);
+        background-color: rgba(219, 219, 219, 0.25);
+      }
+      &_plus {
+        width: (300px);
+        justify-content: center;
+        margin-right: (100px);
+        border-radius: (20px);
+        background-color: rgba(219, 219, 219, 0.25);
+      }
     }
   }
 }
