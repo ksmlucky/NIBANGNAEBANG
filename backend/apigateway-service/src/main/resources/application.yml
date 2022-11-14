@@ -51,7 +51,7 @@ spring:
         - id: business-service
           uri: lb://BUSINESS-SERVICE
           predicates:
-            - Path=/business-service/api/AT/**
+            - Path=/business-service/api/*/AT/**
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/business-service/(?<segment>.*), /$\{segment}
