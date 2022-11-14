@@ -19,9 +19,7 @@ spring:
 #            - configuration
           username: simjaeseo
           password: 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
-          default-label: master
-#        default-label: backend
-
+          
 management:
   endpoints:
     web:
