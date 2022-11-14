@@ -1,6 +1,6 @@
 package com.footprints.businessservice.app.domain.board.comment.exception;
 
-import com.footprints.businessservice.global.Exception.BaseExceptionType;
+import com.footprints.businessservice.global.exception.BaseExceptionType;
 import org.springframework.http.HttpStatus;
 
 public enum CommentExceptionType implements BaseExceptionType {

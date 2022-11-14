@@ -60,9 +60,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles) {
-        // Auth-Service 에 memberId로 로그인한 사용자 이름 조회 후 writer 필드에 저장
-        log.info("memberServiceClient.selectNickname() -> {}", memberServiceClient.selectNickname(Long.parseLong(memberId)));
-        log.info("memberServiceClient.selectNickname() -> {}", memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname());
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
         Article article = Article.builder()
