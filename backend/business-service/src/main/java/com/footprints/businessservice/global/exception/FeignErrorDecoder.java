@@ -1,5 +1,7 @@
 package com.footprints.businessservice.global.exception;
 
+import com.footprints.businessservice.app.domain.member.MemberException;
+import com.footprints.businessservice.app.domain.member.MemberExceptionType;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
                 break;
             case 404:
                 if (methodKey.contains("selectNickname")) {
-                    return new ResponseStatusException(HttpStatus.valueOf(response.status()),
-                            env.getProperty("auth_service.exception.not_found_member"));
+                    return new MemberException(MemberExceptionType.NOT_FOUND_MEMBER);
                 }
                 break;
             default:
