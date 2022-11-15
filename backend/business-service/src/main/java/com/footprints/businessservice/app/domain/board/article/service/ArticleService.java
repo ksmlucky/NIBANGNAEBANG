@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable);
+    ArticleResponse getArticleList(SortCondition condition, Pageable pageable);
 
     void saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles);
 

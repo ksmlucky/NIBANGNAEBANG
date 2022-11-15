@@ -48,15 +48,17 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
-    public List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable) {
+    public ArticleResponse getArticleList(SortCondition condition, Pageable pageable) {
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
                 Sort.by(Sort.Direction.DESC, condition.getSort() == null ? "createdAt" : condition.getSort()));
 
         Page<Article> articles = articleRepository.getArticleList(condition, pageRequest);
 
-        return articles.stream()
+        List<ArticleDto> articleList = articles.stream()
                 .map(article -> new ArticleDto(article, condition))
                 .collect(Collectors.toList());
+
+        return new ArticleResponse(articleList, articles.getTotalElements());
     }
 
     @Override
