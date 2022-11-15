@@ -5,11 +5,11 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class diResponse {
+public class DiSignInResponse {
 
-    private String di;
+    private boolean diSignIn;
 
-    public void updateDi(String di){
-        this.di = di;
+    public void updateDi(boolean diSignIn){
+        this.diSignIn = diSignIn;
     }
 }
