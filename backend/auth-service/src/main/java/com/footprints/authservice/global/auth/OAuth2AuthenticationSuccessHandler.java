@@ -4,6 +4,8 @@ import com.footprints.authservice.client.BusinessServiceClient;
 import com.footprints.authservice.domain.Member;
 import com.footprints.authservice.global.jwt.TokenProvider;
 import com.footprints.authservice.repository.MemberRepository;
+import com.footprints.authservice.service.MemberService;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -24,6 +26,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private final TokenProvider tokenProvider;
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
     private final BusinessServiceClient businessServiceClient;
 
     @Override
@@ -63,6 +66,26 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private String makeRedirectUrl(String provider, String providerId, boolean isExisted) {
 
+        if(isExisted){
+
+            Optional<Member> findMember = null;
+            if(provider.equals("kakao")){
+                findMember = memberRepository.findByKakaoProviderId(providerId);
+            }else if(provider.equals("google")){
+                findMember = memberRepository.findByGoogleProviderId(providerId);
+            }
+
+            Map<String, String> tokens = memberService.signInMember(findMember.get().getId());
+
+
+            return UriComponentsBuilder.fromUriString("http://localhost:3000/oauth")
+                    .queryParam("provider", provider)
+                    .queryParam("providerId", providerId)
+                    .queryParam("isExisted", isExisted)
+                    .queryParam("accessToken", tokens.get("accessToken"))
+                    .queryParam("refreshToken", tokens.get("refreshToken"))
+                    .build().toUriString();
+        }
 
         return UriComponentsBuilder.fromUriString("http://localhost:3000/oauth")
                 .queryParam("provider", provider)
