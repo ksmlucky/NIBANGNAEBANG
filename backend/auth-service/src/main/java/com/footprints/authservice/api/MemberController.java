@@ -61,7 +61,7 @@ public class MemberController {
         }
     }
 
-    @Operation(summary = "이름, 생년월일로 DI 발급", description = "해당 회원의 이름, 생년월일로 DI를 발급합니다.")
+    @Operation(summary = "이름, 생년월일로 DI 발급, DI 조회시 멤버가 존재한다면 회원가입처리 후 응답", description = "해당 회원의 이름, 생년월일로 DI를 발급합니다. 만약, di로 조회 시 멤버가 존재한다면 회원가입을 진행한 후 diSignIn을 true로 반환합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "DI 발급 완료"),
             @ApiResponse(responseCode = "400", description = "잘못된 접근입니다."),
@@ -70,9 +70,9 @@ public class MemberController {
     })
     @PostMapping("/di")
     public ResponseEntity getDi(@RequestBody MemberInfoForDiRequest memberInfoForDiRequest) throws NoSuchAlgorithmException {
-        boolean diSignIn = memberService.getDi(memberInfoForDiRequest);
+        Map<String, String> result = memberService.getDi(memberInfoForDiRequest);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("본인 인증 완료", new DiSignInResponse(diSignIn)));
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("본인 인증 완료", result));
     }
 
     @Operation(summary = "회원 정보 추가하기", description = "회원의 닉네임, provider, providerId, di를 기반으로 소셜로그인 회원가입/통합처리/로그인을 진행한 후 jwt를 발급합니다.")
