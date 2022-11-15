@@ -19,7 +19,6 @@ import java.io.IOException;
 @Slf4j
 public class OAuth2LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
-    private final AuthService authService;
     private final ObjectMapper objectMapper;
 
     @Override
@@ -27,9 +26,7 @@ public class OAuth2LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
                                 HttpServletResponse response,
                                 Authentication authentication) throws IOException, ServletException {
 
-        String authorization = request.getHeader("Authorization");
-
-//        authService.logout(authorization.replace("Bearer ", ""));
+        String authorization = request.getHeader("X-Authorization-Id");
 
         if (response.isCommitted()) {
             log.debug("응답이 이미 커밋된 상태입니다. " + "/logout-success" + "로 리다이렉트하도록 바꿀 수 없습니다.");
