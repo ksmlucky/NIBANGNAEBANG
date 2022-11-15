@@ -19,6 +19,11 @@ export const checkJoin = async (body) => {
   const res = await API.post("auth-service/api/signup", body);
   return res.data;
 };
+// 닉네임 변경
+export const checkRename = async (body) => {
+  const res = await API.post("auth-service/api/AT/nickname", body);
+  return res.data;
+};
 // 아이디 찾기
 export const findId = async (phone) => {
   const res = await API.get(`user/findId/${phone}`, {

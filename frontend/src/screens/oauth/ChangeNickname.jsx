@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import CheckIcon from "@mui/icons-material/Check";
-import { checkNickname } from "../../apis/user";
+import { checkNickname, checkRename } from "../../apis/user";
 import { setNickname } from "@store/user";
 import Profile from "@images/extra/profile.png";
 import "./ChangeNickname.scss";
@@ -15,6 +15,7 @@ const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 const REDIRECT_URI = "http://j7c105.p.ssafy.io/oauth/kakao";
 
 function ChangeNickname() {
+  const dispatch = useDispatch();
   const nicknameInput = useRef();
   const { sessionStorage } = window;
   const nickName = sessionStorage.getItem("userNickname");
@@ -50,6 +51,24 @@ function ChangeNickname() {
     } else {
       setMessage("닉네임을 입력해주세요.");
       setPassNickname(false);
+      setAlert(true);
+    }
+  };
+  const changeFinish = async () => {
+    if (passNickname === true) {
+      dispatch(setNickname(nicknameInput.current.value));
+      const nickname = userNickname;
+      const res = await checkRename({
+        nickname: nickname,
+      });
+      if (res.message === "성공") {
+        sessionStorage.setItem("userNickname", nickname);
+        // navigate("/");
+        console.log(nickname);
+      }
+      // console.log(res);
+    } else {
+      setMessage("중복확인을 진행해주세요.");
       setAlert(true);
     }
   };
@@ -106,17 +125,24 @@ function ChangeNickname() {
             </div>
           </div>
           <div className="changeNickname_box_btns flex">
-            <button className="changeNickname_box_btns_confirm" type="button">
+            <button
+              className="changeNickname_box_btns_confirm"
+              type="button"
+              onClick={changeFinish}
+            >
               <CheckIcon
                 sx={{ color: "#909090", fontSize: 52 }}
                 className="changeNickname=box_btns_confirm_btn"
               />
             </button>
-            <button className="changeNickname_box_btns_cancel" type="button">
+            <button
+              className="changeNickname_box_btns_cancel"
+              type="button"
+              onClick={cancelHome}
+            >
               <CloseRoundedIcon
                 sx={{ color: "#909090", fontSize: 52 }}
                 className="changeNickname=box_btns_cancel_btn"
-                onClick={cancelHome}
               />
             </button>
           </div>

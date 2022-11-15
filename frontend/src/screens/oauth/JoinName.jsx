@@ -43,6 +43,8 @@ function JoinName() {
       const res = await sendDi({
         name: userName,
         birth: birthday,
+        provider: pvd.provider,
+        providerId: pvd.providerId,
       });
       if (res.message === "본인 인증 완료") {
         dispatch(setDi(res.data.di));
