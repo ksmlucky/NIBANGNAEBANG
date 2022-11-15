@@ -8,7 +8,6 @@ import com.footprints.businessservice.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
@@ -47,7 +46,7 @@ public class Article extends BaseEntity {
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Image> images;
 
-    @OneToOne(mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToOne(fetch = LAZY, mappedBy = "article", cascade = CascadeType.ALL)
     private Transfer transfer;
 
     public void updateLikes(Integer count) {

@@ -6,12 +6,9 @@ import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import com.footprints.businessservice.app.domain.board.article.repository.custom.ArticleRepositoryCustom;
 import com.footprints.businessservice.app.domain.board.article.repository.support.QuerydslRepositorySupport;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -142,22 +139,4 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
         return article.writer.eq(nickname).and(articleEq(articleId));
     }
 
-    private OrderSpecifier<?> sort(Pageable pageable) {
-        if (!pageable.getSort().isEmpty()) {
-            for (Sort.Order order : pageable.getSort()) {
-                Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
-                switch (order.getProperty()) {
-                    case "hits":
-                        return new OrderSpecifier<>(direction, article.hits);
-                    case "likes":
-                        return new OrderSpecifier<>(direction, article.likes);
-                    case "createdAt":
-                    default:
-                        return new OrderSpecifier<>(direction, article.createdAt);
-                }
-            }
-        }
-
-        return null;
-    }
 }

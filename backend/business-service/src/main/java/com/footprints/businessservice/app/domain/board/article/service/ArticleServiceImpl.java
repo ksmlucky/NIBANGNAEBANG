@@ -14,8 +14,6 @@ import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
 import com.footprints.businessservice.app.domain.board.image.service.ImageService;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
-import com.footprints.businessservice.app.domain.board.transfer.dto.TransferRequest;
-import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.footprints.businessservice.app.domain.board.transfer.repository.TransferRepository;
 import com.footprints.businessservice.app.domain.member.MemberServiceClient;
 import lombok.RequiredArgsConstructor;
@@ -49,8 +47,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleResponse getArticleList(SortCondition condition, Pageable pageable) {
-        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-                Sort.by(Sort.Direction.DESC, condition.getSort() == null ? "createdAt" : condition.getSort()));
+        PageRequest pageRequest = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(
+                        Sort.Direction.fromString(condition.getOrderBy() == null ? "DESC" : condition.getOrderBy()),
+                        condition.getSorting() == null ? "createdAt" : condition.getSorting()
+                )
+        );
 
         Page<Article> articles = articleRepository.getArticleList(condition, pageRequest);
 
