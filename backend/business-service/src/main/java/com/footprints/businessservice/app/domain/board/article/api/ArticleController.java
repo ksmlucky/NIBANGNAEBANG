@@ -29,7 +29,7 @@ public class ArticleController {
     @GetMapping
     @Operation(summary = "게시글 목록 조회")
     public ResponseEntity<? extends DataResponse> getArticleList(SortCondition condition, Pageable pageable) {
-        List<ArticleDto> response = articleService.getArticleList(condition, pageable);
+        ArticleResponse response = articleService.getArticleList(condition, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
 
