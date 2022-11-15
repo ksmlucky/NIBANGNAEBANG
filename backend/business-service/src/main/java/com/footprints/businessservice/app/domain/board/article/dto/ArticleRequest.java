@@ -1,5 +1,6 @@
 package com.footprints.businessservice.app.domain.board.article.dto;
 
+import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,14 @@ public class ArticleRequest {
 
     private String category;
 
-    public ArticleRequest(ArticleRequest articleRequest) {
-        this.title = articleRequest.getTitle();
-        this.content = articleRequest.getContent();
-        this.category = articleRequest.getCategory();
+    public Article toEntity(String nickname) {
+        return Article.builder()
+                .title(title)
+                .content(content)
+                .category(category)
+                .likes(0)
+                .hits(0)
+                .writer(nickname)
+                .build();
     }
 }

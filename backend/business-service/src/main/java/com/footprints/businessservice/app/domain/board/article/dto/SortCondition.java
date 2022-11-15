@@ -7,7 +7,9 @@ public class SortCondition {
 
     private String category;
 
-    private String sort;
+    private String sorting;
+
+    private String orderBy;
 
     private String address;
 }
