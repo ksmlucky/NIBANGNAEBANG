@@ -146,9 +146,9 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
             @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
     })
-    @DeleteMapping("/AT/withdrawal/{memberId}")
-    public ResponseEntity memberWithdrawal(@PathVariable Long memberId){
-        memberService.memberWithdrawal(memberId);
+    @DeleteMapping("/AT/withdrawal")
+    public ResponseEntity memberWithdrawal(@RequestHeader("X-Authorization-Id") String memberId){
+        memberService.memberWithdrawal(Long.parseLong(memberId));
 
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse<>("회원탈퇴가 완료되었습니다."));
     }
