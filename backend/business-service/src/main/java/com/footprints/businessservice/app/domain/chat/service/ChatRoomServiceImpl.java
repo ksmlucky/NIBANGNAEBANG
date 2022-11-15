@@ -8,6 +8,8 @@ import com.footprints.businessservice.app.domain.chat.entity.ChatMessage;
 import com.footprints.businessservice.app.domain.chat.entity.ChatRoom;
 import com.footprints.businessservice.app.domain.chat.entity.ChatRoom.ChatRoomMember;
 import com.footprints.businessservice.app.domain.chat.repository.ChatRoomRepository;
+import com.footprints.businessservice.app.domain.member.MemberServiceClient;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -15,6 +17,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +27,8 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service("ChatRoomService")
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ChatRoomServiceImpl implements ChatRoomService {
     @Autowired
     ChatRoomRepository chatRoomRepository;
@@ -31,29 +36,58 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Autowired
+    private final MemberServiceClient memberServiceClient;
+
 
     /** 채팅방을 생성하는 registerChatRoom 입니다. **/
     @Override
+    @Transactional
     public void registerChatRoom(String memberId, ChatRoomReq chatRoomReq) {
 //        User user1 = userRepositorySupport.findUserByUserNickname(chatRoomReq.getUserNickname1()).orElse(null);
 //        User user2 = userRepositorySupport.findUserByUserNickname(chatRoomReq.getUserNickname2()).orElse(null);
 //
 //        ChatRoom chatRoom = ChatRoom.create(user1.getUserEmail(), user2.getUserEmail(), chatRoomReq.getBoardNo());
 
-        ChatRoom chatRoom = ChatRoom.create(memberId, chatRoomReq);
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
+
+        ChatRoom chatRoom = ChatRoom.create(memberId, nickname, chatRoomReq);
 
         chatRoomRepository.save(chatRoom);
 
 //        return chatRoom.getId();
     }
 
-//    /** 유저가 속한 채팅방을 전체 조회하는 findAllChatRoom 입니다. **/
-//    @Override
-//    public List<ChatRoomRes> findAllChatRoom(String memberId) {
-//
-//        // memberId로 닉네임 찾기
+    /** 유저가 속한 채팅방을 전체 조회하는 findAllChatRoom 입니다. **/
+    @Override
+    public List<ChatRoomRes> findAllChatRoomsByMemberId(String memberId) {
+
+        // memberId로 닉네임 찾기? 필요없이 걍 id로 찾아도 되넹?
 //        String nickname = "tempnickname";
-//
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
+
+        List<ChatRoom> chatroomList = new ArrayList<ChatRoom>();
+        List<ChatRoomMember> chatRoomMembers = new ArrayList<>();
+        chatroomList = mongoTemplate.find(
+                Query.query(Criteria.where("members").elemMatch(
+                                Criteria.where("nickname").is(nickname)
+                        )
+                ),
+                ChatRoom.class);
+
+        System.out.println("chatroomList: " + chatroomList);
+
+        List<ChatRoomRes> result = chatroomList.stream()
+                .map(ChatRoomRes::new)
+                .collect(Collectors.toList());
+
+        return result;
+
+
+
+
+
+
 //        Criteria criteria = new Criteria();
 //        criteria.orOperator(Criteria.where("userEmail1").is(userEmail), Criteria.where("userEmail2").is(userEmail));
 //        Query query = new Query(criteria);
@@ -125,8 +159,8 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 //            chatroomResList.add(chatRoomRes);
 //        }
 //        return chatroomResList;
-//    }
-//
+    }
+
     /** 채팅방 title를 이용하여 채팅방 리스트를 조회하는 findChatRoomInfoByTitle 입니다. **/
     @Override
     public List<ChatRoom> findChatRoomListByTitle(String title) {
@@ -173,13 +207,9 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
 
 
-        log.info("roomId1: {}", roomId);
-        log.info("chatRoom: {}", chatRoom);
         List<ChatMessageRes> chatMessageResList = new ArrayList<ChatMessageRes>();
-        log.info("roomId2: {}", roomId);
         for (int i = 0; i < chatRoom.getChatMessages().size(); i++) {
 //            User user = userRepositorySupport.findUserByUserEmail(chatRoom.getChatMessages().get(i).getSender()).orElse(null);
-            log.info("roomId3: {}", roomId);
 
             ChatMessageRes chatMessageRes = ChatMessageRes.builder()
                     .id(chatRoom.getChatMessages().get(i).getId())
@@ -199,7 +229,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
                 .chatMessages(chatMessageResList)
                 .currentMemberCount(chatRoom.getCurrentMemberCount())
                 .totalMemberCount(chatRoom.getTotalMemberCount())
-                .closingTime(chatRoom.getClosingTime())
+//                .closingTime(chatRoom.getClosingTime())
                 .fee(chatRoom.getFee())
                 .build();
 

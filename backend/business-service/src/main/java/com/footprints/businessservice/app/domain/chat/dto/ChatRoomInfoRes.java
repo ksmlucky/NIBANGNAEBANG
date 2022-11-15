@@ -38,8 +38,8 @@ public class ChatRoomInfoRes {
 
     Integer totalMemberCount; // 전체 멤버 수
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    LocalDateTime closingTime; // 모집 마감 시간
+//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+//    LocalDateTime closingTime; // 모집 마감 시간
 
     Integer fee; // 총 구독료
 }
