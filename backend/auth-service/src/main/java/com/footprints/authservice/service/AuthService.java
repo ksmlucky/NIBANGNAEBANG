@@ -25,7 +25,7 @@ public class AuthService {
     }
 
 
-    public String reissueRefreshToken(String memberId, String refreshToken) {
+    public String reissueAccessToken(String memberId, String refreshToken) {
 
         // RT 유효성 검사
         if(!tokenProvider.validateToken(refreshToken)){
@@ -41,12 +41,9 @@ public class AuthService {
         }
 
         // AT 재발급
-        String newRefreshToken = tokenProvider.createRefreshToken(Long.parseLong(memberId));
+        String newAccessToken = tokenProvider.createAccessToken(Long.parseLong(memberId));
 
-        // redis에 새로 저장
-        redisService.setValues(memberId, newRefreshToken);
-
-        return newRefreshToken;
+        return newAccessToken;
 
     }
 }
