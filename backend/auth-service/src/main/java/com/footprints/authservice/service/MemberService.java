@@ -78,7 +78,7 @@ public class MemberService {
         return findMember.getNickname();
     }
 
-    public boolean getDi(MemberInfoForDiRequest memberInfoForDiRequest)
+    public Map<String, String> getDi(MemberInfoForDiRequest memberInfoForDiRequest)
             throws MemberException, NoSuchAlgorithmException {
         String name = memberInfoForDiRequest.getName();
         String birth = memberInfoForDiRequest.getBirth();
@@ -90,14 +90,18 @@ public class MemberService {
 
         // di로 검색
         Optional<Member> findMemberByDi = memberRepository.findByDi(di);
+        Map<String, String> result = new HashMap<>();
 
-        boolean diSignIn = false;
         if (!findMemberByDi.isEmpty()){
             findMemberByDi.get().updateProviderAndProviderId(provider, providerId);
-            diSignIn = true;
+            result.put("diSignIn", "true");
+        }else{
+            result.put("diSignIn", "false");
         }
 
-        return diSignIn;
+        result.put("di", di);
+
+        return result;
 
 //        Member findMember = memberRepository.findByDi(di).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
 
