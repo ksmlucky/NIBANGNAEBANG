@@ -157,9 +157,11 @@ public class MemberService {
 
 
     public void memberWithdrawal(Long memberId) {
-        Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
+        memberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
 
-        memberRepository.deleteById(findMember.getId());
+        memberRepository.deleteById(memberId);
+
+        redisService.deleteValues(String.valueOf(memberId));
     }
 
 
