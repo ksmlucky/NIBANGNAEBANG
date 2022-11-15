@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf351363-16cd-4249-b7a8-3f005598459b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/dto/MessageDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/dto/MessageDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/api/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/api/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomInfoRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomInfoRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatRoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatRoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatRoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatRoomServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +73,8 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -100,14 +108,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;dea2e3e1e902d8a25bf92d9e2d707f7d&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\seokmin\Desktop\Workspace\SSAFY\final_project\S07P31C109\backend\business-service\src\main\java\com\footprints\businessservice\app\domain\message" />
@@ -125,6 +141,27 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.BusinessServiceApplication">
+    <configuration name="business-service [compileQuerydslJava]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/backend/business-service" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="compileQuerydslJava" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="business-service [compileQuerydsl]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -137,27 +174,6 @@
         <option name="taskNames">
           <list>
             <option value="compileQuerydsl" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="business-service [initQuerydslSourcesDir]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/backend/business-service" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="initQuerydslSourcesDir" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -234,10 +250,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.ApigatewayServiceApplication" />
-        <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
         <item itemvalue="Spring Boot.ConfigServiceApplication" />
+        <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
         <item itemvalue="Gradle.business-service [compileQuerydsl]" />
-        <item itemvalue="Gradle.business-service [initQuerydslSourcesDir]" />
+        <item itemvalue="Gradle.business-service [compileQuerydslJava]" />
       </list>
     </recent_temporary>
   </component>
@@ -260,6 +276,9 @@
       <workItem from="1667433687110" duration="9858000" />
       <workItem from="1667470765680" duration="9609000" />
       <workItem from="1667728855235" duration="5658000" />
+      <workItem from="1668386929760" duration="563000" />
+      <workItem from="1668387531950" duration="15852000" />
+      <workItem from="1668411500944" duration="4208000" />
     </task>
     <servers />
   </component>

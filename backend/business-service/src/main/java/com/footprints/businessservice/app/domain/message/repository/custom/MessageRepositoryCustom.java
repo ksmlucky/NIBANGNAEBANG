@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface MessageRepositoryCustom {
-    Page<Message> getAllReceivedMessages(Long sendMember, Pageable pageable);
-    Page<Message> getAllSentMessages(Long receiveMember, Pageable pageable);
+    Page<Message> getAllReceivedMessages(String sendMember, Pageable pageable);
+    Page<Message> getAllSentMessages(String receiveMember, Pageable pageable);
 
     Message getMessage(Long messageId);
 }

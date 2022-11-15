@@ -17,7 +17,7 @@ public class MessageRepositoryImpl extends QuerydslRepositorySupport implements 
 
 
     @Override
-    public Page<Message> getAllReceivedMessages(Long receiveMember, Pageable pageable) {
+    public Page<Message> getAllReceivedMessages(String receiveMember, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(message)
                         .where(message.receiveMember.eq(receiveMember)),
@@ -28,7 +28,7 @@ public class MessageRepositoryImpl extends QuerydslRepositorySupport implements 
     }
 
     @Override
-    public Page<Message> getAllSentMessages(Long sendMember, Pageable pageable) {
+    public Page<Message> getAllSentMessages(String sendMember, Pageable pageable) {
 
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(message)

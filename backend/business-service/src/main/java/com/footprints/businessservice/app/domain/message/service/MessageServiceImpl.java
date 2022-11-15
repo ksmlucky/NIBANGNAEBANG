@@ -1,5 +1,6 @@
 package com.footprints.businessservice.app.domain.message.service;
 
+import com.footprints.businessservice.app.domain.member.MemberServiceClient;
 import com.footprints.businessservice.app.domain.message.dto.MessageDto;
 import com.footprints.businessservice.app.domain.message.dto.MessageRequest;
 import com.footprints.businessservice.app.domain.message.entity.Message;
@@ -21,12 +22,15 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
+    private final MemberServiceClient memberServiceClient;
 
     @Override
     public List<MessageDto> getAllReceivedMessages(String receiveMember, Pageable pageable) {
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(receiveMember)).getNickname();
+
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
-        Page<Message> messages = messageRepository.getAllReceivedMessages(Long.parseLong(receiveMember), pageRequest);
+        Page<Message> messages = messageRepository.getAllReceivedMessages(nickname, pageRequest);
 
         List<MessageDto> result = messages.stream()
                 .map(message -> new MessageDto(message))
@@ -38,8 +42,10 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public void sendMessage(String sendMember, MessageRequest request) {
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(sendMember)).getNickname();
+
         Message message = Message.builder()
-                .sendMember(Long.parseLong(sendMember))
+                .sendMember(nickname)
                 .receiveMember(request.getReceiveMember())
                 .title(request.getTitle())
                 .content(request.getContent())
@@ -52,6 +58,8 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public void deleteMessageByReceiveMember(String receiveMemberId, Long messageId) {
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(receiveMemberId)).getNickname();
+
         Message message = messageRepository.getMessage(messageId);
 
         if (message == null) {
@@ -59,7 +67,7 @@ public class MessageServiceImpl implements MessageService {
         }
 
         // 받은 사람이랑 받은 사람 아이디(receiveMemberId)가 같으면
-        if (message.getReceiveMember() == Long.parseLong(receiveMemberId)) {
+        if (message.getReceiveMember().equals(nickname)) {
             // 받은 사람이 삭제 체크
             message.deleteByReceiveMember();
         } else {
@@ -74,9 +82,11 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageDto> getAllSentMessages(String sendMember, Pageable pageable) {
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(sendMember)).getNickname();
+
         PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
-        Page<Message> messages = messageRepository.getAllSentMessages(Long.parseLong(sendMember), pageRequest);
+        Page<Message> messages = messageRepository.getAllSentMessages(nickname, pageRequest);
 
         List<MessageDto> result = messages.stream()
                 .map(message -> new MessageDto(message))
@@ -89,6 +99,8 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public void deleteMessageBySendMember(String sendMemberId, Long messageId) {
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(sendMemberId)).getNickname();
+
         Message message = messageRepository.getMessage(messageId);
 
         if (message == null) {
@@ -96,7 +108,7 @@ public class MessageServiceImpl implements MessageService {
         }
 
         // 보낸 사람이랑 보낸 사람 아이디(sendMemberId)가 같으면
-        if (message.getSendMember() == Long.parseLong(sendMemberId)) {
+        if (message.getSendMember().equals(nickname)) {
             // 보낸 사람이 삭제 체크
             message.deleteBySendMember();
         } else {
@@ -113,16 +125,17 @@ public class MessageServiceImpl implements MessageService {
     @Override
     @Transactional
     public MessageDto getMessage(String memberId, Long messageId) {
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
+
         Message message = messageRepository.getMessage(messageId);
 
         if (message == null) {
             throw new MessageException(MessageExceptionType.NOT_FOUND_MESSAGE);
         }
 
-        Long longMemberId = Long.parseLong(memberId);
         // 권한이 있으면
-        if (longMemberId == message.getSendMember() || longMemberId == message.getReceiveMember()) {
-            if (longMemberId == message.getReceiveMember()) {
+        if (nickname.equals(message.getSendMember()) || nickname.equals(message.getReceiveMember())) {
+            if (nickname.equals(message.getReceiveMember())) {
                 message.readCheck();
             }
 

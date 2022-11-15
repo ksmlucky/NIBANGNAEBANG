@@ -8,7 +8,6 @@ import com.footprints.businessservice.global.common.MessageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +21,9 @@ import java.util.List;
 @Slf4j
 public class MessageController {
     private final MessageService messageService;
-    private final Environment env;
-
-    @GetMapping("/health_check")
-    public String check() {
-        log.info("Server port={}", env.getProperty("local.server.port"));
-        return String.format("This Service port is %s", env.getProperty("local.server.port"));
-    }
 
     // 받은 쪽지 리스트
-    @GetMapping("/received")
+    @GetMapping("/AT/received")
     @Operation(summary = "받은 쪽지 목록 조회")
     public ResponseEntity<? extends DataResponse> getAllReceivedMessages(@RequestHeader(name = "X-Authorization-Id") String receiveMember, Pageable pageable) {
         List<MessageDto> messageDtos = messageService.getAllReceivedMessages(receiveMember, pageable);
@@ -39,7 +31,7 @@ public class MessageController {
     }
 
     // 보낸 쪽지 리스트
-    @GetMapping("/sent")
+    @GetMapping("/AT/sent")
     @Operation(summary = "보낸 쪽지 목록 조회")
     public ResponseEntity<? extends DataResponse> getAllSentMessages(@RequestHeader(name = "X-Authorization-Id") String sendMember, Pageable pageable) {
         List<MessageDto> messageDtos = messageService.getAllSentMessages(sendMember, pageable);
@@ -47,7 +39,7 @@ public class MessageController {
     }
 
     // 쪽지 하나 조회
-    @GetMapping("/{message-id}")
+    @GetMapping("/AT/{message-id}")
     @Operation(summary = "쪽지 상세 조회")
     public ResponseEntity<? extends DataResponse> getMessage(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "message-id") Long messageId) {
         MessageDto messageDto = messageService.getMessage(memberId, messageId);
@@ -55,7 +47,7 @@ public class MessageController {
     }
 
     // 쪽지 보내기
-    @PostMapping
+    @PostMapping("/AT")
     @Operation(summary = "쪽지 보내기")
     public ResponseEntity<? extends MessageResponse> sendMessage(@RequestHeader(name = "X-Authorization-Id") String sendMember, @RequestBody MessageRequest request) {
         messageService.sendMessage(sendMember, request);
@@ -63,7 +55,7 @@ public class MessageController {
     }
 
     // 받은 쪽지 삭제
-    @DeleteMapping("/received/{message-id}")
+    @DeleteMapping("/AT/received/{message-id}")
     @Operation(summary = "받은 쪽지 삭제")
     public ResponseEntity<? extends MessageResponse> deleteReceivedMessage(@RequestHeader(name = "X-Authorization-Id") String receiveMember, @PathVariable("message-id") Long messageId) {
         messageService.deleteMessageByReceiveMember(receiveMember, messageId);
@@ -71,7 +63,7 @@ public class MessageController {
     }
 
     // 보낸 쪽지 삭제
-    @DeleteMapping("/sent/{message-id}")
+    @DeleteMapping("/AT/sent/{message-id}")
     @Operation(summary = "보낸 쪽지 삭제")
     public ResponseEntity<? extends MessageResponse> deleteSentMessage(@RequestHeader(name = "X-Authorization-Id") String sendMember, @PathVariable("message-id") Long messageId) {
         messageService.deleteMessageBySendMember(sendMember, messageId);

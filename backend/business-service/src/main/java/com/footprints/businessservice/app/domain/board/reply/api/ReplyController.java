@@ -8,7 +8,6 @@ import com.footprints.businessservice.global.common.MessageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +21,6 @@ import java.util.List;
 @Slf4j
 public class ReplyController {
     private final ReplyService replyService;
-    private final Environment env;
-
-    @GetMapping("/health_check")
-    public String check() {
-        log.info("Server port={}", env.getProperty("local.server.port"));
-        return String.format("This Service port is %s", env.getProperty("local.server.port"));
-    }
 
     // 대댓글 조회
     @GetMapping("/{comment-id}")
@@ -39,7 +31,7 @@ public class ReplyController {
     }
 
     // 대댓글 등록
-    @PostMapping("/{comment-id}")
+    @PostMapping("/AT/{comment-id}")
     @Operation(summary = "대댓글 등록")
     public ResponseEntity<? extends MessageResponse> saveReply(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody ReplyRequest request, @PathVariable("comment-id") Long commentId) {
         replyService.saveReply(memberId, request, commentId);
@@ -47,7 +39,7 @@ public class ReplyController {
     }
 
     // 대댓글 수정
-    @PutMapping("{reply-id}")
+    @PutMapping("/AT/{reply-id}")
     @Operation(summary = "대댓글 수정")
     public ResponseEntity<? extends MessageResponse> updateReply(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody ReplyRequest request, @PathVariable("reply-id") Long replyId) {
         replyService.updateReply(memberId, request, replyId);
@@ -55,7 +47,7 @@ public class ReplyController {
     }
 
     // 대댓글 삭제
-    @DeleteMapping("{reply-id}")
+    @DeleteMapping("/AT/{reply-id}")
     @Operation(summary = "대댓글 삭제")
     public ResponseEntity<? extends MessageResponse> deleteReply(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "reply-id") Long replyId) {
         replyService.deleteReply(memberId, replyId);
