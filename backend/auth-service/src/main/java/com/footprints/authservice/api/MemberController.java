@@ -4,10 +4,8 @@ import com.footprints.authservice.domain.Member;
 import com.footprints.authservice.dto.request.MemberInfoForDiRequest;
 import com.footprints.authservice.dto.request.MemberInfoRequest;
 import com.footprints.authservice.dto.request.NicknameRequest;
+import com.footprints.authservice.dto.response.DiSignInResponse;
 import com.footprints.authservice.dto.response.SelectNicknameResponse;
-import com.footprints.authservice.dto.response.diResponse;
-import com.footprints.authservice.global.common.CountDataResponse;
-import com.footprints.authservice.global.common.CountResponse;
 import com.footprints.authservice.global.common.DataResponse;
 import com.footprints.authservice.global.common.MessageResponse;
 import com.footprints.authservice.service.MemberService;
@@ -20,10 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.Map;
 
 @Tag(name = "member", description = "회원 API")
@@ -75,9 +70,9 @@ public class MemberController {
     })
     @PostMapping("/di")
     public ResponseEntity getDi(@RequestBody MemberInfoForDiRequest memberInfoForDiRequest) throws NoSuchAlgorithmException {
-        String di = memberService.getDi(memberInfoForDiRequest);
+        boolean diSignIn = memberService.getDi(memberInfoForDiRequest);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("본인 인증 완료", new diResponse(di)));
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>("본인 인증 완료", new DiSignInResponse(diSignIn)));
     }
 
     @Operation(summary = "회원 정보 추가하기", description = "회원의 닉네임, provider, providerId, di를 기반으로 소셜로그인 회원가입/통합처리/로그인을 진행한 후 jwt를 발급합니다.")
