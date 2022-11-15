@@ -106,9 +106,9 @@ public class MemberController {
             @ApiResponse(responseCode = "404", description = "존재하지 않는 회원입니다."),
             @ApiResponse(responseCode = "500", description = "서버 에러입니다.")
     })
-    @PutMapping("/AT/{memberId}/nickname")
-    public ResponseEntity updateNickname(@PathVariable Long memberId, @RequestBody NicknameRequest nicknameRequest){
-        memberService.updateNickname(memberId, nicknameRequest);
+    @PutMapping("/AT/nickname")
+    public ResponseEntity updateNickname(@RequestHeader("X-Authorization-Id") String memberId, @RequestBody NicknameRequest nicknameRequest){
+        memberService.updateNickname(Long.parseLong(memberId), nicknameRequest);
 
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse<>("닉네임 변경 완료"));
     }
@@ -152,8 +152,6 @@ public class MemberController {
 
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse<>("회원탈퇴가 완료되었습니다."));
     }
-
-
 
     @Operation(summary = "닉네임 조회하기", description = "해당 회원의 닉네임을 조회합니다.")
     @ApiResponses({
