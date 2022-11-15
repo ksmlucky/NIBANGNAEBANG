@@ -5,6 +5,7 @@ import com.footprints.authservice.domain.Member;
 import com.footprints.authservice.global.jwt.TokenProvider;
 import com.footprints.authservice.repository.MemberRepository;
 import com.footprints.authservice.service.MemberService;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -85,7 +86,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     .queryParam("nickname", findMember.get().getNickname())
                     .queryParam("accessToken", tokens.get("accessToken"))
                     .queryParam("refreshToken", tokens.get("refreshToken"))
-                    .build().toUriString();
+                    .build().encode(StandardCharsets.UTF_8).toUriString();
         }
 
         return UriComponentsBuilder.fromUriString("http://localhost:3000/oauth")
