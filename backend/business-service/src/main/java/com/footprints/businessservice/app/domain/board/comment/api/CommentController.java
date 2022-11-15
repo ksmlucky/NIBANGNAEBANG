@@ -8,7 +8,6 @@ import com.footprints.businessservice.global.common.MessageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +22,6 @@ import java.util.List;
 public class CommentController {
 
     private final CommentService commentService;
-    private final Environment env;
-
-    @GetMapping("/health_check")
-    public String check() {
-        log.info("Server port={}", env.getProperty("local.server.port"));
-        return String.format("This Service port is %s", env.getProperty("local.server.port"));
-    }
 
     // 댓글 조회
     @GetMapping("/{article-id}")
@@ -40,7 +32,7 @@ public class CommentController {
     }
 
     // 댓글 등록
-    @PostMapping("/{article-id}")
+    @PostMapping("/AT/{article-id}")
     @Operation(summary = "댓글 등록")
     public ResponseEntity<? extends MessageResponse> saveComment(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody CommentRequest request, @PathVariable("article-id") Long articleId) {
         commentService.saveComment(memberId, request, articleId);
@@ -48,7 +40,7 @@ public class CommentController {
     }
 
     // 댓글 수정
-    @PutMapping("/{comment-id}")
+    @PutMapping("/AT/{comment-id}")
     @Operation(summary = "댓글 수정")
     public ResponseEntity<? extends MessageResponse> updateComment(@RequestHeader(name = "X-Authorization-Id") String memberId, @RequestBody CommentRequest request, @PathVariable("comment-id") Long commentId) {
         commentService.updateComment(memberId, request, commentId);
@@ -56,7 +48,7 @@ public class CommentController {
     }
 
     // 댓글 삭제
-    @DeleteMapping("/{comment-id}")
+    @DeleteMapping("/AT/{comment-id}")
     @Operation(summary = "댓글 삭제")
     public ResponseEntity<? extends MessageResponse> deleteComment(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "comment-id") Long commentId) {
         commentService.deleteComment(memberId, commentId);

@@ -18,9 +18,13 @@ public class Message extends BaseEntity {
     @Column(name = "message_id")
     private Long id;
 
-    private Long sendMember;
+//    private Long sendMemberId;
+//
+//    private Long receiveMemberId;
 
-    private Long receiveMember;
+    private String sendMember;
+
+    private String receiveMember;
 
     // 보낸 시간 createdAt
 
