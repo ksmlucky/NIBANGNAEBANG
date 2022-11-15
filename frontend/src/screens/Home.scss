@@ -3,6 +3,12 @@
   // height: calc(100vh- (144px));
   // overflow-y: hidden;
 }
+.closebtn {
+  position: absolute;
+  top: 23%;
+  left: 30.5%;
+  z-index: 200;
+}
 .home {
   width: (1300px);
   //   width: 100%;
@@ -72,7 +78,7 @@
           border-radius: (20px);
           margin: (60px) 0 (30px) 0;
         }
-        button {
+        &_btn {
           width: (480px);
           height: (80px);
           border-radius: (20px);

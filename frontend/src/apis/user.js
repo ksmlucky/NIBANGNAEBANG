@@ -21,7 +21,10 @@ export const checkJoin = async (body) => {
 };
 // 닉네임 변경
 export const checkRename = async (body) => {
-  const res = await API.post("auth-service/api/AT/nickname", body);
+  const res = await API_USER.put("auth-service/api/AT/nickname", body);
+  // const res = await API.put("auth-service/api/AT/nickname", body, {
+  //   headers: { Authorization: sessionStorage.getItem("accessToken") },
+  // });
   return res.data;
 };
 // 아이디 찾기

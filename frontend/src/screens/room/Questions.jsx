@@ -18,6 +18,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./RoomRegister.scss";
 
 function Questions(props) {
+  const { sessionStorage } = window;
+  const [loc, setLoc] = useState("");
+  const [count, setCount] = useState(0);
+  const defaultLoc = sessionStorage.getItem("location");
+  // console.log(defaultLoc);
+  if (loc==="" && count < 3) {
+    setLoc(defaultLoc);
+    setCount(count+1);
+  };
   const {id, getId} = props;
   const ques = [
     {subtitle: '간편하게 양도 신청하세요', title: '내방 상세정보 입력하기', img: keyboardIcon},
@@ -92,11 +101,15 @@ function Questions(props) {
   const [conType, setConType] = useState("");
   const [conJ, setConJ] = useState(false);
   const [conW, setConW] = useState(false);
+  const feeRef = useRef();
   const [feeCheck, setFeeCheck] = useState(false);
   const handleFee = (event) => {
     setFeeCheck(event.target.checked);
   };
+  const confeeRef = useRef();
+  const monfeeRef = useRef();
   const [fee, setFee] = useState(0);
+  const roomtypeRef = useRef();
   const onClickFull = () => {
     setFull(!full);
     setPart(false);
@@ -133,12 +146,27 @@ function Questions(props) {
       setConType("월세");
     }
   };
-  const total = () => {
-  };
+  // const total = () => {
+  // };
+  // console.log(roughRef.current.value);
   const navigate = useNavigate();
   const onClickForward = () => {
     if (id === 2) {
-      navigate(`/`);
+      console.log(roughRef.current.value);
+      console.log(detailRef.current.value);
+      console.log(type);
+      console.log(startDate);
+      console.log(endDate);
+      console.log(conType);
+      console.log(feeRef.current.value);
+      console.log(confeeRef.current.value);
+      console.log(monfeeRef.current.value);
+      console.log(roomtypeRef.current.value);
+      console.log(areaRef.current.value);
+      console.log(eleChecked);
+      console.log(buildingRef.current.value);
+      console.log(floorRef.current.value);
+      console.log(extraRef);
     } else {
     getId(id + 1);
     };
@@ -159,7 +187,7 @@ function Questions(props) {
             <div className="roomRegister_box_p1_address">
               <div className="roomRegister_box_p1_address_title shBold fs-26">주소</div>
               <div className="div roomRegister_box_p1_address_input flex">
-                <input type="text" className="roomRegister_box_p1_address_input_rough shBold fs-24" ref={roughRef} placeholder="주소를 작성해줘" />
+                <input type="text" className="roomRegister_box_p1_address_input_rough shBold fs-24" ref={roughRef} placeholder="주소를 작성해줘" defaultValue={loc} />
                 <input type="text" className="roomRegister_box_p1_address_input_detail shBold fs-24" ref={detailRef} placeholder="상세주소!" />
               </div>
             </div>
@@ -232,19 +260,19 @@ function Questions(props) {
                 관리비&nbsp;&nbsp;&nbsp;
                 {feeCheck &&
                   <div className="roomRegister_box_p2_cont_btns_fee shBold fs-22">
-                    <input type="text" className="roomRegister_box_p2_cont_btns_fee_input shBold fs-22" />
+                    <input type="text" className="roomRegister_box_p2_cont_btns_fee_input shBold fs-22" ref={feeRef}/>
                     만원
                   </div>
                 }
               </div>
               <div className="roomRegister_box_p2_cont_inp flex shBold fs-22">
                 계약금&nbsp;&nbsp;
-                <input type="text" className="roomRegister_box_p2_cont_inp_input shBold fs-22" />
+                <input type="text" className="roomRegister_box_p2_cont_inp_input shBold fs-22" ref={confeeRef} />
                 만원&nbsp;&nbsp;&nbsp;
                 {conW && 
                   <div className="roomRegister_box_p2_cont_inp_conw">
                     월세&nbsp;&nbsp;
-                    <input type="text" className="roomRegister_box_p2_cont_inp_conw_input shBold fs-22" />
+                    <input type="text" className="roomRegister_box_p2_cont_inp_conw_input shBold fs-22" ref={monfeeRef} />
                     만원
                   </div>
                 }
@@ -259,6 +287,7 @@ function Questions(props) {
                       room
                     </InputLabel>
                     <NativeSelect
+                      inputRef={roomtypeRef}
                       defaultValue={"원룸"}
                       inputProps={{
                         name: 'room',

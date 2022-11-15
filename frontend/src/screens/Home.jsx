@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import RoomSearch from "@components/room/RoomSearch";
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import moneyIcon from "@images/extra/money.png";
 import searchIcon from "@images/extra/search.png";
 import homeIcon from "@images/extra/house.png";
@@ -20,6 +22,9 @@ function Home() {
   };
   const user = useSelector((state) => state.user);
   console.log(user);
+  const [address, setAddress] = useState("");
+  const [popup, setPopup] = useState(false);
+  const addRef = useRef();
 
   return (
     <div className="container">
@@ -56,15 +61,24 @@ function Home() {
                   <input
                     type="text"
                     className="home_contents_box_bot_input shBold fs-32"
-                    placeholder="예시) 광주 서구 치평동"
+                    placeholder="예시) 상무공원로10"
+                    ref={addRef}
                   />
                   <button
                     type="button"
                     className="home_contents_box_bot_btn shBold fs-32"
-                    onClick={toRegister}
+                    onClick={() => {
+                      setPopup(!popup);
+                    }}
                   >
                     등록해줘
                   </button>
+                  {popup && (
+                    <>
+                      <button className="closebtn" type="button" title="닫기" onClick={() => setPopup(false)}><CloseRoundedIcon fontSize="large"/></button> 
+                      <RoomSearch address={address} setAddress={setAddress} location={addRef.current.value}/>
+                    </>
+                  )}
                 </div>
               </div>
             )}

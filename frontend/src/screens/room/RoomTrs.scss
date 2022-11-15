@@ -1,6 +1,12 @@
 .container {
   justify-content: center;
 }
+.btn {
+  position: absolute;
+  top: 61%;
+  left: 31%;
+  z-index: 200;
+}
 .roomTrs {
   width: vw(1020px);
   margin-top: (60px);

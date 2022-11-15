@@ -56,17 +56,28 @@ function ChangeNickname() {
   };
   const changeFinish = async () => {
     if (passNickname === true) {
-      dispatch(setNickname(nicknameInput.current.value));
       const nickname = userNickname;
-      const res = await checkRename({
-        nickname: nickname,
-      });
-      if (res.message === "성공") {
-        sessionStorage.setItem("userNickname", nickname);
-        // navigate("/");
-        console.log(nickname);
+      try {
+        const res = await checkRename({
+          nickname: nickname,
+        });
+        if (res.message === "성공") {
+          dispatch(setNickname(nickname));
+          sessionStorage.setItem("userNickname", nickname);
+          console.log(nickname);
+        }
+      } catch (err) {
+        console.log(err);
       }
-      // console.log(res);
+      // dispatch(setNickname(nickname));
+      // const res = await checkRename({
+      //   nickname: nickname,
+      // });
+      // if (res.message === "성공") {
+      //   sessionStorage.setItem("userNickname", nickname);
+      //   // navigate("/");
+      //   console.log(nickname);
+      // }
     } else {
       setMessage("중복확인을 진행해주세요.");
       setAlert(true);

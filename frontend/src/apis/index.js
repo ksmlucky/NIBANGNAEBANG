@@ -10,8 +10,9 @@ export const API = axios.create({
 export const API_USER = axios.create({
   baseURL: BASE_URL, // 기본 서버 url
   headers: {
-    "Access-Control-Allow-Origin": "https://k7c109.p.ssafy.io:8080/",
-    Authorization: `Bearer-${sessionStorage.getItem("accessToken")}`,
+    // "Access-Control-Allow-Origin": "https://k7c109.p.ssafy.io:8080/",
+    // Authorization: `Bearer-${sessionStorage.getItem("accessToken")}`,
+    Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
   },
 });
 

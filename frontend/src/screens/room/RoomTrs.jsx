@@ -11,6 +11,7 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import RoomSearch from "@components/room/RoomSearch";
 import "./RoomTrs.scss";
 
@@ -101,7 +102,10 @@ function RoomTrs() {
                     주소검색
                   </Button>
                   {popup && (
-                    <RoomSearch address={address} setAddress={setAddress} />
+                    <>
+                      <button className="btn" type="button" title="닫기" onClick={() => setPopup(false)}><CloseRoundedIcon fontSize="large"/></button> 
+                      <RoomSearch address={address} setAddress={setAddress} />
+                    </>
                   )}
                 </div>
                 <div className="roomTrs_loc_address_boxes_info_result notoReg fs-14">
