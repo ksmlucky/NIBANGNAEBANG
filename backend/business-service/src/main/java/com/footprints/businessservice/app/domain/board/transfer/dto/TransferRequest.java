@@ -1,6 +1,8 @@
 package com.footprints.businessservice.app.domain.board.transfer.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.footprints.businessservice.app.domain.board.article.entity.Article;
+import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -113,4 +115,27 @@ public class TransferRequest {
      * 옵션
      */
     private String options;
+
+    public Transfer toEntity(Article article) {
+        return Transfer.builder()
+                .roomType(roomType)
+                .buildingType(buildingType)
+                .contractType(contractType)
+                .address(address)
+                .elevator(elevator)
+                .deposit(deposit)
+                .startDate(startDate)
+                .endDate(endDate)
+                .floor(floor)
+                .heatingType(heatingType)
+                .rent(rent)
+                .options(options)
+                .parking(parking)
+                .roomSize(roomSize)
+                .leasableArea(leasableArea)
+                .supplyArea(supplyArea)
+                .totalFloor(totalFloor)
+                .article(article)
+                .build();
+    }
 }

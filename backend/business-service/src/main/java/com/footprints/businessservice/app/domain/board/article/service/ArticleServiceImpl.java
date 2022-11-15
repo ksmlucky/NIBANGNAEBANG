@@ -14,8 +14,6 @@ import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.image.dto.ImageDto;
 import com.footprints.businessservice.app.domain.board.image.service.ImageService;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
-import com.footprints.businessservice.app.domain.board.transfer.dto.TransferRequest;
-import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
 import com.footprints.businessservice.app.domain.board.transfer.repository.TransferRepository;
 import com.footprints.businessservice.app.domain.member.MemberServiceClient;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +35,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ArticleServiceImpl implements ArticleService {
 
+    private static final String TRANSFER = "transfer";
+
     private final ArticleRepository articleRepository;
     private final LikedArticleRepository likedArticleRepository;
     private final ScrappedArticleRepository scrappedArticleRepository;
@@ -44,59 +44,35 @@ public class ArticleServiceImpl implements ArticleService {
     private final ImageService imageService;
     private final MemberServiceClient memberServiceClient;
 
-    private static final String TRANSFER = "transfer";
 
     @Override
-    public List<ArticleDto> getArticleList(SortCondition condition, Pageable pageable) {
-        PageRequest pageRequest = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-                Sort.by(Sort.Direction.DESC, condition.getSort() == null ? "createdAt" : condition.getSort()));
+    public ArticleResponse getArticleList(SortCondition condition, Pageable pageable) {
+        PageRequest pageRequest = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(
+                        Sort.Direction.fromString(condition.getOrderBy() == null ? "DESC" : condition.getOrderBy()),
+                        condition.getSorting() == null ? "createdAt" : condition.getSorting()
+                )
+        );
 
         Page<Article> articles = articleRepository.getArticleList(condition, pageRequest);
 
-        return articles.stream()
+        List<ArticleDto> articleList = articles.stream()
                 .map(article -> new ArticleDto(article, condition))
                 .collect(Collectors.toList());
+
+        return new ArticleResponse(articleList, articles.getTotalElements());
     }
 
     @Override
     @Transactional
     public void saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles) {
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
+        Article article = request.getArticleRequest().toEntity(nickname);
 
-        ArticleRequest articleRequest = request.getArticleRequest();
-        Article article = Article.builder()
-                .title(articleRequest.getTitle())
-                .writer(nickname)
-                .content(articleRequest.getContent())
-                .hits(0)
-                .likes(0)
-                .category(articleRequest.getCategory())
-                .build();
-
-        if (articleRequest.getCategory().equals(TRANSFER)) {
-            TransferRequest transferRequest = request.getTransferRequest();
-            transferRepository.save(
-                    Transfer.builder()
-                            .roomType(transferRequest.getRoomType())
-                            .buildingType(transferRequest.getBuildingType())
-                            .contractType(transferRequest.getContractType())
-                            .address(transferRequest.getAddress())
-                            .elevator(transferRequest.getElevator())
-                            .deposit(transferRequest.getDeposit())
-                            .startDate(transferRequest.getStartDate())
-                            .endDate(transferRequest.getEndDate())
-                            .floor(transferRequest.getFloor())
-                            .heatingType(transferRequest.getHeatingType())
-                            .rent(transferRequest.getRent())
-                            .options(transferRequest.getOptions())
-                            .parking(transferRequest.getParking())
-                            .roomSize(transferRequest.getRoomSize())
-                            .leasableArea(transferRequest.getLeasableArea())
-                            .supplyArea(transferRequest.getSupplyArea())
-                            .totalFloor(transferRequest.getTotalFloor())
-                            .article(article)
-                            .build()
-            );
+        if (request.getArticleRequest().getCategory().equals(TRANSFER)) {
+            transferRepository.save(request.getTransferRequest().toEntity(article));
         }
 
         if (multipartFiles != null) {
@@ -131,10 +107,8 @@ public class ArticleServiceImpl implements ArticleService {
                 .collect(Collectors.toList());
 
         if (article.getCategory().equals(TRANSFER)) {
-            Transfer transfer = transferRepository.getTransferByArticleId(articleId);
-            TransferDto transferDto = transfer.toDto();
-
-            return new ArticleDto(article, comments, new CategoryDto(transferDto), images);
+            TransferDto transfer = article.getTransfer().toDto();
+            return new ArticleDto(article, comments, new CategoryDto(transfer), images);
         }
 
         return new ArticleDto(article, comments, images);
