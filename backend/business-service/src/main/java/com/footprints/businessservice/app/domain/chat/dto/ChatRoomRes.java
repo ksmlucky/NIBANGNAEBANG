@@ -1,7 +1,9 @@
 package com.footprints.businessservice.app.domain.chat.dto;
 
+import com.footprints.businessservice.app.domain.board.reply.entity.Reply;
 import com.footprints.businessservice.app.domain.chat.entity.ChatMessage;
 import com.footprints.businessservice.app.domain.chat.entity.ChatRoom;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,11 +12,11 @@ import java.util.List;
 
 @Getter
 @Setter
-@Builder
+//@Builder
 //@ApiModel("ChatRoomResponse")
 public class ChatRoomRes {
 //    @ApiModelProperty(name = "채팅방 아이디", example = "62713ccfc7a1ef5b14c5fb15")
-    String id;
+    private String id;
 
     private List<ChatRoom.ChatRoomMember> members; // 채팅방의 멤버들
 
@@ -37,8 +39,14 @@ public class ChatRoomRes {
 //    List<ChatMessageRes> chatMessages;
 
 //    @ApiModelProperty(name = "최근 메시지")
-    ChatMessage chatMessages;
+    private ChatMessage chatMessage;
 
 //    @ApiModelProperty(name = "식재료 목록")
 //    List<String> ingredientList;
+
+    public ChatRoomRes(ChatRoom chatRoom) {
+        this.id = chatRoom.getId();
+        this.members = chatRoom.getMembers();
+        this.chatMessage = chatRoom.getChatMessages().size()!=0? chatRoom.getChatMessages().get(0) : new ChatMessage();
+    }
 }

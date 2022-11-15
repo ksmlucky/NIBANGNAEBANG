@@ -28,8 +28,8 @@ public class ChatRoomReq {
     private Integer totalMemberCount;
     private Integer fee;
     //    @JsonFormat(pattern="YYYY-MM-DD HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    private LocalDateTime closingTime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+//    private LocalDateTime closingTime;
 
 //    private List<ChatRoomMember> members; // 채팅방의 멤버들
 }

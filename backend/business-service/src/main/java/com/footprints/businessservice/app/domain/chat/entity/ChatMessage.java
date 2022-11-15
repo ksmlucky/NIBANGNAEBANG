@@ -18,6 +18,7 @@ public class ChatMessage {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "chat_message_id")
     private String id;
+    private String roomId;
     private String sender;
     private String message;
 

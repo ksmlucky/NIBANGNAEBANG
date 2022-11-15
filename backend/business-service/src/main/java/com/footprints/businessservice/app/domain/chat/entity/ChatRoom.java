@@ -32,23 +32,24 @@ public class ChatRoom {
 
     private Integer currentMemberCount; // 현재 멤버 수
     private Integer totalMemberCount; // 전체 멤버 수
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    private LocalDateTime closingTime; // 모집 마감 시간
+//    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+//    private LocalDateTime closingTime; // 모집 마감 시간
     private Integer fee; // 총 구독료
 
-    public static ChatRoom create(String memberId, ChatRoomReq request) {
+    public static ChatRoom create(String memberId, String nickname, ChatRoomReq request) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.title = request.getTitle();
         chatRoom.currentMemberCount = 1;
         chatRoom.totalMemberCount = request.getTotalMemberCount();
-        chatRoom.closingTime = request.getClosingTime();
+//        chatRoom.closingTime = request.getClosingTime();
         chatRoom.fee = request.getFee();
+
 
 
         List<ChatRoomMember> chatRoomMembers = new ArrayList<>();
         ChatRoomMember chatRoomMember = new ChatRoomMember();
         chatRoomMember.setId(Long.parseLong(memberId));
-        chatRoomMember.setNickname("tempnickname"); // 닉네임 받아와서 set 해주기
+        chatRoomMember.setNickname(nickname); // 닉네임 받아와서 set 해주기
         chatRoomMembers.add(chatRoomMember);
         chatRoom.members = chatRoomMembers;
 
