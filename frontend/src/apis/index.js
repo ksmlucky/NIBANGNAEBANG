@@ -31,20 +31,20 @@ API_USER.interceptors.response.use(
     ) {
       const refreshToken = await sessionStorage.getItem("refreshToken");
       const res = await axios({
-        url: "https://k7c109.p.ssafy.io/token/silentRefresh",
+        url: `https://k7c109.p.ssafy.io:8080/auth-service/api/auth/reissuance`,
         method: "post",
         headers: {
           "Content-Type": "application/json",
         },
         data: {
-          refreshToken: `Bearer-${refreshToken}`,
+          refreshToken: refreshToken,
         },
       });
       const originRequest = error.config;
       originRequest.headers.Authorization = `Bearer-${res.data.accessToken}`;
 
       sessionStorage.setItem("accessToken", res.data.accessToken);
-      sessionStorage.setItem("refreshToken", res.data.refreshToken);
+      // sessionStorage.setItem("refreshToken", res.data.refreshToken);
       return axios(originRequest);
     }
     return Promise.reject(error);

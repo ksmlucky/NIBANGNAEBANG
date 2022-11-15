@@ -24,8 +24,11 @@ function RoomDetail() {
             </div>
           </div>
           <div className="roomDetail_contents_body flex">
-            <div className="roomDetail_contents_body_detail flex">ㅇㅇㅇㅇ</div>
-            <div className="roomDetail_contents_body_plus flex">ㄹㅇㄹㅇ</div>
+            <div className="roomDetail_contents_body_detail flex">
+              <div className="roomDetail_contents_body_detail_info"></div>
+              <div className="roomDetail_contents_body_detail_plus"></div>
+            </div>
+            <div className="roomDetail_contents_body_map flex">지도 띄우기</div>
           </div>
         </div>
       </div>

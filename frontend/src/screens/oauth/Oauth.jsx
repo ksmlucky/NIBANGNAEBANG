@@ -17,9 +17,15 @@ function Oauth() {
     setPvd(url.provider);
     dispatch(setProvider(url.provider));
     dispatch(setProviderId(url.providerId));
+    console.log(url.accessToken);
+    console.log(url.refreshToken);
+    console.log(url);
     // console.log(user);
     if (url.provider !== undefined) {
       if (url.isExisted === "true") {
+        sessionStorage.setItem("refreshToken", url.refreshToken);
+        sessionStorage.setItem("accessToken", url.accessToken);
+        // sessionStorage.setItem("userNickname", nickname);
         navigate("/");
       } else {
         navigate("/login/joinname");

@@ -39,16 +39,25 @@
       &_detail {
         width: (600px);
         justify-content: center;
-        margin: 0 (100px) 0 (100px);
+        margin: 0 (50px) 0 (100px);
         border-radius: (20px);
-        background-color: rgba(219, 219, 219, 0.25);
+        // background-color: rgba(219, 219, 219, 0.25);
+        &_info,
+        &_plus {
+          width: (300px);
+          height: (320px);
+          background-image: url("../../assets/images/extra/clipboard.svg");
+          background-size: (320px);
+        }
       }
-      &_plus {
-        width: (300px);
+      &_map {
+        width: (400px);
+        height: (320px);
         justify-content: center;
-        margin-right: (100px);
+        margin-right: (50px);
         border-radius: (20px);
         background-color: rgba(219, 219, 219, 0.25);
+        align-items: center;
       }
     }
   }

@@ -64,7 +64,7 @@ export const userSlice = createSlice({
       state.tel = action.payload.tel;
     },
     reset: (state) => {
-      Object.assign(state, initialUserState);
+      Object.assign(state, initialState);
     },
     // updateAccessToken: (state, action) => {
     //   state.accessToken = action.payload.accessToken;
