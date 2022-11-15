@@ -6,21 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="cf351363-16cd-4249-b7a8-3f005598459b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/article/api/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/article/api/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/api/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/api/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/exception/CommentExceptionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/exception/CommentExceptionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/service/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/comment/service/CommentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/api/ReplyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/api/ReplyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/exception/ReplyExceptionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/exception/ReplyExceptionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/service/ReplyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/board/reply/service/ReplyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/api/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/api/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomInfoRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomInfoRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomRes.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/dto/ChatRoomRes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/entity/ChatRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/api/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/api/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/dto/MessageDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/dto/MessageDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/dto/MessageRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/dto/MessageRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/entity/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/entity/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/repository/MessageRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/repository/MessageRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/repository/custom/MessageRepositoryCustom.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/repository/custom/MessageRepositoryCustom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/service/MessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/message/service/MessageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatRoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatRoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatRoomServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/business-service/src/main/java/com/footprints/businessservice/app/domain/chat/service/ChatRoomServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,11 +249,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.ApigatewayServiceApplication" />
+        <item itemvalue="Spring Boot.ConfigServiceApplication" />
+        <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
         <item itemvalue="Gradle.business-service [compileQuerydsl]" />
         <item itemvalue="Gradle.business-service [compileQuerydslJava]" />
-        <item itemvalue="Spring Boot.ApigatewayServiceApplication" />
-        <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
-        <item itemvalue="Spring Boot.ConfigServiceApplication" />
       </list>
     </recent_temporary>
   </component>
