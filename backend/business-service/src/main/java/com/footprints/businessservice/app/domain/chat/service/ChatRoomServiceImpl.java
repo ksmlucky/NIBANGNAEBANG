@@ -204,17 +204,33 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
     /** 채팅방 아이디(roomId)를 이용하여 채팅방 정보를 조회하는 findChatRoomInfoByRoomId 입니다. (채팅방 들어가기) **/
     @Override
-    public ChatRoomInfoRes findChatRoomInfoByRoomId(String roomId) {
+    public ChatRoomInfoRes enterChatRoom(String memberId, String roomId) {
         ChatRoom chatRoom = mongoTemplate.findOne(
                 Query.query(Criteria.where("_id").is(roomId)),
                 ChatRoom.class
         );
 
-        if (chatRoom.getTotalMemberCount() == chatRoom.getCurrentMemberCount()) {
+        // 방이 꽉찼으면 입장 불가
+        if (chatRoom.getTotalMemberCount() <= chatRoom.getCurrentMemberCount()) {
             throw new ChatException(ChatExceptionType.FULL_CHATROOM);
         }
 
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
+        // 방에 해당 이름이 있으면 입장 불가
+        for (ChatRoomMember temp : chatRoom.getMembers()) {
+            if (temp.getNickname().equals(nickname)) {
+                throw new ChatException(ChatExceptionType.ALREADY_EXIST_MEMBER);
+            }
+        }
+
+        // 없으면 입장
+        ChatRoomMember chatRoomMember = new ChatRoomMember();
+        chatRoomMember.setId(Long.parseLong(memberId));
+        chatRoomMember.setNickname(nickname);
+
+        chatRoom.getMembers().add(chatRoomMember);
+        chatRoom.setCurrentMemberCount(chatRoom.getCurrentMemberCount() + 1);
 
         List<ChatMessageRes> chatMessageResList = new ArrayList<ChatMessageRes>();
         for (int i = 0; i < chatRoom.getChatMessages().size(); i++) {
@@ -230,6 +246,8 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
             chatMessageResList.add(chatMessageRes);
         }
+
+        chatRoomRepository.save(chatRoom);
 
         ChatRoomInfoRes chatRoomInfoRes = ChatRoomInfoRes.builder()
                 .id(chatRoom.getId())

@@ -18,6 +18,8 @@ public class ChatRoomRes {
 //    @ApiModelProperty(name = "채팅방 아이디", example = "62713ccfc7a1ef5b14c5fb15")
     private String id;
 
+    private String title;
+
     private List<ChatRoom.ChatRoomMember> members; // 채팅방의 멤버들
 
 //    @ApiModelProperty(name = "유저 1 닉네임", example = "하이")
@@ -50,9 +52,10 @@ public class ChatRoomRes {
 
     public ChatRoomRes(ChatRoom chatRoom) {
         this.id = chatRoom.getId();
+        this.title = chatRoom.getTitle();
         this.members = chatRoom.getMembers();
         this.chatMessage = chatRoom.getChatMessages().size() != 0 ? chatRoom.getChatMessages().get(chatRoom.getChatMessages().size() - 1) : new ChatMessage();
-        this.currentMemberCount = chatRoom.getCurrentMemberCount();
+        this.currentMemberCount = chatRoom.getMembers().size();
         this.totalMemberCount = chatRoom.getTotalMemberCount();
     }
 }

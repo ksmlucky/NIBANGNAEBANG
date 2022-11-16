@@ -4,7 +4,8 @@ import com.footprints.businessservice.global.exception.BaseExceptionType;
 import org.springframework.http.HttpStatus;
 
 public enum ChatExceptionType implements BaseExceptionType {
-    FULL_CHATROOM(404,HttpStatus.NOT_FOUND,"인원이 가득 차서 입장이 불가능합니다.");
+    FULL_CHATROOM(404,HttpStatus.NOT_FOUND,"인원이 가득 차서 입장이 불가능합니다."),
+    ALREADY_EXIST_MEMBER(404, HttpStatus.NOT_FOUND, "인원이 가득 차서 입장이 불가능합니다.");
 
     private int errorCode;
     private HttpStatus httpStatus;

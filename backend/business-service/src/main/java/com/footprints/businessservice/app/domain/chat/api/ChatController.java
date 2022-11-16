@@ -73,17 +73,19 @@ public class ChatController {
         return new ResponseEntity<List<ChatRoomRes>>(chatRoomResList, HttpStatus.OK);
     }
 
-    /** 선택한 채팅방 상세 정보 조회(방 들어가기) **/
+    /**
+     * 선택한 채팅방 상세 정보 조회(방 들어가기)
+     **/
     @GetMapping("/AT/find/{roomId}")
 //    @ApiOperation(value ="선택 채팅방 상세 조회", notes = "<strong>선택한 채팅방의 정보</strong>를 조회한다.")
 //    @ApiResponses({ @ApiResponse(code = 200, message = "성공"),
 //            @ApiResponse(code = 401, message = "인증 실패"),
 //            @ApiResponse(code = 404, message = "사용자 없음"),
 //            @ApiResponse(code = 500, message = "서버 오류") })
-    public ResponseEntity<? extends DataResponse> findChatroomInfo(@PathVariable("roomId") String roomId) {
+    public ResponseEntity<? extends DataResponse> enterChatRoom(@RequestHeader("X-Authorization-Id") String memberId, @PathVariable("roomId") String roomId) {
         ChatRoomInfoRes chatRoomInfoRes = null;
         try {
-            chatRoomInfoRes = chatRoomService.findChatRoomInfoByRoomId(roomId);
+            chatRoomInfoRes = chatRoomService.enterChatRoom(memberId, roomId);
         } catch (Exception E) {
             E.printStackTrace();
         }
