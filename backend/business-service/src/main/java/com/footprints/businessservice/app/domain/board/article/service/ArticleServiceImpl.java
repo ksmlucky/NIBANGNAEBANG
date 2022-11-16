@@ -67,7 +67,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public Integer saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles) {
+    public Long saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles) {
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
         Article article = request.getArticleRequest().toEntity(nickname);
 

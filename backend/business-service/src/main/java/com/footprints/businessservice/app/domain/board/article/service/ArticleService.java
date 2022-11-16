@@ -10,7 +10,7 @@ public interface ArticleService {
 
     ArticleResponse getArticleList(SortCondition condition, Pageable pageable);
 
-    Integer saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles);
+    Long saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles);
 
     ArticleDto getArticle(Long articleId);
 

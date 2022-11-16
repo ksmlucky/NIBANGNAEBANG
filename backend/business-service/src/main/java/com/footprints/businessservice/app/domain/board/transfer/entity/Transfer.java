@@ -126,34 +126,45 @@ public class Transfer {
     public TransferDto toDto() {
         return TransferDto.builder()
                 .transferId(id)
-                .roomType(roomType)
-                .contractType(contractType)
-                .deposit(deposit)
-                .monthlyRent(monthlyRent)
+                .address(address)
+                .detailAddress(detailAddress)
+                .transferType(transferType)
+                .meetAndDecide(meetAndDecide)
                 .startDate(startDate)
                 .endDate(endDate)
-                .address(address)
+                .contractType(contractType)
+                .roomType(roomType)
+                .deposit(deposit)
+                .monthlyRent(monthlyRent)
+                .maintenanceType(maintenanceType)
+                .maintenanceFee(maintenanceFee)
                 .roomSize(roomSize)
-                .totalFloor(totalFloor)
-                .floor(floor)
                 .elevator(elevator)
                 .parking(parking)
+                .totalFloor(totalFloor)
+                .floor(floor)
                 .options(options)
                 .build();
     }
 
     public void updateTransfer(TransferRequest request) {
-        this.roomType = request.getRoomType();
-        this.contractType = request.getContractType();
-        this.deposit = request.getDeposit();
-        this.monthlyRent = request.getMonthlyRent();
-        this.startDate = request.getStartDate();
-        this.endDate = request.getEndDate();
-        this.address = request.getAddress();
-        this.roomSize = request.getRoomSize();
-        this.totalFloor = request.getTotalFloor();
-        this.elevator = request.getElevator();
-        this.parking = request.getParking();
-        this.options = request.getOptions();
+        address = request.getAddress();
+        detailAddress = request.getDetailAddress();
+        transferType = request.getTransferType();
+        meetAndDecide = request.getMeetAndDecide();
+        startDate = request.getStartDate();
+        endDate = request.getEndDate();
+        contractType = request.getContractType();
+        roomType = request.getRoomType();
+        deposit = request.getDeposit();
+        monthlyRent = request.getMonthlyRent();
+        maintenanceType = request.getMaintenanceType();
+        maintenanceFee = request.getMaintenanceFee();
+        roomSize = request.getRoomSize();
+        elevator = request.getElevator();
+        parking = request.getParking();
+        totalFloor = request.getTotalFloor();
+        floor = request.getFloor();
+        options = request.getOptions();
     }
 }
