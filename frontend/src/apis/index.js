@@ -11,8 +11,8 @@ export const API_USER = axios.create({
   baseURL: BASE_URL, // 기본 서버 url
   headers: {
     // "Access-Control-Allow-Origin": "https://k7c109.p.ssafy.io:8080/",
-    // Authorization: `Bearer-${sessionStorage.getItem("accessToken")}`,
-    Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    // Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MywiaWF0IjoxNjY4NTgxODQ1LCJleHAiOjE2Njg1ODM2NDV9.plx-WLmYhU8qSnOpUA3FlYOZN7CVv3RDM17Pk846DSX0BvtfwLeJktBtiXtFYlfJ-J-R3aW6iBYcs2YUAKuu5A`,
   },
 });
 

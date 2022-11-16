@@ -84,7 +84,7 @@ function Router() {
         {/* Room */}
         <Route path="/room/*">
           <Route path="register" element={<RoomRegister />} />
-          <Route path="detail" element={<RoomDetail />} />
+          <Route path="detail/:id" element={<RoomDetail />} />
           <Route path="roomlist" element={<RoomList />} />
           <Route path="roomtrs" element={<RoomTrs />} />
           <Route path="trslist" element={<TrsList />} />

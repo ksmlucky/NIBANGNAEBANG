@@ -25,7 +25,7 @@ function ChangeNickname() {
   const [userNickname, setUserNickname] = useState("");
   const navigate = useNavigate();
   const cancelHome = () => {
-    navigate("/");
+    navigate("/login");
   };
   const checkNick = async () => {
     if (nicknameInput.current.value !== "") {
@@ -54,6 +54,7 @@ function ChangeNickname() {
       setAlert(true);
     }
   };
+  const [nick, setNick] = useState("");
   const changeFinish = async () => {
     if (passNickname === true) {
       const nickname = userNickname;
@@ -61,10 +62,13 @@ function ChangeNickname() {
         const res = await checkRename({
           nickname: nickname,
         });
-        if (res.message === "성공") {
+        // console.log(res.message);
+        console.log(res.message);
+        if (res.message === "닉네임 변경 완료") {
+          // setNick(nickname);
           dispatch(setNickname(nickname));
           sessionStorage.setItem("userNickname", nickname);
-          console.log(nickname);
+          setMessage("닉네임 변경을 완료했습니다.");
         }
       } catch (err) {
         console.log(err);
@@ -84,7 +88,6 @@ function ChangeNickname() {
     }
   };
   const user = useSelector((state) => state.user);
-  const [nick, setNick] = useState("");
   useEffect(() => {
     setNick(nickName);
   }, [nick]);

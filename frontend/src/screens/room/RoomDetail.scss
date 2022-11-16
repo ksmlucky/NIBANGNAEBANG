@@ -16,6 +16,13 @@
     width: (1200px);
     align-items: center;
     flex-direction: column;
+    &_upper {
+      // padding-left: (450px);
+      margin-top: (6px);
+      color: #2c4b48;
+      width: (800px);
+      justify-content: space-between;
+    }
     &_top {
       &_contract {
         color: #2c4b48;
@@ -44,10 +51,12 @@
         // background-color: rgba(219, 219, 219, 0.25);
         &_info,
         &_plus {
+          flex-direction: column;
           width: (300px);
           height: (320px);
           background-image: url("../../assets/images/extra/clipboard.svg");
           background-size: (320px);
+          padding: (100px) (40px) (20px) (60px);
         }
       }
       &_map {

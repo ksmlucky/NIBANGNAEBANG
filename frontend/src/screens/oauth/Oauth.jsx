@@ -23,11 +23,18 @@ function Oauth() {
     // console.log(user);
     if (url.provider !== undefined) {
       if (url.isExisted === "true") {
-        sessionStorage.setItem("refreshToken", url.refreshToken);
-        sessionStorage.setItem("accessToken", url.accessToken);
-        sessionStorage.setItem("userNickname", url.nickname);
-        navigate("/");
-        // console.log(url.nickname);
+        const putInSession = () => {
+          sessionStorage.setItem("refreshToken", url.refreshToken);
+          sessionStorage.setItem("userNickname", url.nickname);
+          sessionStorage.setItem("accessToken", url.accessToken);
+        };
+        const toNavigate = () => {
+          setTimeout(() => {
+            putInSession();
+          }, 1000);
+          navigate("/");
+        };
+        toNavigate();
       } else {
         navigate("/login/joinname");
       }
