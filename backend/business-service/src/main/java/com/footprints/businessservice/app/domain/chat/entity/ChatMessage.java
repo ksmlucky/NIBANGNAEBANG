@@ -35,9 +35,10 @@ public class ChatMessage {
         ENTER, TALK, QUIT;
     }
 
-    public static ChatMessage create(String sender, String message, LocalDateTime createdAt, MessageType type) {
+    public static ChatMessage create(String roomId, String sender, String message, LocalDateTime createdAt, MessageType type) {
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.id = UUID.randomUUID().toString();
+        chatMessage.roomId = roomId;
         chatMessage.sender = sender;
         chatMessage.message = message;
         chatMessage.createdAt = createdAt;

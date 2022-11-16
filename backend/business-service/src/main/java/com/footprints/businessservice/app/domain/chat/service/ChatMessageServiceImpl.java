@@ -36,6 +36,7 @@ public class ChatMessageServiceImpl implements ChatMessageService {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         ChatMessage chatMessage = ChatMessage.create(
+                chatRoom.getId(),
                 memberId,
                 chatMessageReq.getMessage(),
                 localDateTime,

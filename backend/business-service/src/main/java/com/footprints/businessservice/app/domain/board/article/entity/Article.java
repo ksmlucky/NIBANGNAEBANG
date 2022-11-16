@@ -10,8 +10,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-import static javax.persistence.FetchType.LAZY;
-
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -46,7 +44,7 @@ public class Article extends BaseEntity {
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Image> images;
 
-    @OneToOne(fetch = LAZY, mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "article", cascade = CascadeType.ALL)
     private Transfer transfer;
 
     public void updateLikes(Integer count) {
