@@ -12,6 +12,11 @@ import java.time.LocalDate;
 public class TransferRequest {
 
     /**
+     * 양도 신청한 사람
+     */
+    private String tenant;
+
+    /**
      * 주소 (지번, 도로명 주소)
      */
     private String address;
@@ -104,11 +109,20 @@ public class TransferRequest {
      */
     private String options;
 
+    /**
+     * 양도 진행 상태(READY, ONGOING, COMPLETE)
+     */
     private TransferStatus transferStatus;
 
 
+    /**
+     * Transfer Entity 저장하기 위해 변환하는 메서드
+     * @param article Transfer Entity 에 Article Entity 를 저장하기 위해 받는 매개 변수
+     * @return Transfer Entity
+     */
     public Transfer toEntity(Article article) {
         return Transfer.builder()
+                .tenant(tenant)
                 .address(address)
                 .detailAddress(detailAddress)
                 .transferType(transferType)

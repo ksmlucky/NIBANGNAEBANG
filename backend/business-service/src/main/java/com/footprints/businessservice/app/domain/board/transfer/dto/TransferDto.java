@@ -25,6 +25,11 @@ public class TransferDto {
     private Long transferId;
 
     /**
+     * 양도 신청한 사람
+     */
+    private String tenant;
+
+    /**
      * 주소 (지번, 도로명 주소)
      */
     private String address;
@@ -117,6 +122,9 @@ public class TransferDto {
      */
     private String options;
 
+    /**
+     * 양도 진행 상태(READY, ONGOING, COMPLETE)
+     */
     private TransferStatus transferStatus;
 
 }
