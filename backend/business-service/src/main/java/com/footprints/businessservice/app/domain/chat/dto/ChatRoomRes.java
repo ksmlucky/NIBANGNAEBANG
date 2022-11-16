@@ -44,9 +44,15 @@ public class ChatRoomRes {
 //    @ApiModelProperty(name = "식재료 목록")
 //    List<String> ingredientList;
 
+    private Integer currentMemberCount;
+
+    private Integer totalMemberCount;
+
     public ChatRoomRes(ChatRoom chatRoom) {
         this.id = chatRoom.getId();
         this.members = chatRoom.getMembers();
-        this.chatMessage = chatRoom.getChatMessages().size()!=0? chatRoom.getChatMessages().get(0) : new ChatMessage();
+        this.chatMessage = chatRoom.getChatMessages().size() != 0 ? chatRoom.getChatMessages().get(chatRoom.getChatMessages().size() - 1) : new ChatMessage();
+        this.currentMemberCount = chatRoom.getCurrentMemberCount();
+        this.totalMemberCount = chatRoom.getTotalMemberCount();
     }
 }

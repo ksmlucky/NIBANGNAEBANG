@@ -73,7 +73,7 @@ public class ChatController {
         return new ResponseEntity<List<ChatRoomRes>>(chatRoomResList, HttpStatus.OK);
     }
 
-    /** 선택한 채팅방 상세 정보 조회 **/
+    /** 선택한 채팅방 상세 정보 조회(방 들어가기) **/
     @GetMapping("/AT/find/{roomId}")
 //    @ApiOperation(value ="선택 채팅방 상세 조회", notes = "<strong>선택한 채팅방의 정보</strong>를 조회한다.")
 //    @ApiResponses({ @ApiResponse(code = 200, message = "성공"),
@@ -86,19 +86,19 @@ public class ChatController {
             chatRoomInfoRes = chatRoomService.findChatRoomInfoByRoomId(roomId);
         } catch (Exception E) {
             E.printStackTrace();
-
         }
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(chatRoomInfoRes));
     }
+
     /** 채팅방 리스트(제목으로) 조회 **/
-    @GetMapping("/AT/find/list/{title}")
+    @GetMapping("/find/list/{title}")
 //    @ApiOperation(value ="선택 채팅방 상세 조회", notes = "<strong>선택한 채팅방의 정보</strong>를 조회한다.")
 //    @ApiResponses({ @ApiResponse(code = 200, message = "성공"),
 //            @ApiResponse(code = 401, message = "인증 실패"),
 //            @ApiResponse(code = 404, message = "사용자 없음"),
 //            @ApiResponse(code = 500, message = "서버 오류") })
     public ResponseEntity<? extends DataResponse> findChatroomListByTitle(@PathVariable("title") String title) {
-        List<ChatRoom> chatRooms = null;
+        List<ChatRoomRes> chatRooms = null;
         try {
             chatRooms = chatRoomService.findChatRoomListByTitle(title);
         } catch (Exception E) {
@@ -107,6 +107,9 @@ public class ChatController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(chatRooms));
     }
+
+
+
 //
 //    /** 채팅방 삭제 **/
 //    @DeleteMapping("/remove")
@@ -130,4 +133,20 @@ public class ChatController {
 //        return ResponseEntity.status(200).body("Success");
 //    }
 
+    /** 채팅방 참가 **/
+//    @GetMapping("/chatingRoom-enter")
+//    public ResponseEntity<?> EnterChatingRoom(String roomNumber, String nickname){
+//
+//        // 방 번호로 방 찾기
+//        ChatingRoom chatingRoom = findRoom(roomNumber);
+//
+//        if(chatingRoom == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        } else {
+//            // 방 들어가기
+//            enterChatingRoom(chatingRoom, nickname);
+//
+//            return new ResponseEntity<>(chatingRoom, HttpStatus.OK);
+//        }
+//    }
 }
