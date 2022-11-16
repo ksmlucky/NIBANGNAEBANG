@@ -62,7 +62,7 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     }
 
     @Override
-    public Article getArticleWithNicknameAndArticleId(String nickname, Long articleId) {
+    public Article getArticleAndImageWithNicknameAndArticleId(String nickname, Long articleId) {
         return selectFrom(article)
                 .leftJoin(article.images, image)
                 .fetchJoin()
@@ -72,9 +72,19 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
 
 
     @Override
-    public Article getArticleWithNickname(String nickname, Long articleId) {
+    public Article getArticleWithNicknameAndArticleId(String nickname, Long articleId) {
         return selectFrom(article)
                 .where(nicknameAndArticleEq(nickname, articleId))
+                .fetchOne();
+    }
+
+    @Override
+    public Article getArticleWithNickname(String nickname) {
+        return selectFrom(article)
+                .leftJoin(article.images, image)
+                .fetchJoin()
+                .leftJoin(article.transfer, transfer)
+                .where(article.writer.eq(nickname))
                 .fetchOne();
     }
 
@@ -108,7 +118,7 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
                         .orderBy(article.createdAt.desc()),
                 countQuery -> countQuery
                         .selectFrom(article)
-                        .innerJoin(article.transfer, transfer)
+                         .innerJoin(article.transfer, transfer)
                         .fetchJoin()
                         .where(
                                 titleContains(condition.getTitle()),

@@ -54,6 +54,10 @@ public class ArticleDto {
             image = imageToImageDto(article);
         }
 
+        if (article.getCategory().equals("transfer")) {
+            this.categoryDetail = new CategoryDto(article.getTransfer().toDto());
+        }
+
         this.id = article.getId();
         this.title = article.getTitle();
         this.writer = article.getWriter();

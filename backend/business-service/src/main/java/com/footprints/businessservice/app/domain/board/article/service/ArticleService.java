@@ -29,4 +29,6 @@ public interface ArticleService {
     void updateArticle(String memberId, Long articleId, ArticleUpdateRequest articleUpdateRequest, List<MultipartFile> multipartFiles);
 
     void deleteArticle(String memberId, Long articleId);
+
+    ArticleDto getMyTransferArticle(String memberId);
 }

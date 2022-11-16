@@ -14,6 +14,8 @@ public interface ArticleRepositoryCustom {
     List<Comment> getCommentList(Long articleId);
     Page<Article> searchArticle(SearchCondition condition, Pageable pageable);
     Article getArticle(Long articleId);
+    Article getArticleAndImageWithNicknameAndArticleId(String nickname, Long articleId);
     Article getArticleWithNicknameAndArticleId(String nickname, Long articleId);
-    Article getArticleWithNickname(String nickname, Long articleId);
+
+    Article getArticleWithNickname(String nickname);
 }
