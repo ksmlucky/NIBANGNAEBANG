@@ -10,6 +10,7 @@ import com.footprints.businessservice.app.domain.board.comment.exception.Comment
 import com.footprints.businessservice.app.domain.board.comment.dto.CommentRequest;
 import com.footprints.businessservice.app.domain.board.comment.entity.Comment;
 import com.footprints.businessservice.app.domain.board.comment.repository.CommentRepository;
+import com.footprints.businessservice.app.domain.member.MemberServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +28,8 @@ public class CommentServiceImpl implements CommentService{
     private final CommentRepository commentRepository;
 
     private final ArticleRepository articleRepository;
+
+    private final MemberServiceClient memberServiceClient;
 
     @Override
     public List<CommentDto> getCommentList(Long articleId, Pageable pageable) {
@@ -48,10 +51,11 @@ public class CommentServiceImpl implements CommentService{
                 .orElseThrow(() -> new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE));
 
         // memberId로 해당 멤버의 닉네임을 찾아서 밑에서 build 해줌
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
         Comment comment = Comment.builder()
                 .content(request.getContent())
-//                .writer(request.getWriter())
+                .writer(nickname)
                 .article(article)
                 .build();
 
@@ -65,9 +69,14 @@ public class CommentServiceImpl implements CommentService{
                 .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
         // memberId로 해당 멤버의 닉네임을 찾아서 위의 comment.getWriter()와 비교 후 같으면 수정 가능
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
-        comment.changeIsUpdated();
-        comment.updateContent(request.getContent());
+        if (comment.getWriter().equals(nickname)) {
+            comment.updateContent(request.getContent());
+            comment.changeIsUpdated();
+        } else {
+            throw new CommentException(CommentExceptionType.NOT_MATCH_NICKNAME);
+        }
     }
 
 
@@ -78,8 +87,13 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
-        // memberId로 해당 멤버의 닉네임을 찾아서 위의 comment.getWriter()와 비교 후 같으면 수정 가능
+        // memberId로 해당 멤버의 닉네임을 찾아서 위의 comment.getWriter()와 비교 후 같으면 삭제 가능
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
-        comment.changeIsDeleted();
+        if (comment.getWriter().equals(nickname)) {
+            comment.changeIsDeleted();
+        } else {
+            throw new CommentException(CommentExceptionType.NOT_MATCH_NICKNAME);
+        }
     }
 }

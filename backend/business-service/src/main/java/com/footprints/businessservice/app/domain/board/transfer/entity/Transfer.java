@@ -3,6 +3,7 @@ package com.footprints.businessservice.app.domain.board.transfer.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.footprints.businessservice.app.domain.board.article.entity.Article;
 import com.footprints.businessservice.app.domain.board.transfer.dto.TransferDto;
+import com.footprints.businessservice.app.domain.board.transfer.dto.TransferRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,84 +28,74 @@ public class Transfer {
     private Article article;
 
     /**
-     * 위치정보(이것도 아직 어떻게 넘길지 모르겠음),
-     * + 사진 or Three.js 구현 위한 Json 파일
+     * 주소 (지번, 도로명 주소)
      */
+    private String address;
 
     /**
-     * 방 종류
+     * 상세 주소 (건물명, 동, 호수)
      */
-    private String roomType;
+    private String detailAddress;
 
     /**
-     * 건물 종류
+     * 양도 형태
+     * - 완전 양도 : 완전히 양도할 집인지?
+     * - 기간 양도 : 기간 내에 단기간만 양도할 집인지?
      */
-    private String buildingType;
+    @Enumerated(EnumType.STRING)
+    private TransferType transferType;
 
     /**
-     * 계약 종류
+     * 협의로 결정 (계약 기간을 만나서 정하는 경우)
      */
-    private String contractType;
+    private Boolean meetAndDecide;
 
     /**
-     * 보증금
-     */
-    private Integer deposit;
-
-    /**
-     * 집세
-     */
-    private Integer rent;
-
-    /**
-     * 계약 시작일
+     * 계약 시작일 (yyyy-MM-dd)
      */
     private LocalDate startDate;
 
     /**
-     * 계약 종료일
+     * 계약 종료일 (yyyy-MM-dd)
      */
     private LocalDate endDate;
 
-    private String address;
-
-    private Double latitude;
-
-    private Double longitude;
-
-    private String buildingNumber;
-
-    private String unitNumber;
-
     /**
-     * 공급 면적
+     * 계약 종류 (전세, 월세)
      */
-    private Integer supplyArea;
+    private ContractType contractType;
 
     /**
-     * 전용 면적
+     * 방 종류 (원룸, 투룸, 기타)
      */
-    private Integer leasableArea;
+    @Enumerated(EnumType.STRING)
+    private RoomType roomType;
 
     /**
-     * 방 크기
+     * 보증금 (단위 : 원)
+     */
+    private Long deposit;
+
+    /**
+     * 월세 (단위 : 원)
+     * - 계약 종류가 월세인 경우
+     */
+    private Integer monthlyRent;
+
+    /**
+     * 관리비가 있는가?
+     */
+    private Boolean maintenanceType;
+
+    /**
+     * 관리비 (단위 : 원)
+     */
+    private Integer maintenanceFee;
+
+    /**
+     * 방 크기 (단위 : 평)
      */
     private Integer roomSize;
-
-    /**
-     * 건물 층수
-     */
-    private Integer totalFloor;
-
-    /**
-     * 방의 층수
-     */
-    private Integer floor;
-
-    /**
-     * 난방 종류
-     */
-    private String heatingType;
 
     /**
      * 엘리베이터 유무
@@ -117,7 +108,17 @@ public class Transfer {
     private Boolean parking;
 
     /**
-     * 옵션
+     * 건물 층수
+     */
+    private Integer totalFloor;
+
+    /**
+     * 방의 층수
+     */
+    private Integer floor;
+
+    /**
+     * 옵션 (방에 대한 추가 정보 입력란)
      */
     private String options;
 
@@ -127,26 +128,33 @@ public class Transfer {
         return TransferDto.builder()
                 .transferId(id)
                 .roomType(roomType)
-                .buildingType(buildingType)
                 .contractType(contractType)
                 .deposit(deposit)
-                .rent(rent)
+                .monthlyRent(monthlyRent)
                 .startDate(startDate)
                 .endDate(endDate)
                 .address(address)
-                .latitude(latitude)
-                .longitude(longitude)
-                .buildingNumber(buildingNumber)
-                .unitNumber(unitNumber)
-                .supplyArea(supplyArea)
-                .leasableArea(leasableArea)
                 .roomSize(roomSize)
                 .totalFloor(totalFloor)
                 .floor(floor)
-                .heatingType(heatingType)
                 .elevator(elevator)
                 .parking(parking)
                 .options(options)
                 .build();
+    }
+
+    public void updateTransfer(TransferRequest request) {
+        this.roomType = request.getRoomType();
+        this.contractType = request.getContractType();
+        this.deposit = request.getDeposit();
+        this.monthlyRent = request.getMonthlyRent();
+        this.startDate = request.getStartDate();
+        this.endDate = request.getEndDate();
+        this.address = request.getAddress();
+        this.roomSize = request.getRoomSize();
+        this.totalFloor = request.getTotalFloor();
+        this.elevator = request.getElevator();
+        this.parking = request.getParking();
+        this.options = request.getOptions();
     }
 }

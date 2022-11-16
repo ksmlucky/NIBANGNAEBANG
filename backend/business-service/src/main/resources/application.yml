@@ -7,6 +7,7 @@ server:
     enabled: true
 #    key-alias: footprints
 spring:
+
   application:
     name: business-service
   rabbitmq:
@@ -18,10 +19,35 @@ spring:
     base-url: http://127.0.0.1:9411
     enabled: true
 
+
+  data:
+    mongodb:
+      host: localhost
+#      host: j7c204.p.ssafy.io
+      port: 27017
+      authentication-database: admin
+#      username: j7c204
+#      password: seveneleven
+      database: footprints_business
+#    web:
+#      pageable:
+#        one-indexed-parameters: true
+
+  redis:
+    lettuce:
+      pool:
+        max-active: 5
+        max-idle: 5
+        min-idle: 2
+    host: 127.0.0.1
+    port: 6379
+    password: redis
+
   servlet:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
+
 
   cloud:
     gateway:
@@ -90,3 +116,14 @@ auth_service:
   url: http://AUTH-SERVICE/api/%d/nickname
   exception:
     not_found_member: Member does not exist.
+
+# freemarker
+  devtools:
+    restart:
+      enabled: false
+  freemarker:
+    cache: false
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+

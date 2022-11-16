@@ -6,7 +6,6 @@ import com.footprints.businessservice.app.domain.board.transfer.repository.custo
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.extern.slf4j.Slf4j;
 
-import static com.footprints.businessservice.app.domain.board.article.entity.QArticle.article;
 import static com.footprints.businessservice.app.domain.board.transfer.entity.QTransfer.transfer;
 
 @Slf4j

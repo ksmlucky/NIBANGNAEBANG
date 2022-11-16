@@ -29,11 +29,11 @@ public class ArticleController {
     @GetMapping
     @Operation(summary = "게시글 목록 조회")
     public ResponseEntity<? extends DataResponse> getArticleList(SortCondition condition, Pageable pageable) {
-        List<ArticleDto> response = articleService.getArticleList(condition, pageable);
+        ArticleResponse response = articleService.getArticleList(condition, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
 
-    @PostMapping
+    @PostMapping("/AT")
     @Operation(summary = "게시글 등록")
     public ResponseEntity<? extends MessageResponse> saveArticle(
             @RequestHeader(name = "X-Authorization-Id") String memberId,
@@ -53,7 +53,7 @@ public class ArticleController {
         ArticleDto response = articleService.getArticle(articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
-    @PutMapping("/{article-id}")
+    @PutMapping("/AT/{article-id}")
     @Operation(summary = "게시글 수정")
     public ResponseEntity<? extends MessageResponse> updateArticle(
             @RequestHeader(name = "X-Authorization-Id") String memberId,
@@ -65,7 +65,7 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
-    @DeleteMapping("/{article-id}")
+    @DeleteMapping("/AT/{article-id}")
     @Operation(summary = "게시글 삭제")
     public ResponseEntity<? extends MessageResponse> deleteArticle(
             @RequestHeader(name = "X-Authorization-Id") String memberId,
@@ -75,14 +75,14 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
-    @PostMapping("/{article-id}/like")
+    @PostMapping("/AT/{article-id}/like")
     @Operation(summary = "게시글 좋아요")
     public ResponseEntity<? extends MessageResponse> likeArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "article-id") Long articleId) {
         articleService.likeArticle(memberId, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
-    @DeleteMapping("/{article-id}/unlike")
+    @DeleteMapping("/AT/{article-id}/unlike")
     @Operation(summary = "게시글 좋아요 해제")
     public ResponseEntity<? extends MessageResponse> unlikeArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "article-id") Long articleId) {
         articleService.unlikeArticle(memberId, articleId);
@@ -96,21 +96,21 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
 
-    @PostMapping("/scrap/{article-id}")
+    @PostMapping("/AT/scrap/{article-id}")
     @Operation(summary = "게시글 스크랩")
     public ResponseEntity<? extends MessageResponse> scrapArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "article-id") Long articleId) {
         articleService.scrapArticle(memberId, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
-    @DeleteMapping("/scrap/{article-id}")
+    @DeleteMapping("/AT/scrap/{article-id}")
     @Operation(summary = "게시글 스크랩 취소")
     public ResponseEntity<? extends MessageResponse> unscrapArticle(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "article-id") Long articleId) {
         articleService.unscrapArticle(memberId, articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());
     }
 
-    @GetMapping("/scrap/{category}")
+    @GetMapping("/AT/scrap/{category}")
     @Operation(summary = "스크랩한 게시글 목록")
     public ResponseEntity<? extends DataResponse> getScrappedArticleList(@RequestHeader(name = "X-Authorization-Id") String memberId, @PathVariable(name = "category") String category, Pageable pageable) {
         List<ScrappedArticleDto> list = articleService.getScrappedArticleList(memberId, category, pageable);
