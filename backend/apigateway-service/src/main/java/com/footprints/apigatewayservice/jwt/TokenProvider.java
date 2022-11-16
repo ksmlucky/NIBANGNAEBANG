@@ -60,7 +60,7 @@ public class TokenProvider implements InitializingBean {
     // 토큰을 파싱하고 발생하는 예외를 처리, 문제가 있을 경우 false 반환
     public boolean validateToken(String token) {
         try {
-            // 토큰 파싱하고 만약 예외가 발생하면 캐치
+            // 토큰 파싱하고 만약 예외가 발생하면 캐치   `
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
