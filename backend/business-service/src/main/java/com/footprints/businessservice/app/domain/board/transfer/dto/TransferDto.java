@@ -3,6 +3,7 @@ package com.footprints.businessservice.app.domain.board.transfer.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.footprints.businessservice.app.domain.board.transfer.entity.ContractType;
 import com.footprints.businessservice.app.domain.board.transfer.entity.RoomType;
+import com.footprints.businessservice.app.domain.board.transfer.entity.TransferStatus;
 import com.footprints.businessservice.app.domain.board.transfer.entity.TransferType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,11 @@ public class TransferDto {
      * 양도 게시글 ID
      */
     private Long transferId;
+
+    /**
+     * 양도 신청한 사람
+     */
+    private String tenant;
 
     /**
      * 주소 (지번, 도로명 주소)
@@ -115,5 +121,10 @@ public class TransferDto {
      * 옵션 (방에 대한 추가 정보 입력란)
      */
     private String options;
+
+    /**
+     * 양도 진행 상태(READY, ONGOING, COMPLETE)
+     */
+    private TransferStatus transferStatus;
 
 }
