@@ -43,7 +43,7 @@ public class ArticleController {
             throw new ArticleException(ArticleExceptionType.FILE_IS_NOT_IMAGE);
         }
 
-        Integer count = articleService.saveArticle(memberId, request, multipartFiles);
+        Long count = articleService.saveArticle(memberId, request, multipartFiles);
         return ResponseEntity.status(HttpStatus.CREATED).body(new DataResponse<>(count));
     }
 
