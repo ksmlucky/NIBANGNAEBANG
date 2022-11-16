@@ -67,7 +67,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public void saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles) {
+    public Integer saveArticle(String memberId, CommonRequest request, List<MultipartFile> multipartFiles) {
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
         Article article = request.getArticleRequest().toEntity(nickname);
 
@@ -80,6 +80,8 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         articleRepository.save(article);
+
+        return article.getId();
     }
 
     @Override
