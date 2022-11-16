@@ -43,8 +43,8 @@ public class ArticleController {
             throw new ArticleException(ArticleExceptionType.FILE_IS_NOT_IMAGE);
         }
 
-        articleService.saveArticle(memberId, request, multipartFiles);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new MessageResponse());
+        Integer count = articleService.saveArticle(memberId, request, multipartFiles);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new DataResponse<>(count));
     }
 
     @GetMapping("/{article-id}")
