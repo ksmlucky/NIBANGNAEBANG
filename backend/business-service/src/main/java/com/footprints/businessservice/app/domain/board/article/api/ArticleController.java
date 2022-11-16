@@ -53,6 +53,16 @@ public class ArticleController {
         ArticleDto response = articleService.getArticle(articleId);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(response));
     }
+
+    @GetMapping("/AT/my-room")
+    @Operation(summary = "내 양도 방 조회")
+    public ResponseEntity<? extends DataResponse> getMyTransferArticle(
+            @RequestHeader(name = "X-Authorization-Id") String memberId) {
+        ArticleDto response = articleService.getMyTransferArticle(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>(response));
+    }
+
+
     @PutMapping("/AT/{article-id}")
     @Operation(summary = "게시글 수정")
     public ResponseEntity<? extends MessageResponse> updateArticle(

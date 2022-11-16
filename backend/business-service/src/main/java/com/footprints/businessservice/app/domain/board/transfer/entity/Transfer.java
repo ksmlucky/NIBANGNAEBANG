@@ -63,6 +63,7 @@ public class Transfer {
     /**
      * 계약 종류 (전세, 월세)
      */
+    @Enumerated(EnumType.STRING)
     private ContractType contractType;
 
     /**
