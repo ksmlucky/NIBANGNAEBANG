@@ -24,6 +24,14 @@ public class TransferRepositoryImpl extends QuerydslRepositorySupport implements
                 .fetchOne();
     }
 
+    @Override
+    public Transfer getTransferByNicknameAndArticleId(String nickname, Long articleId) {
+        return selectFrom(transfer)
+                .innerJoin(transfer.article)
+                .where(articleEq(articleId).and(transfer.tenant.eq(nickname)))
+                .fetchOne();
+    }
+
     private BooleanExpression articleEq(Long articleId) {
         return transfer.article.id.eq(articleId);
     }

@@ -11,6 +11,9 @@ import java.time.LocalDate;
 
 import static javax.persistence.FetchType.LAZY;
 
+/**
+ * @author Geun 
+ */
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,6 +29,11 @@ public class Transfer {
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "article_id")
     private Article article;
+
+    /**
+     * 양도 신청한 사람
+     */
+    private String tenant;
 
     /**
      * 주소 (지번, 도로명 주소)
@@ -123,13 +131,21 @@ public class Transfer {
      */
     private String options;
 
+    /**
+     * 양도 진행 상태(READY, ONGOING, COMPLETE)
+     */
     @Enumerated(EnumType.STRING)
     private TransferStatus transferStatus;
 
+    /**
+     * Transfer Entity 를 Dto로 변환하기 위한 메서드
+     * @return TransferDto
+     */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public TransferDto toDto() {
         return TransferDto.builder()
                 .transferId(id)
+                .tenant(tenant)
                 .address(address)
                 .detailAddress(detailAddress)
                 .transferType(transferType)
@@ -152,7 +168,28 @@ public class Transfer {
                 .build();
     }
 
+    /**
+     * 양도 신청자의 닉네임을 저장하는 연관관계 메서드
+     * @param nickname 양도 신청자의 닉네임 (현재 로그인한 회원의 닉네임)
+     */
+    public void updateTenant(String nickname) {
+        tenant = nickname;
+    }
+
+    /**
+     * 양도 게시글의 양도 상태를 저장하는 연관관계 메서드
+     * @param status 양도 상태(READY, ONGOING, COMPLETE)
+     */
+    public void updateStatus(TransferStatus status) {
+        transferStatus = status;
+    }
+
+    /**
+     * 양도 게시글 수정 양식에 따라 양도 게시글 수정하는 연관관계 메서드
+     * @param request 수정 요청시 작성하는 양식 데이터
+     */
     public void updateTransfer(TransferRequest request) {
+        tenant = request.getTenant();
         address = request.getAddress();
         detailAddress = request.getDetailAddress();
         transferType = request.getTransferType();
