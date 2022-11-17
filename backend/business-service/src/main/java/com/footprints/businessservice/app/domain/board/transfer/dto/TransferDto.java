@@ -3,6 +3,7 @@ package com.footprints.businessservice.app.domain.board.transfer.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.footprints.businessservice.app.domain.board.transfer.entity.ContractType;
 import com.footprints.businessservice.app.domain.board.transfer.entity.RoomType;
+import com.footprints.businessservice.app.domain.board.transfer.entity.TransferStatus;
 import com.footprints.businessservice.app.domain.board.transfer.entity.TransferType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -114,5 +115,7 @@ public class TransferDto {
      * 옵션 (방에 대한 추가 정보 입력란)
      */
     private String options;
+
+    private TransferStatus transferStatus;
 
 }

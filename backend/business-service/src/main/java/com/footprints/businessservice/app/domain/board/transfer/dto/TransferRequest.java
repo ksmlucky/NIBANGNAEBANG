@@ -2,10 +2,7 @@ package com.footprints.businessservice.app.domain.board.transfer.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.footprints.businessservice.app.domain.board.article.entity.Article;
-import com.footprints.businessservice.app.domain.board.transfer.entity.ContractType;
-import com.footprints.businessservice.app.domain.board.transfer.entity.RoomType;
-import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
-import com.footprints.businessservice.app.domain.board.transfer.entity.TransferType;
+import com.footprints.businessservice.app.domain.board.transfer.entity.*;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -110,6 +107,8 @@ public class TransferRequest {
      */
     private String options;
 
+    private TransferStatus transferStatus;
+
 
     public Transfer toEntity(Article article) {
         return Transfer.builder()
@@ -132,6 +131,7 @@ public class TransferRequest {
                 .floor(floor)
                 .options(options)
                 .article(article)
+                .transferStatus(TransferStatus.READY)
                 .build();
     }
 }
