@@ -20,4 +20,9 @@ public interface ChatRoomService {
 //    String findChatRoom(ChatRoomReq chatRoomReq);
 //    /** 채팅방에서 유저 참가 정보를 삭제하는 deleteUserInfo 입니다. **/
 //    void deleteUserInfo(String id, String userEmail);
+
+    /**
+     * 채팅방 나가기
+     **/
+    void exitChatRoom(String memberid, String roomId);
 }

@@ -261,6 +261,35 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
         return chatRoomInfoRes;
     }
+
+    @Override
+    public void exitChatRoom(String memberid, String roomId) {
+        ChatRoom chatRoom = mongoTemplate.findOne(
+                Query.query(Criteria.where("_id").is(roomId)),
+                ChatRoom.class
+        );
+
+
+        List<ChatRoomMember> chatRoomMembers = chatRoom.getMembers();
+        for (ChatRoomMember chatRoomMember : chatRoomMembers) {
+            if (chatRoomMember.getId() == Long.parseLong(memberid)) {
+                chatRoomMembers.remove(chatRoomMember);
+                break;
+            }
+        }
+
+        log.info("chatRoomMembers: {}", chatRoomMembers);
+
+        chatRoom.updateMember(chatRoomMembers);
+
+        chatRoomRepository.save(chatRoom);
+
+
+//        chatRoom.setMembers(chatRoomMembers);
+//        log.info("chatRoom: {}", chatRoom);
+//        log.info("chatRoom.getMembers(): {}", chatRoom.getMembers());
+//        chatRoomRepository.save(chatRoom);
+    }
 //
 //    /** 유저1과 유저2의 채팅방이 존재하는지 확인하는 findChatRoom 입니다. (true: 존재 O, false: 존재 X) **/
 //    @Override

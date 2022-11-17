@@ -68,4 +68,8 @@ public class ChatRoom {
         // 방장 여부
         private boolean isBangjang;
     }
+
+    public void updateMember(List<ChatRoomMember> chatRoomMembers) {
+        this.members = chatRoomMembers;
+    }
 }
