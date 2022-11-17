@@ -18,6 +18,7 @@ function ChangeNickname() {
   const dispatch = useDispatch();
   const nicknameInput = useRef();
   const { sessionStorage } = window;
+  const at = sessionStorage.getItem("accessToken");
   const nickName = sessionStorage.getItem("userNickname");
   const [passNickname, setPassNickname] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -58,17 +59,19 @@ function ChangeNickname() {
   const changeFinish = async () => {
     if (passNickname === true) {
       const nickname = userNickname;
+      // const at = sessionStorage.getItem("accessToken");
       try {
         const res = await checkRename({
           nickname: nickname,
         });
         // console.log(res.message);
-        console.log(res.message);
         if (res.message === "닉네임 변경 완료") {
-          // setNick(nickname);
+          console.log(res.message);
           dispatch(setNickname(nickname));
           sessionStorage.setItem("userNickname", nickname);
+          setNick(nickname);
           setMessage("닉네임 변경을 완료했습니다.");
+          window.alert("닉네임 변경을 완료했습니다.");
         }
       } catch (err) {
         console.log(err);

@@ -1,5 +1,8 @@
 import { API, API_USER } from "./index";
 
+export const { sessionStorage } = window;
+export const at = sessionStorage.getItem("accessToken");
+
 export const login = async (body) => {
   const res = await API.post("user/login", body, { headers: {} });
   return res.data;
@@ -21,10 +24,12 @@ export const checkJoin = async (body) => {
 };
 // 닉네임 변경
 export const checkRename = async (body) => {
-  const res = await API_USER.put("auth-service/api/AT/nickname", body);
-  // const res = await API.put("auth-service/api/AT/nickname", body, {
-  //   headers: { Authorization: sessionStorage.getItem("accessToken") },
-  // });
+  // const res = await API_USER.put("auth-service/api/AT/nickname", body);
+  const res = await API.put("auth-service/api/AT/nickname", body, {
+    headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+    },
+  });
   return res.data;
 };
 // 아이디 찾기

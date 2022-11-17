@@ -4,11 +4,11 @@
   overflow: hidden;
   margin-top: (20px);
   align-items: center;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border: 1px solid rgba(112, 112, 112, 0.11);
   border-radius: (20px);
   &_img {
-    width: (300px);
+    width: (250px);
     height: (200px);
     overflow: hidden;
     margin: 0 (20px) 0 (10px);
@@ -22,7 +22,8 @@
   &_contents {
     color: #2c4b48;
     flex-direction: column;
-    &_address, &_contract {
+    &_address,
+    &_contract {
       margin-bottom: (6px);
     }
     &_detail {

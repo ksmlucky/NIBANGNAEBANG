@@ -2,20 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import Pagination from "@mui/material/Pagination";
-import { getRoomList } from "../../apis/room";
+import { getRoomList, getRoomListAd } from "../../apis/room";
 import RoomCardList from "@components/room/RoomCardList";
 import "./RoomList.scss";
 
 function RoomList() {
-  const [roomOrder, setRoomOrder] = useState("createdAt");
-  const [roomSort, setRoomSort] = useState("desc");
+  const [roomOrder, setRoomOrder] = useState("desc");
+  const [roomSort, setRoomSort] = useState("createdAt");
   const [roomPage, setRoomPage] = useState(0);
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(1);
-  const handleChange = (event, value) => {
-    setPage(value);
-    setRoomPage(value - 1);
-  };
   const adRef = useRef();
   const [roomAd, setRoomAd] = useState("");
   const [toAd, setToAd] = useState(false);
@@ -39,23 +35,44 @@ function RoomList() {
       roomAddress: roomAd,
     });
   };
+  const handleChange = async (event, value) => {
+    setPage(value);
+    setRoomPage(value - 1);
+    if (toAd === true) {
+      const res = await getRoomListAd(params);
+      console.log(res);
+    } else {
+      const res = await getRoomList(params);
+      console.log(res);
+    }
+  };
   const newclick = async () => {
-    setRoomOrder("createdAt");
-    setRoomSort("desc");
-    const res = await getRoomList(params);
-    console.log(res);
+    setRoomOrder("desc");
+    setRoomSort("createdAt");
+    if (toAd === true) {
+      const res = await getRoomListAd(params);
+      console.log(res);
+    } else {
+      const res = await getRoomList(params);
+      console.log(res);
+    }
   };
   const priceclick = async () => {
-    setRoomOrder("deposit");
-    setRoomSort("desc");
-    const res = await getRoomList(params);
-    console.log(res);
+    setRoomOrder("desc");
+    setRoomSort("deposit");
+    if (toAd === true) {
+      const res = await getRoomListAd(params);
+      console.log(res);
+    } else {
+      const res = await getRoomList(params);
+      console.log(res);
+    }
   };
   const onClickSearch = async () => {
-    // setToAd(true);
+    setToAd(true);
     setRoomAd(adRef.current.value);
     bparams();
-    const res = await getRoomList(params);
+    const res = await getRoomListAd(params);
     console.log(res);
   };
   const handleOnKeyPress = (e) => {
@@ -64,9 +81,14 @@ function RoomList() {
     }
   };
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   fuckoff();
-  // }, []);
+  const basic = async () => {
+    aparams();
+    const res = await getRoomList(params);
+    console.log(res);
+  };
+  useEffect(() => {
+    basic();
+  }, []);
   return (
     <div className="container flex">
       <div className="roomList flex">
@@ -89,7 +111,7 @@ function RoomList() {
               <SearchIcon sx={{ fontSize: 40 }} />
             </button>
           </div>
-          {roomOrder === "createdAt" && (
+          {roomSort === "createdAt" && (
             <div className="roomList_options_btns flex">
               <button
                 className="roomList_options_btns_new notoBold fs-24"
@@ -107,7 +129,7 @@ function RoomList() {
               </button>
             </div>
           )}
-          {roomOrder === "deposit" && (
+          {roomSort === "deposit" && (
             <div className="roomList_options_btns flex">
               <button
                 className="roomList_options_btns_new notoReg fs-24"

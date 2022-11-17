@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import DatePicker from "react-datepicker";
+import RoomSearch from "@components/room/InRoomSearch";
 import Checkbox from "@mui/material/Checkbox";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import CheckIcon from "@mui/icons-material/Check";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -15,11 +15,18 @@ import thinkIcon from "@images/extra/think.png";
 import contractIcon from "@images/extra/contract.png";
 import keyboardIcon from "@images/extra/keyboard.png";
 import { registerRoom } from "../../apis/room";
+import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import "./RoomRegister.scss";
 
+export function changeFormat(date, format) {
+  //moment 변환을 함수로 미리 빼 두어서 사용.
+  return moment(date).format(format);
+}
+
 function Questions(props) {
   const { sessionStorage } = window;
+  const [popup, setPopup] = useState(false);
   const [loc, setLoc] = useState("");
   const [count, setCount] = useState(0);
   const defaultLoc = sessionStorage.getItem("location");
@@ -174,65 +181,64 @@ function Questions(props) {
   // const [options, setOptions] = useState("");
   const onClickForward = async () => {
     if (id === 2) {
-      console.log(startDate);
-      console.log(endDate);
-      // const formData = new FormData();
-      // const commonRequest = {
-      //   articleRequest: {
-      //     category: "transfer",
-      //   },
-      //   transferRequest: {
-      //     address: address,
-      //     detailAddress: detailAddress,
-      //     transferType: type,
-      //     meetAndDecide: checked,
-      //     // startDate: startDate,
-      //     // endDate: endDate,
-      //     contractType: conType,
-      //     roomType: roomType,
-      //     deposit: deposit,
-      //     monthlyRent: monthlyRent,
-      //     maintenanceType: feeCheck,
-      //     maintenanceFee: maintenanceFee,
-      //     roomSize: roomSize,
-      //     elevator: eleChecked,
-      //     parking: false,
-      //     totalFloor: totalFloor,
-      //     floor: floor,
-      //     options: extraRef.current.value,
-      //   },
-      // };
-      // sessionStorage.setItem("location", "");
-      // formData.append(
-      //   "request",
-      //   new Blob([JSON.stringify(commonRequest)], {
-      //     type: "application/json",
-      //   })
-      // );
-      // try {
-      //   const res = await registerRoom(formData);
-      //   navigate(`/room/detail/${res.data}`);
-      // navigate("/room/detail");
-      // console.log(address);
-      // console.log(detailAddress);
-      // console.log(type);
-      // console.log(checked);
-      // console.log(startDate);
-      // console.log(endDate);
-      // console.log(conType);
-      // console.log(deposit);
-      // console.log(monthlyRent);
-      // console.log(feeCheck);
-      // console.log(maintenanceFee);
-      // console.log(roomType);
-      // console.log(roomSize);
-      // console.log(eleChecked);
-      // console.log(totalFloor);
-      // console.log(floor);
-      // console.log(extraRef.current.value);
-      // } catch (err) {
-      //   console.log(err);
-      // }
+      const formData = new FormData();
+      const commonRequest = {
+        articleRequest: {
+          category: "transfer",
+        },
+        transferRequest: {
+          address: address,
+          detailAddress: detailAddress,
+          transferType: type,
+          meetAndDecide: checked,
+          startDate: startDate,
+          endDate: endDate,
+          contractType: conType,
+          roomType: roomType,
+          deposit: deposit,
+          monthlyRent: monthlyRent,
+          maintenanceType: feeCheck,
+          maintenanceFee: maintenanceFee,
+          roomSize: roomSize,
+          elevator: eleChecked,
+          parking: false,
+          totalFloor: totalFloor,
+          floor: floor,
+          options: extraRef.current.value,
+        },
+      };
+      console.log(commonRequest);
+      sessionStorage.setItem("location", "");
+      formData.append(
+        "request",
+        new Blob([JSON.stringify(commonRequest)], {
+          type: "application/json",
+        })
+      );
+      try {
+        const res = await registerRoom(formData);
+        navigate(`/room/detail/${res.data}`);
+        // navigate("/room/detail");
+        // console.log(address);
+        // console.log(detailAddress);
+        // console.log(type);
+        // console.log(checked);
+        // console.log(startDate);
+        // console.log(endDate);
+        // console.log(conType);
+        // console.log(deposit);
+        // console.log(monthlyRent);
+        // console.log(feeCheck);
+        // console.log(maintenanceFee);
+        // console.log(roomType);
+        // console.log(roomSize);
+        // console.log(eleChecked);
+        // console.log(totalFloor);
+        // console.log(floor);
+        // console.log(extraRef.current.value);
+      } catch (err) {
+        console.log(err);
+      }
     } else if (id === 1) {
       console.log(conType);
       setDeposit(monfeeRef.current.value);
@@ -250,8 +256,10 @@ function Questions(props) {
       setDetailAddress(detailRef.current.value);
       console.log(type);
       console.log(checked);
-      console.log(startDate);
-      console.log(endDate);
+      const sDate = changeFormat(startDate, "yyyy-MM-DD");
+      const eDate = changeFormat(endDate, "yyyy-MM-DD");
+      setStartDate(sDate);
+      setEndDate(eDate);
       getId(id + 1);
     }
   };
@@ -271,8 +279,25 @@ function Questions(props) {
         {id === 0 && (
           <div className="roomRegister_box_p1">
             <div className="roomRegister_box_p1_address">
-              <div className="roomRegister_box_p1_address_title shBold fs-26">
-                주소
+              <div className="roomRegister_box_p1_address_title flex shBold fs-26">
+                주소&nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                  type="button"
+                  className="roomRegister_box_p1_address_title_btn shBold fs-22"
+                  onClick={() => {
+                    setPopup(!popup);
+                    sessionStorage.setItem("location", "");
+                  }}
+                >
+                  검색하기
+                </button>
+                {popup && (
+                  <RoomSearch
+                    address={loc}
+                    setAddress={setLoc}
+                    // location={roughRef.current.value}
+                  />
+                )}
               </div>
               <div className="div roomRegister_box_p1_address_input flex">
                 <input

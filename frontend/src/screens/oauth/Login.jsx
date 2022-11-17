@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import navLogo from "@images/logo/logo.svg";
 import KakaoLogin from "@images/extra/kakao_login_medium_narrow.png";
-import HttpsIcon from '@mui/icons-material/Https';
+import HttpsIcon from "@mui/icons-material/Https";
 import "./Login.scss";
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
@@ -39,12 +39,16 @@ const theme = createTheme();
 
 function Login() {
   const LoginProceed = `http://localhost:3000/login/joinname`;
+  const { sessionStorage } = window;
+  console.log(sessionStorage);
   return (
     <div className="container flex">
       <div className="login flex">
-        <div className="login_title shBold fs-56">내 방, 잘 사고 잘 팔고 싶을 때</div>
+        <div className="login_title shBold fs-56">
+          내 방, 잘 사고 잘 팔고 싶을 때
+        </div>
         <div className="login_box flex">
-          <HttpsIcon sx={{ fontSize: 80}} className="login_box_lock"/>
+          <HttpsIcon sx={{ fontSize: 80 }} className="login_box_lock" />
           <div className="login_box_logo shBold fs-60">니방내방</div>
           <div className="login_box_kakao1">
             <a href={KAKAO_AUTH_URI} aria-label="Kakao">
