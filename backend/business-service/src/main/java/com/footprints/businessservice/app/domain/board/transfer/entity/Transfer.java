@@ -123,6 +123,9 @@ public class Transfer {
      */
     private String options;
 
+    @Enumerated(EnumType.STRING)
+    private TransferStatus transferStatus;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public TransferDto toDto() {
         return TransferDto.builder()
@@ -145,6 +148,7 @@ public class Transfer {
                 .totalFloor(totalFloor)
                 .floor(floor)
                 .options(options)
+                .transferStatus(transferStatus)
                 .build();
     }
 
@@ -167,5 +171,6 @@ public class Transfer {
         totalFloor = request.getTotalFloor();
         floor = request.getFloor();
         options = request.getOptions();
+        transferStatus = request.getTransferStatus();
     }
 }
