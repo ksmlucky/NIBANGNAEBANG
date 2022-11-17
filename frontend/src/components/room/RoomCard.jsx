@@ -22,7 +22,7 @@ function RoomCard({ roomId }) {
             월세 5000 / 100
           </div>
           <div className="roomCard_contents_detail flex shBold fs-24">
-            <div className="roomCard_contents_detail_room">투룸 19.83㎡</div>
+            <div className="roomCard_contents_detail_room">투룸 12평</div>
             <div className="roomCard_contents_detail_floor">5층</div>
           </div>
         </div>

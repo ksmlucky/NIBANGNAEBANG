@@ -7,88 +7,75 @@ import RoomCardList from "@components/room/RoomCardList";
 import "./RoomList.scss";
 
 function RoomList() {
-  const [roomOrder, setRoomOrder] = useState("desc");
-  const [roomSort, setRoomSort] = useState("createdAt");
-  const [roomPage, setRoomPage] = useState(0);
-  const [size, setSize] = useState(10);
-  const [page, setPage] = useState(1);
+  // 보증금 순으로하려면 transfer.deposit으로 할 것
+  // 방의 다른 정보 활용하려면 마찬가지로 transfer.{}로 할 수 있음(roomSize, startDate -> 바로 계약할 수 있는 케이스 등)
   const adRef = useRef();
-  const [roomAd, setRoomAd] = useState("");
-  const [toAd, setToAd] = useState(false);
+  const [size, setSize] = useState(5);
+  const [page, setPage] = useState(1);
+  const [roomSort, setRoomSort] = useState("createdAt");
+  const [roomOrder, setRoomOrder] = useState("desc");
+  const [roomAddress, setRoomAddress] = useState("");
+  const [roomList, setRoomList] = useState([]);
   const [params, setParams] = useState({
-    roomPage: roomPage,
+    roomPage: page - 1,
     roomSort: roomSort,
     roomOrder: roomOrder,
+    roomAddress: roomAddress,
   });
-  const aparams = () => {
-    setParams({
-      roomPage: roomPage,
-      roomSort: roomSort,
-      roomOrder: roomOrder,
-    });
-  };
-  const bparams = () => {
-    setParams({
-      roomPage: roomPage,
-      roomSort: roomSort,
-      roomOrder: roomOrder,
-      roomAddress: roomAd,
-    });
+  const getList = async () => {
+    const res = await getRoomListAd(params);
+    console.log(res.data.articles);
+    setSize(Math.ceil(res.data.count / 4));
+    setRoomList(res.data.articles);
+    console.log(roomList.length);
+    // console.log(res);
   };
   const handleChange = async (event, value) => {
     setPage(value);
-    setRoomPage(value - 1);
-    if (toAd === true) {
-      const res = await getRoomListAd(params);
-      console.log(res);
-    } else {
-      const res = await getRoomList(params);
-      console.log(res);
-    }
+    setParams((preState) => ({
+      ...preState,
+      roomPage: value - 1,
+    }));
   };
-  const newclick = async () => {
-    setRoomOrder("desc");
+  const toNew = async () => {
     setRoomSort("createdAt");
-    if (toAd === true) {
-      const res = await getRoomListAd(params);
-      console.log(res);
-    } else {
-      const res = await getRoomList(params);
-      console.log(res);
-    }
-  };
-  const priceclick = async () => {
     setRoomOrder("desc");
-    setRoomSort("deposit");
-    if (toAd === true) {
-      const res = await getRoomListAd(params);
-      console.log(res);
-    } else {
-      const res = await getRoomList(params);
-      console.log(res);
-    }
+    setParams((preState) => ({
+      ...preState,
+      roomSort: "createdAt",
+      roomOrder: "desc",
+    }));
   };
+  const toLow = async () => {
+    setRoomSort("hits");
+    setRoomOrder("desc");
+    setParams((preState) => ({
+      ...preState,
+      roomSort: "hits",
+      roomOrder: "desc",
+    }));
+  };
+  useEffect(() => {
+    getList();
+  }, [page]);
+  useEffect(() => {
+    getList();
+  }, [roomSort]);
+  useEffect(() => {
+    getList();
+  }, [roomAddress]);
   const onClickSearch = async () => {
-    setToAd(true);
-    setRoomAd(adRef.current.value);
-    bparams();
-    const res = await getRoomListAd(params);
-    console.log(res);
+    setRoomAddress(adRef.current.value);
+    setParams((preState) => ({
+      ...preState,
+      roomAddress: adRef.current.value,
+    }));
   };
   const handleOnKeyPress = (e) => {
     if (e.key === "Enter") {
       onClickSearch();
     }
   };
-  const navigate = useNavigate();
-  const basic = async () => {
-    aparams();
-    const res = await getRoomList(params);
-    console.log(res);
-  };
-  useEffect(() => {
-    basic();
-  }, []);
   return (
     <div className="container flex">
       <div className="roomList flex">
@@ -116,34 +103,34 @@ function RoomList() {
               <button
                 className="roomList_options_btns_new notoBold fs-24"
                 type="button"
-                onClick={newclick}
+                // onClick={toNew}
               >
                 최신순
               </button>
               <button
                 className="roomList_options_btns_price notoReg fs-24"
                 type="button"
-                onClick={priceclick}
+                onClick={toLow}
               >
-                낮은가격순
+                조회순
               </button>
             </div>
           )}
-          {roomSort === "deposit" && (
+          {roomSort === "hits" && (
             <div className="roomList_options_btns flex">
               <button
                 className="roomList_options_btns_new notoReg fs-24"
                 type="button"
-                onClick={newclick}
+                onClick={toNew}
               >
                 최신순
               </button>
               <button
                 className="roomList_options_btns_price notoBold fs-24"
                 type="button"
-                onClick={priceclick}
+                // onClick={toLow}
               >
-                낮은가격순
+                조회순
               </button>
             </div>
           )}

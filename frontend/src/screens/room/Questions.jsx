@@ -117,7 +117,7 @@ function Questions(props) {
   };
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [conType, setConType] = useState("");
+  const [conType, setConType] = useState("월세");
   const [conJ, setConJ] = useState(false);
   const [conW, setConW] = useState(false);
   const feeRef = useRef();
@@ -241,8 +241,12 @@ function Questions(props) {
       }
     } else if (id === 1) {
       console.log(conType);
-      setDeposit(monfeeRef.current.value);
-      setMonthlyRent(monfeeRef.current.value);
+      setDeposit(confeeRef.current.value);
+      if (conType === "전세") {
+        setMonthlyRent(0);
+      } else {
+        setMonthlyRent(monfeeRef.current.value);
+      }
       console.log(feeCheck);
       setMaintenanceFee(feeRef.current.value);
       setRoomType(roomtypeRef.current.value);

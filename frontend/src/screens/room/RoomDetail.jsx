@@ -60,21 +60,27 @@ function RoomDetail() {
             <div className="roomDetail_contents_top_contract">
               {contractType === "월세" && (
                 <div className="roomDetail_contents_top_contract_txt shBold fs-36">
-                  월세 {deposit}만원 / {monthlyRent}만원
+                  월세 {monthlyRent}만원
+                  <br />
+                  보증금 {deposit}만원
                 </div>
               )}
               {contractType === "전세" && (
                 <div className="roomDetail_contents_top_contract_txt shBold fs-36">
-                  전세 {deposit}만원 *보증금 100% 반환!*
+                  전세 {deposit}만원
+                  <br />
+                  *보증금 100% 반환!*
                 </div>
               )}
             </div>
-            <div className="roomDetail_contents_top_loc shBold fs-26">
-              {address}
+            <div className="roomDetail_contents_top_loc flex shBold fs-24">
+              <div className="roomDetail_contents_top_loc_ad">{address}</div>
+              <div className="roomDetail_contents_top_loc_room">
+                {roomType} {roomSize}평
+              </div>
             </div>
-            <div className="roomDetail_contents_top_area shBold fs-26">
-              {roomType} {roomSize}평
-            </div>
+            {/* <div className="roomDetail_contents_top_area shBold fs-26">
+            </div> */}
           </div>
           <div className="roomDetail_contents_upper flex">
             <div className="roomDetail_contents_upper_tt shBold fs-28">
@@ -106,9 +112,7 @@ function RoomDetail() {
                 )}
                 {meetAndDecide === false && (
                   <div className="roomDetail_contents_body_detail_info_mad">
-                    계약기간
-                    <br />
-                    {startDate} ~ {endDate}
+                    계약기간 {startDate} ~ {endDate}
                   </div>
                 )}
                 건물 층수 {totalFloor}층
