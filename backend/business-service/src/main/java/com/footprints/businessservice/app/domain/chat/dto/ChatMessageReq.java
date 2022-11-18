@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-//@ApiModel("ChatMessageRequest")
 public class ChatMessageReq {
 //    @ApiModelProperty(name = "메시지 전송 유저 닉네임", example = "하이")
     String sender;          // 메시지 전송 유저 닉네임
