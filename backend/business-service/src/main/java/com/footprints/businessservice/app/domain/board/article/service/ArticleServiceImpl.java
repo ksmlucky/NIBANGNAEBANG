@@ -204,7 +204,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public void updateArticle(String memberId, Long articleId, ArticleUpdateRequest request, List<MultipartFile> multipartFiles) {
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
-        Article article = articleRepository.getArticleWithNicknameAndArticleId(nickname, articleId);
+        Article article = articleRepository.getArticleAndImageWithNicknameAndArticleId(nickname, articleId);
 
         if (request.getTransfer() != null && article.getCategory().equals(TRANSFER)) {
             article.getTransfer().updateTransfer(request.getTransfer());
@@ -221,13 +221,21 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public void deleteArticle(String memberId, Long articleId) {
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
-        Article article = articleRepository.getArticleWithNickname(nickname, articleId);
+        Article article = articleRepository.getArticleWithNicknameAndArticleId(nickname, articleId);
 
         if (article == null) {
             throw new ArticleException(ArticleExceptionType.NOT_FOUND_ARTICLE);
         }
 
         articleRepository.delete(article);
+    }
+
+    @Override
+    public ArticleDto getMyTransferArticle(String memberId) {
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
+        Article article = articleRepository.getArticleWithNickname(nickname);
+
+        return new ArticleDto(article);
     }
 
     private Article updateLikeCount(Long articleId, int count) {

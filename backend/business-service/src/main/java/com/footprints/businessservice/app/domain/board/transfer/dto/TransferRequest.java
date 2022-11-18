@@ -2,10 +2,7 @@ package com.footprints.businessservice.app.domain.board.transfer.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.footprints.businessservice.app.domain.board.article.entity.Article;
-import com.footprints.businessservice.app.domain.board.transfer.entity.ContractType;
-import com.footprints.businessservice.app.domain.board.transfer.entity.RoomType;
-import com.footprints.businessservice.app.domain.board.transfer.entity.Transfer;
-import com.footprints.businessservice.app.domain.board.transfer.entity.TransferType;
+import com.footprints.businessservice.app.domain.board.transfer.entity.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -13,6 +10,11 @@ import java.time.LocalDate;
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransferRequest {
+
+    /**
+     * 양도 신청한 사람
+     */
+    private String tenant;
 
     /**
      * 주소 (지번, 도로명 주소)
@@ -107,9 +109,20 @@ public class TransferRequest {
      */
     private String options;
 
+    /**
+     * 양도 진행 상태(READY, ONGOING, COMPLETE)
+     */
+    private TransferStatus transferStatus;
 
+
+    /**
+     * Transfer Entity 저장하기 위해 변환하는 메서드
+     * @param article Transfer Entity 에 Article Entity 를 저장하기 위해 받는 매개 변수
+     * @return Transfer Entity
+     */
     public Transfer toEntity(Article article) {
         return Transfer.builder()
+                .tenant(tenant)
                 .address(address)
                 .detailAddress(detailAddress)
                 .transferType(transferType)
@@ -129,6 +142,7 @@ public class TransferRequest {
                 .floor(floor)
                 .options(options)
                 .article(article)
+                .transferStatus(TransferStatus.READY)
                 .build();
     }
 }
