@@ -36,7 +36,7 @@ public class ChatController {
     /**
      * 채팅룸 생성
      **/
-    @PostMapping("/AT/register")
+    @PostMapping("/AT")
     public ResponseEntity<? extends MessageResponse> registerChatRoom(@RequestHeader("X-Authorization-Id") String memberId,
                                                                       @RequestBody ChatRoomReq chatRoomReq) {
 
@@ -62,7 +62,7 @@ public class ChatController {
     /**
      * (유저의) 채팅방 전체 조회
      **/
-    @GetMapping("/AT/findAll")
+    @GetMapping("/AT")
 //    @ApiOperation(value ="채팅방 전체 조회(token)", notes = "<strong>유저가 속한 모든 채팅방</strong>을 조회한다.")
 //    @ApiResponses({ @ApiResponse(code = 200, message = "성공"),
 //            @ApiResponse(code = 401, message = "인증 실패"),
@@ -79,7 +79,7 @@ public class ChatController {
     /**
      * 선택한 채팅방 상세 정보 조회(방 들어가기)
      **/
-    @GetMapping("/AT/find/{room-id}")
+    @GetMapping("/AT/{room-id}")
 //    @ApiOperation(value ="선택 채팅방 상세 조회", notes = "<strong>선택한 채팅방의 정보</strong>를 조회한다.")
 //    @ApiResponses({ @ApiResponse(code = 200, message = "성공"),
 //            @ApiResponse(code = 401, message = "인증 실패"),
@@ -98,16 +98,36 @@ public class ChatController {
     /**
      * 채팅방 리스트(제목으로) 조회
      **/
-    @GetMapping("/find/list/{title}")
+    @GetMapping("/{title}")
 //    @ApiOperation(value ="선택 채팅방 상세 조회", notes = "<strong>선택한 채팅방의 정보</strong>를 조회한다.")
 //    @ApiResponses({ @ApiResponse(code = 200, message = "성공"),
 //            @ApiResponse(code = 401, message = "인증 실패"),
 //            @ApiResponse(code = 404, message = "사용자 없음"),
 //            @ApiResponse(code = 500, message = "서버 오류") })
-    public ResponseEntity<? extends DataResponse> findChatroomListByTitle(@PathVariable("title") String title) {
+    public ResponseEntity<? extends DataResponse> findChatRoomListByTitle(@PathVariable("title") String title) {
         List<ChatRoomRes> chatRooms = null;
         try {
             chatRooms = chatRoomService.findChatRoomListByTitle(title);
+        } catch (Exception E) {
+            E.printStackTrace();
+
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new DataResponse(chatRooms));
+    }
+
+    /**
+     * 채팅방 리스트 전체 조회
+     */
+    @GetMapping
+//    @ApiOperation(value ="선택 채팅방 상세 조회", notes = "<strong>선택한 채팅방의 정보</strong>를 조회한다.")
+//    @ApiResponses({ @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류") })
+    public ResponseEntity<? extends DataResponse> findAllChatRoomList() {
+        List<ChatRoomRes> chatRooms = null;
+        try {
+            chatRooms = chatRoomService.findAllChatRoom();
         } catch (Exception E) {
             E.printStackTrace();
 
@@ -119,7 +139,7 @@ public class ChatController {
     /**
      * 채팅방 나가기
      **/
-    @PutMapping("/AT/exit/{room-id}")
+    @PutMapping("/AT/{room-id}")
     public ResponseEntity<? extends MessageResponse> exitChatRoom(@RequestHeader("X-Authorization-Id") String memberId, @PathVariable("room-id") String roomId) {
         chatRoomService.exitChatRoom(memberId, roomId);
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse());

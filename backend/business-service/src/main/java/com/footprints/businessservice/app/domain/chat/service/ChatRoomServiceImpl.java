@@ -290,6 +290,18 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 //        log.info("chatRoom.getMembers(): {}", chatRoom.getMembers());
 //        chatRoomRepository.save(chatRoom);
     }
+
+    @Override
+    public List<ChatRoomRes> findAllChatRoom() {
+        List<ChatRoom> chatRooms = new ArrayList<>();
+        chatRooms = mongoTemplate.findAll(ChatRoom.class);
+
+        List<ChatRoomRes> result = chatRooms.stream()
+                .map(ChatRoomRes::new)
+                .collect(Collectors.toList());
+
+        return result;
+    }
 //
 //    /** 유저1과 유저2의 채팅방이 존재하는지 확인하는 findChatRoom 입니다. (true: 존재 O, false: 존재 X) **/
 //    @Override

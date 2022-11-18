@@ -25,4 +25,9 @@ public interface ChatRoomService {
      * 채팅방 나가기
      **/
     void exitChatRoom(String memberid, String roomId);
+
+    /**
+     * 모든 채팅방 조회
+     **/
+    List<ChatRoomRes> findAllChatRoom();
 }
