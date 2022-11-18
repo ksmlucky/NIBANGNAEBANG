@@ -65,5 +65,11 @@ public class ChatRoom {
         private Long id;
         // nickname
         private String nickname;
+        // 방장 여부
+        private boolean isBangjang;
+    }
+
+    public void updateMember(List<ChatRoomMember> chatRoomMembers) {
+        this.members = chatRoomMembers;
     }
 }

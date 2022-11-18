@@ -7,6 +7,8 @@ import com.footprints.businessservice.app.domain.chat.dto.ChatRoomRes;
 import com.footprints.businessservice.app.domain.chat.entity.ChatMessage;
 import com.footprints.businessservice.app.domain.chat.entity.ChatRoom;
 import com.footprints.businessservice.app.domain.chat.entity.ChatRoom.ChatRoomMember;
+import com.footprints.businessservice.app.domain.chat.exception.ChatException;
+import com.footprints.businessservice.app.domain.chat.exception.ChatExceptionType;
 import com.footprints.businessservice.app.domain.chat.repository.ChatRoomRepository;
 import com.footprints.businessservice.app.domain.member.MemberServiceClient;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +54,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
         ChatRoom chatRoom = ChatRoom.create(memberId, nickname, chatRoomReq);
+        chatRoom.getMembers().get(0).setBangjang(true);
 
         chatRoomRepository.save(chatRoom);
 
@@ -66,18 +69,16 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 //        String nickname = "tempnickname";
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
-        List<ChatRoom> chatroomList = new ArrayList<ChatRoom>();
-        List<ChatRoomMember> chatRoomMembers = new ArrayList<>();
-        chatroomList = mongoTemplate.find(
+        List<ChatRoom> chatRooms = new ArrayList<ChatRoom>();
+
+        chatRooms = mongoTemplate.find(
                 Query.query(Criteria.where("members").elemMatch(
                                 Criteria.where("nickname").is(nickname)
                         )
                 ),
                 ChatRoom.class);
 
-        System.out.println("chatroomList: " + chatroomList);
-
-        List<ChatRoomRes> result = chatroomList.stream()
+        List<ChatRoomRes> result = chatRooms.stream()
                 .map(ChatRoomRes::new)
                 .collect(Collectors.toList());
 
@@ -163,7 +164,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
     /** 채팅방 title를 이용하여 채팅방 리스트를 조회하는 findChatRoomInfoByTitle 입니다. **/
     @Override
-    public List<ChatRoom> findChatRoomListByTitle(String title) {
+    public List<ChatRoomRes> findChatRoomListByTitle(String title) {
         List<ChatRoom> chatRooms = new ArrayList<>();
         chatRooms = mongoTemplate.find(
                 Query.query(Criteria.where("title").is(title)),
@@ -194,18 +195,42 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 //                .map(id -> new ChatRoomInfoRes(id))
 //                .collect(Collectors.toList());
 
-        return chatRooms;
+        List<ChatRoomRes> result = chatRooms.stream()
+                .map(ChatRoomRes::new)
+                .collect(Collectors.toList());
+
+        return result;
     }
 
-    /** 채팅방 아이디(roomId)를 이용하여 채팅방 정보를 조회하는 findChatRoomInfoByRoomId 입니다. **/
+    /** 채팅방 아이디(roomId)를 이용하여 채팅방 정보를 조회하는 findChatRoomInfoByRoomId 입니다. (채팅방 들어가기) **/
     @Override
-    public ChatRoomInfoRes findChatRoomInfoByRoomId(String roomId) {
+    public ChatRoomInfoRes enterChatRoom(String memberId, String roomId) {
         ChatRoom chatRoom = mongoTemplate.findOne(
                 Query.query(Criteria.where("_id").is(roomId)),
                 ChatRoom.class
         );
 
+        // 방이 꽉찼으면 입장 불가
+        if (chatRoom.getTotalMemberCount() <= chatRoom.getCurrentMemberCount()) {
+            throw new ChatException(ChatExceptionType.FULL_CHATROOM);
+        }
 
+        String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
+
+        // 방에 해당 이름이 있으면 입장 불가
+        for (ChatRoomMember temp : chatRoom.getMembers()) {
+            if (temp.getNickname().equals(nickname)) {
+                throw new ChatException(ChatExceptionType.ALREADY_EXIST_MEMBER);
+            }
+        }
+
+        // 없으면 입장
+        ChatRoomMember chatRoomMember = new ChatRoomMember();
+        chatRoomMember.setId(Long.parseLong(memberId));
+        chatRoomMember.setNickname(nickname);
+
+        chatRoom.getMembers().add(chatRoomMember);
+        chatRoom.setCurrentMemberCount(chatRoom.getCurrentMemberCount() + 1);
 
         List<ChatMessageRes> chatMessageResList = new ArrayList<ChatMessageRes>();
         for (int i = 0; i < chatRoom.getChatMessages().size(); i++) {
@@ -222,6 +247,8 @@ public class ChatRoomServiceImpl implements ChatRoomService {
             chatMessageResList.add(chatMessageRes);
         }
 
+        chatRoomRepository.save(chatRoom);
+
         ChatRoomInfoRes chatRoomInfoRes = ChatRoomInfoRes.builder()
                 .id(chatRoom.getId())
                 .title(chatRoom.getTitle())
@@ -229,11 +256,51 @@ public class ChatRoomServiceImpl implements ChatRoomService {
                 .chatMessages(chatMessageResList)
                 .currentMemberCount(chatRoom.getCurrentMemberCount())
                 .totalMemberCount(chatRoom.getTotalMemberCount())
-//                .closingTime(chatRoom.getClosingTime())
                 .fee(chatRoom.getFee())
                 .build();
 
         return chatRoomInfoRes;
+    }
+
+    @Override
+    public void exitChatRoom(String memberid, String roomId) {
+        ChatRoom chatRoom = mongoTemplate.findOne(
+                Query.query(Criteria.where("_id").is(roomId)),
+                ChatRoom.class
+        );
+
+
+        List<ChatRoomMember> chatRoomMembers = chatRoom.getMembers();
+        for (ChatRoomMember chatRoomMember : chatRoomMembers) {
+            if (chatRoomMember.getId() == Long.parseLong(memberid)) {
+                chatRoomMembers.remove(chatRoomMember);
+                break;
+            }
+        }
+
+        log.info("chatRoomMembers: {}", chatRoomMembers);
+
+        chatRoom.updateMember(chatRoomMembers);
+
+        chatRoomRepository.save(chatRoom);
+
+
+//        chatRoom.setMembers(chatRoomMembers);
+//        log.info("chatRoom: {}", chatRoom);
+//        log.info("chatRoom.getMembers(): {}", chatRoom.getMembers());
+//        chatRoomRepository.save(chatRoom);
+    }
+
+    @Override
+    public List<ChatRoomRes> findAllChatRoom() {
+        List<ChatRoom> chatRooms = new ArrayList<>();
+        chatRooms = mongoTemplate.findAll(ChatRoom.class);
+
+        List<ChatRoomRes> result = chatRooms.stream()
+                .map(ChatRoomRes::new)
+                .collect(Collectors.toList());
+
+        return result;
     }
 //
 //    /** 유저1과 유저2의 채팅방이 존재하는지 확인하는 findChatRoom 입니다. (true: 존재 O, false: 존재 X) **/
