@@ -62,9 +62,9 @@ spring:
               # - https://k7c109.p.ssafy.io:8080
               # - https://k7c109.p.ssafy.io:8082
             allowedHeaders: 
-              - authorization
+              - Authorization
               - X-Authorization-Id
-              - content-type
+              - Content-Type
             allowedMethods:
               - GET
               - POST
