@@ -2,17 +2,19 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { CKEditor } from "ckeditor4-react";
 import BoastRoom from "@screens/room/BoastRoom";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import "./BoastReg.scss";
 
 
 function BoastReg(){
     const array = {};
     return (
         <div className="container flex">
-            <div className = "Reg">
-                <div class Name = "Reg_editor">
+            <div className="Reg flex">
+                <div className="Reg_title shBold fs-56">내 방을 자랑해보자</div>
+                <div className = "Reg_editor">
                     {/* <h2>Using CKEditor 5 build in React</h2> */}
                     <CKEditor
                         editor={ ClassicEditor }
@@ -26,12 +28,24 @@ function BoastReg(){
                             // console.log( { event, editor, data } );
                             console.log(data);
                         } }
-                        onBlur={ ( event, editor ) => {
-                            console.log('Blur',editor);
-                        } }
-                        onFocus={ ( event, editor ) => {
-                            console.log('Focus',editor);
-                        } }
+                        // onBlur={ ( event, editor ) => {
+                        //     console.log('Blur',editor);
+                        // } }
+                        // onFocus={ ( event, editor ) => {
+                        //     console.log('Focus',editor);
+                        // } }
+                        config={{
+                            height: 500,
+                            uiColor: "#2c4b48",
+                            width: 800,
+                            resize_enabled: false,
+                            toolbar: [
+                                ["Format", "Font", "FontSize"],
+                                ["Bold", "Italic"],
+                                ["Undo", "Redo"],
+                            ],
+                            removePlugins: "image, elementspath",
+                        }}
                     />
                 </div>
                 <div className = "Reg_button">

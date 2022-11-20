@@ -4,5 +4,13 @@
 }
 
 .Reg{
+    flex-direction: column;
+    align-items: center;
     width : 80%;
+    &_title {
+        width: (60%);
+        margin-top: (40px);
+        color: #2c4b48;
+        margin-bottom: (20px);
+    }
 }

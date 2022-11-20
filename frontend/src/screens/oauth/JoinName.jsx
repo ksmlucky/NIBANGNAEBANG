@@ -12,7 +12,7 @@ import { sendDi } from "../../apis/user";
 import "./JoinName.scss";
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-const REDIRECT_URI = "http://j7c105.p.ssafy.io/oauth/kakao";
+const REDIRECT_URI = "http://k7c109.p.ssafy.io/oauth/kakao";
 const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 function JoinName() {

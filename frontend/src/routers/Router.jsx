@@ -58,30 +58,31 @@ function Router() {
           <Route path="join" element={<Join />} />
           <Route path="joinname" element={<JoinName />} />
           <Route path="joinnickname" element={<JoinNickname />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/changenickname" element={<ChangeNickname />} />
-        <Route path="/kakao" element={<KakaoLogin />} />
-        <Route path="/google" element={<GoogleLogin />} />
+        {/* <Route path="/kakao" element={<KakaoLogin />} />
+        <Route path="/google" element={<GoogleLogin />} /> */}
         {/* join */}
         {/* <Route path="/join/*">
           <Route path="*" element={<NotFound />} />
         </Route> */}
         {/* find ID/PW  */}
-        <Route path="/findid/*">
+        {/* <Route path="/findid/*">
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/findpw/*">
           <Route path="*" element={<NotFound />} />
-        </Route>
+        </Route> */}
         {/* info edit */}
-        <Route path="/infoedit/*">
+        {/* <Route path="/infoedit/*">
           <Route path="*" element={<NotFound />} />
-        </Route>
+        </Route> */}
 
         {/* Drop */}
-        <Route path="/drop/*">
+        {/* <Route path="/drop/*">
           <Route path="*" element={<NotFound />} />
-        </Route>
+        </Route> */}
 
         {/* Room */}
         <Route path="/room/*">
@@ -97,24 +98,7 @@ function Router() {
           <Route path="boastReg" element={<BoastReg />} />
           <Route path="boastlist" element={<BoastRoom />} />
           <Route path="map" element={<RoomMap/>} />
-        </Route>
-
-        {/* camping */}
-        <Route path="/camping/*">
           <Route path="*" element={<NotFound />} />
-        </Route>
-        {/* plan */}
-        <Route path="/plan/*">
-          <Route path="*" element={<NotFound />} />
-        </Route>
-
-        {/* mypage */}
-        <Route path="/test/*">
-          <Route path="*" element={<RoomTrs />} />
-        </Route>
-
-        <Route path="/payment/*">
-          <Route path="*" element={<Payment />}></Route>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

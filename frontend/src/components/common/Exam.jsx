@@ -34,6 +34,9 @@ export default function TemporaryDrawer() {
   const toRegister = () => {
     navigate("/room/register");
   };
+  const toRegBoast = () => {
+    navigate("/room/boastReg");
+  }
   const toBoastRoom =() => {
     navigate("/room/boastlist");
   };
@@ -51,7 +54,7 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {[['내방팔기', toRegister], ['내방사기', toRoomList], ['자랑하기', toBoastRoom], ['니방보기', 3]].map(([text, loc], index) => (
+        {[['내방팔기', toRegister], ['내방사기', toRoomList], ['자랑하기', toRegBoast], ['니방보기', toBoastRoom]].map(([text, loc], index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton onClick={loc}>
               <ListItemIcon>
@@ -65,7 +68,7 @@ export default function TemporaryDrawer() {
       </List>
       <Divider />
       <List>
-        {[['지도보기', toMap], ['반띵목록' , 1], ['반띵하기' , 2]].map(([text, loc], index) => (
+        {[['지도보기', toMap]].map(([text, loc], index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton onClick={loc}>
               <ListItemIcon>

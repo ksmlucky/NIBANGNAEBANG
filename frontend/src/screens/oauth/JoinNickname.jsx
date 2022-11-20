@@ -24,7 +24,7 @@ function JoinNickname() {
   const pvd = useSelector((state) => state.user);
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
-  console.log(pvd);
+  // console.log(pvd);
   // console.log(sessionStorage);
   // console.log(alert);
   // const currentNickname = nicknameInput.current.value;

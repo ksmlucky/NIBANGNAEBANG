@@ -266,7 +266,7 @@ function MainNavBar() {
                     <HomeIcon />
                     &nbsp;내 양도글
                   </MenuItem>
-                  <MenuItem
+                  {/* <MenuItem
                     sx={{
                       color: "#2C4B48",
                       fontSize: 32,
@@ -275,8 +275,8 @@ function MainNavBar() {
                   >
                     <Diversity3Icon />
                     &nbsp;내 반띵
-                  </MenuItem>
-                  <MenuItem
+                  </MenuItem> */}
+                  {/* <MenuItem
                     sx={{
                       color: "#2C4B48",
                       fontSize: 32,
@@ -285,7 +285,7 @@ function MainNavBar() {
                   >
                     <EmailIcon />
                     &nbsp;내 쪽지
-                  </MenuItem>
+                  </MenuItem> */}
                   <Divider />
                   <MenuItem
                     sx={{

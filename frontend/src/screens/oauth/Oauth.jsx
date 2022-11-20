@@ -17,9 +17,9 @@ function Oauth() {
     setPvd(url.provider);
     dispatch(setProvider(url.provider));
     dispatch(setProviderId(url.providerId));
-    console.log(url.accessToken);
-    console.log(url.refreshToken);
-    console.log(url.nickname);
+    // console.log(url.accessToken);
+    // console.log(url.refreshToken);
+    // console.log(url.nickname);
     // console.log(user);
     if (url.provider !== undefined) {
       if (url.isExisted === "true") {

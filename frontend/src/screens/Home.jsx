@@ -20,6 +20,15 @@ function Home() {
   const toRegister = () => {
     navigate("/room/register");
   };
+  const toBoast = () => {
+    navigate("/room/boastlist");
+  };
+  const tryBoast = () => {
+    navigate("/room/boastReg");
+  };
+  const toMap = () => {
+    navigate("/room/map");
+  };
   const user = useSelector((state) => state.user);
   console.log(user);
   const [address, setAddress] = useState("");
@@ -125,43 +134,43 @@ function Home() {
               </div>
             )}
             <div className="home_contents_ads flex">
-              <div className="home_contents_ads_top">
+              <button type="button" className="home_contents_ads_top" onClick={toBoast}>
                 <div className="home_contents_ads_top_title flex justify-center fs-28 shBold">
                   니방보기
                 </div>
                 <div className="home_contents_ads_top_cont flex">
                   <div className="home_contents_ads_top_cont_txt">
                     <div className="home_contents_ads_top_cont_txt_up fs-28 shBold">
-                      간단한 문구
+                      너는 방을 어떻게
                       <br />
-                      들어가게 하기
+                      꾸미고 있을까?
                     </div>
                     <div className="home_contents_ads_top_cont_txt_down fs-26 shBold">
-                      설명을 또 해주기
+                      슬쩍 들여다보기
                     </div>
                   </div>
                   <div className="home_contents_ads_top_cont_img">
                     <img src={roomIcon} alt="집 이미지" />
                   </div>
                 </div>
-              </div>
+              </button>
               <div className="home_contents_ads_down flex fs-28 shBold">
-                <div className="home_contents_ads_down_left">
+                <button type="button" className="home_contents_ads_down_left fs-28 shBold" onClick={tryBoast}>
                   <div className="home_contents_ads_down_left_title flex justify-center">
-                    니방보기
+                    자랑하기
                   </div>
-                  간단한 문구
+                  내방은 어떤지
                   <br />
-                  들어가게 하기
-                </div>
-                <div className="home_contents_ads_down_right">
+                  슬쩍 자랑하기
+                </button>
+                <button type="button" className="home_contents_ads_down_right fs-28 shBold" onClick={toMap}>
                   <div className="home_contents_ads_down_right_title flex justify-center">
-                    니방보기
+                    지도보기
                   </div>
-                  간단한 문구
+                  다양한 양도매물
                   <br />
-                  들어가게 하기
-                </div>
+                  지도로 둘러볼까?
+                </button>
               </div>
             </div>
           </div>
