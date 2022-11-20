@@ -79,7 +79,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             Map<String, String> tokens = memberService.signInMember(findMember.get().getId());
 
 
-            return UriComponentsBuilder.fromUriString("http://localhost:3000/oauth")
+            return UriComponentsBuilder.fromUriString("https://k7c109.p.ssafy.io/oauth")
                     .queryParam("provider", provider)
                     .queryParam("providerId", providerId)
                     .queryParam("isExisted", isExisted)
@@ -89,7 +89,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     .build().encode(StandardCharsets.UTF_8).toUriString();
         }
 
-        return UriComponentsBuilder.fromUriString("http://localhost:3000/oauth")
+        return UriComponentsBuilder.fromUriString("https://k7c109.p.ssafy.io/oauth")
                 .queryParam("provider", provider)
                 .queryParam("providerId", providerId)
                 .queryParam("isExisted", isExisted)
