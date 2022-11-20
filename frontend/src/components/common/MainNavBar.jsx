@@ -29,6 +29,9 @@ import TemporaryDrawer from "./Exam";
 import "./NavTooltip.scss";
 
 function MainNavBar() {
+  const { sessionStorage } = window;
+  const AT = sessionStorage.getItem("accessToken");
+  const userNickname = sessionStorage.getItem("userNickname");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const Profile = useSelector(selectProfile);
@@ -37,13 +40,16 @@ function MainNavBar() {
     const prefix = "left_nav__link flex fs-18 btn--";
     return active ? `${prefix}active` : `${prefix}unactive`;
   };
-  const logoutClick = () => {
-    sessionStorage.clear();
-    dispatch(reset());
-    navigate("/");
-  };
+  // const logoutClick = () => {
+  //   sessionStorage.clear();
+  //   dispatch(reset());
+  //   navigate("/");
+  // };
   const clickProfile = () => {
     navigate("/changenickname");
+  };
+  const clickMyRoom = () => {
+    navigate("/room/mine");
   };
   const clickLogout = () => {
     sessionStorage.clear();
@@ -124,7 +130,7 @@ function MainNavBar() {
       setOpenMenu(!openMenu);
     }
   };
-  console.log(process.env.REACT_APP_KAKAO_AUTH_URL);
+  // console.log(process.env.REACT_APP_KAKAO_AUTH_URL);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -145,6 +151,7 @@ function MainNavBar() {
               <nav className="mainNav shBold fs-64">니방내방</nav>
             </Link>
             {/* <TemporaryDrawer /> */}
+            {AT && (
             <div className="navButton flex">
               {/* <button type="button" className="navButton_plus">
                 <CropFreeIcon sx= {{ width: 58, height: 58, color: "#2C4B48" }} />
@@ -177,7 +184,7 @@ function MainNavBar() {
                           fontFamily: "SeoulHangangB",
                         }}
                       >
-                        닉
+                        {userNickname[0]}
                       </Avatar>
                       {/* <OtherHousesIcon sx={{color: "#2C4B48", fontSize: 64}} /> */}
                     </IconButton>
@@ -254,6 +261,7 @@ function MainNavBar() {
                       fontSize: 32,
                       fontFamily: "SeoulHangangB",
                     }}
+                    onClick={clickMyRoom}
                   >
                     <HomeIcon />
                     &nbsp;내 양도글
@@ -296,6 +304,7 @@ function MainNavBar() {
               </>
               {/* </ React.Fragment> */}
             </div>
+            )}
           </nav>
         </div>
       </div>

@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getRoomDetail } from "../../apis/room";
-import tmpImg from "@images/room.png";
+import { useNavigate, useParams } from "react-router-dom";
+import Carousel from 'react-material-ui-carousel';
+import styled from 'styled-components';
+import { v4 } from "uuid";
+import { getRoomDetail, deleteRoomDetail } from "../../apis/room";
+import Item from "../../components/common/Item";
+import MapContainer from "../../components/room/MapContainer";
+// import ImgItem from "../../components/common/ImgItem";
+// import tmpImg from "@images/room.png";
 import "./RoomDetail.scss";
 
 function RoomDetail() {
   const { id } = useParams();
+  const { sessionStorage } = window;
+  const navigate = useNavigate();
+  const [userNickname, setUserNickname] = useState("");
+  // const Wrapper = styled.div`
+  //   display: block;
+  //   height: auto;
+  // `
   const [writer, setWriter] = useState("");
   const [transferType, setTransferType] = useState("");
   const [address, setAddress] = useState("");
@@ -24,9 +37,10 @@ function RoomDetail() {
   const [floor, setFloor] = useState(0);
   const [elevator, setElevator] = useState("");
   const [options, setOptions] = useState("");
+  const [imgList, setImgList] = useState([]);
   const getDetail = async () => {
     const res = await getRoomDetail(id);
-    console.log(res);
+    setImgList(res.data.images);
     setWriter(res.data.writer);
     setAddress(res.data.categoryDetail.transfer.address);
     setDetailAddress(res.data.categoryDetail.transfer.detailAddress);
@@ -45,15 +59,42 @@ function RoomDetail() {
     setFloor(res.data.categoryDetail.transfer.floor);
     setElevator(res.data.categoryDetail.transfer.elevator);
     setOptions(res.data.categoryDetail.transfer.options);
+    setUserNickname(sessionStorage.getItem("userNickname"));
   };
+  // console.log(imgList);
   useEffect(() => {
     getDetail();
-  }, []);
+  }, [userNickname]);
+  const deleteRoom = async () => {
+    const check = window.confirm("정말로 삭제하시겠습니까?");
+    if (check) {
+      try {
+        const res = await deleteRoomDetail(id);
+        if (res.message === '성공') {
+          window.alert("정상적으로 삭제되었습니다.");
+          navigate("/room/roomlist");
+        }
+      } catch {
+        navigate("/room/roomlist");
+      }
+    }
+  };
+  const toList = () => {
+    navigate("/room/roomlist");
+  }
+  // const [cindex, setCindex] = useState(0);
   return (
     <div className="container flex">
       <div className="roomDetail flex">
         <div className="roomDetail_photo flex">
-          <img src={tmpImg} alt="방 이미지" />
+          {imgList !== [] &&
+            <Carousel className="roomDetail_photo_car">
+              {
+                imgList.map((item, i) => <Item key={i} item={item} />)
+              }
+            </Carousel>
+          }
+          {/* <img src={tmpImg} alt="방 이미지" /> */}
         </div>
         <div className="roomDetail_contents flex">
           <div className="roomDetail_contents_top flex">
@@ -86,13 +127,33 @@ function RoomDetail() {
             <div className="roomDetail_contents_upper_tt shBold fs-28">
               {transferType}
             </div>
-            <div className="roomDetail_contents_upper_writer shBold fs-28">
-              {writer}
-            </div>
+            {userNickname !== writer &&
+              (<div className="roomDetail_contents_upper_btns flex">
+                <button type="button" className="roomDetail_contents_upper_btns_writer shBold fs-28">
+                  {writer}
+                </button>
+                <button type="button" className="roomDetail_contents_upper_btns_toList shBold fs-28" onClick={toList}>
+                  목록으로
+                </button>
+              </div>)
+            }
+            {userNickname === writer &&
+              (<div className="roomDetail_contents_upper_btns flex">
+                <button type="button" className="roomDetail_contents_upper_btns_writer shBold fs-28" onClick={deleteRoom}>
+                  글 삭제하기
+                </button>
+                <button type="button" className="roomDetail_contents_upper_btns_toList shBold fs-28" onClick={toList}>
+                  목록으로
+                </button>
+              </div>)
+            }
           </div>
           <div className="roomDetail_contents_body flex">
             <div className="roomDetail_contents_body_detail flex">
               <div className="roomDetail_contents_body_detail_info flex shBold fs-22">
+                <div className="roomDetail_contents_body_detail_info_top flex shBold fs-24">
+                  {'<'} Options {'>'}
+                </div>
                 {maintenanceType === true && (
                   <div className="roomDetail_contents_body_detail_info_maint">
                     관리비 {maintenanceFee}만원
@@ -112,7 +173,7 @@ function RoomDetail() {
                 )}
                 {meetAndDecide === false && (
                   <div className="roomDetail_contents_body_detail_info_mad">
-                    계약기간 {startDate} ~ {endDate}
+                    계약기간 {startDate} <br /> ~ {endDate}
                   </div>
                 )}
                 건물 층수 {totalFloor}층
@@ -126,6 +187,9 @@ function RoomDetail() {
               </div>
               {options !== "" && (
                 <div className="roomDetail_contents_body_detail_plus flex shBold fs-22">
+                  <div className="roomDetail_contents_body_detail_plus_top flex shBold fs-24">
+                    {'<'} Plus {'>'}
+                  </div>
                   {options}
                 </div>
               )}
@@ -135,7 +199,11 @@ function RoomDetail() {
                 </div>
               )}
             </div>
-            <div className="roomDetail_contents_body_map flex">지도 띄우기</div>
+            <div className="roomDetail_contents_body_map flex">
+              {address !== "" &&
+                <MapContainer loc={{ address }}/>
+              }
+            </div>
           </div>
         </div>
       </div>

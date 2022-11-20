@@ -4,6 +4,12 @@
   left: 30.5%;
   z-index: 200;
 }
+.fileContainer {
+  // width: (240px);
+  // height: (164px);
+  max-height: (240px);
+  overflow-y: scroll;
+}
 .roomRegister {
   margin-top: (10vh);
   flex-direction: column;
@@ -165,13 +171,13 @@
     &_p3 {
       &_extra,
       &_photo {
-        margin-top: (40px);
+        margin-top: (30px);
       }
       &_extra {
         &_box {
           margin-top: (8px);
           width: (400px);
-          height: (140px);
+          height: (100px);
           color: #2c4b48;
           border: 1px solid rgba(44, 75, 72, 0.75);
           border-radius: (12px);
@@ -184,16 +190,39 @@
       }
       &_photo {
         &_con {
-          margin-top: (8px);
-          &_imginput {
-            display: none;
+          margin: (8px) 0 (8px) 0;
+          &_upload {
+            width: (300px);
           }
-          &_img {
-            width: (84px);
-            height: (80px);
-            overflow: hidden;
+          // width: (400px);
+          &_desc {
+            width: (90px);
+            margin-left: (10px);
+            justify-content: center;
+            align-items: center;
+            color: #2c4b48;
+            background-color: #ecf2ff;
+            border-radius: (12px);
           }
+          // height: (140px);
+          // &_imginput {
+          //   display: none;
+          // }
+          // &_img {
+          //   width: (84px);
+          //   height: (80px);
+          //   overflow: hidden;
+          // }
         }
+        // &_desc {
+        //   color: #2c4b48;
+        //   background-color: #ecf2ff;
+        //   width: (320px);
+        //   height: (36px);
+        //   justify-content: center;
+        //   align-items: center;
+        //   border-radius: (12px);
+        // }
       }
     }
     &_btn {

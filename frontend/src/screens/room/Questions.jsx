@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import DatePicker from "react-datepicker";
+import ImageUploader from 'react-images-upload';
 import RoomSearch from "@components/room/InRoomSearch";
 import Checkbox from "@mui/material/Checkbox";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -26,6 +27,11 @@ export function changeFormat(date, format) {
 
 function Questions(props) {
   const { sessionStorage } = window;
+  const [pictures, setPictures] = useState([]);
+  const onDrop = picture => {
+    setPictures([...pictures, picture]);
+  };
+  // console.log(pictures[pictures.length-1]);
   const [popup, setPopup] = useState(false);
   const [loc, setLoc] = useState("");
   const [count, setCount] = useState(0);
@@ -70,31 +76,31 @@ function Questions(props) {
     if (e.target.files[0]) {
       URL.revokeObjectURL(image.preview_URL);
       const preview_URL = URL.createObjectURL(e.target.files[0]);
-      console.log(preview_URL);
+      // console.log(preview_URL);
       setImage(() => ({
         image_file: e.target.files[0],
         preview_URL: preview_URL,
       }));
-      console.log(image);
+      // console.log(image);
       const storageRef = storage.ref("detail/test/");
       const imageRef = storageRef.child(e.target.files[0].name);
       const upLoadTask = imageRef.put(e.target.files[0]);
       upLoadTask.on(
         "state_changed",
         (snapshot) => {
-          console.log("snapshot", snapshot);
+          // console.log("snapshot", snapshot);
           const percent =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(percent + "% done");
+          // console.log(percent + "% done");
         },
         (error) => {
-          console.log("err", error);
+          // console.log("err", error);
         },
         () => {
           upLoadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            console.log("File available at", downloadURL);
+            // console.log("File available at", downloadURL);
             setImageUrl(downloadURL);
-            console.log(downloadURL);
+            // console.log(downloadURL);
           });
         }
       );
@@ -104,8 +110,8 @@ function Questions(props) {
     e.preventDefault();
     photoRef.current.click();
   };
-  const [type, setType] = useState("");
-  const [full, setFull] = useState(false);
+  const [type, setType] = useState("완전양도");
+  const [full, setFull] = useState(true);
   const [part, setPart] = useState(false);
   const [checked, setChecked] = useState(false);
   const [eleChecked, setEleChecked] = useState(false);
@@ -119,7 +125,7 @@ function Questions(props) {
   const [endDate, setEndDate] = useState(new Date());
   const [conType, setConType] = useState("월세");
   const [conJ, setConJ] = useState(false);
-  const [conW, setConW] = useState(false);
+  const [conW, setConW] = useState(true);
   const feeRef = useRef();
   const [feeCheck, setFeeCheck] = useState(false);
   const handleFee = (event) => {
@@ -181,90 +187,142 @@ function Questions(props) {
   // const [options, setOptions] = useState("");
   const onClickForward = async () => {
     if (id === 2) {
-      const formData = new FormData();
-      const commonRequest = {
-        articleRequest: {
-          category: "transfer",
-        },
-        transferRequest: {
-          address: address,
-          detailAddress: detailAddress,
-          transferType: type,
-          meetAndDecide: checked,
-          startDate: startDate,
-          endDate: endDate,
-          contractType: conType,
-          roomType: roomType,
-          deposit: deposit,
-          monthlyRent: monthlyRent,
-          maintenanceType: feeCheck,
-          maintenanceFee: maintenanceFee,
-          roomSize: roomSize,
-          elevator: eleChecked,
-          parking: false,
-          totalFloor: totalFloor,
-          floor: floor,
-          options: extraRef.current.value,
-        },
-      };
-      console.log(commonRequest);
-      sessionStorage.setItem("location", "");
-      formData.append(
-        "request",
-        new Blob([JSON.stringify(commonRequest)], {
-          type: "application/json",
-        })
-      );
-      try {
-        const res = await registerRoom(formData);
-        navigate(`/room/detail/${res.data}`);
-        // navigate("/room/detail");
-        // console.log(address);
-        // console.log(detailAddress);
-        // console.log(type);
-        // console.log(checked);
-        // console.log(startDate);
-        // console.log(endDate);
-        // console.log(conType);
-        // console.log(deposit);
-        // console.log(monthlyRent);
-        // console.log(feeCheck);
-        // console.log(maintenanceFee);
-        // console.log(roomType);
-        // console.log(roomSize);
-        // console.log(eleChecked);
-        // console.log(totalFloor);
-        // console.log(floor);
-        // console.log(extraRef.current.value);
-      } catch (err) {
-        console.log(err);
+      if (pictures === []) {
+        window.alert("이미지를 등록해주세요")
+      }
+      else {
+        const formData = new FormData();
+        const commonRequest = {
+          articleRequest: {
+            category: "transfer",
+          },
+          transferRequest: {
+            address: address,
+            detailAddress: detailAddress,
+            transferType: type,
+            meetAndDecide: checked,
+            startDate: startDate,
+            endDate: endDate,
+            contractType: conType,
+            roomType: roomType,
+            deposit: deposit,
+            monthlyRent: monthlyRent,
+            maintenanceType: feeCheck,
+            maintenanceFee: maintenanceFee,
+            roomSize: roomSize,
+            elevator: eleChecked,
+            parking: false,
+            totalFloor: totalFloor,
+            floor: floor,
+            options: extraRef.current.value,
+          },
+        };
+        const files = pictures[pictures.length-1]
+        // console.log(commonRequest);
+        sessionStorage.setItem("location", "");
+        formData.append(
+          "request",
+          new Blob([JSON.stringify(commonRequest)], {
+            type: "application/json",
+          })
+        );
+        // {files.length !== 0 && files.map((file) => (
+        //   formData.append("file", file)
+        // ))
+        // }
+        if (files.length !== 0) {
+          for (let i = 0; i < files.length; i++) {
+            formData.append("file", files[i])
+          }
+        }
+        try {
+          const res = await registerRoom(formData);
+          // console.log(res);
+          navigate(`/room/detail/${res.data}`);
+          // navigate("/room/detail");
+          // console.log(address);
+          // console.log(detailAddress);
+          // console.log(type);
+          // console.log(checked);
+          // console.log(startDate);
+          // console.log(endDate);
+          // console.log(conType);
+          // console.log(deposit);
+          // console.log(monthlyRent);
+          // console.log(feeCheck);
+          // console.log(maintenanceFee);
+          // console.log(roomType);
+          // console.log(roomSize);
+          // console.log(eleChecked);
+          // console.log(totalFloor);
+          // console.log(floor);
+          // console.log(extraRef.current.value);
+        } catch (err) {
+          console.log(err);
+        }
       }
     } else if (id === 1) {
-      console.log(conType);
-      setDeposit(confeeRef.current.value);
-      if (conType === "전세") {
+      if (conType === "전세" && confeeRef.current.value !== "" && areaRef.current.value !== "" && buildingRef !== "" && floorRef !== "" && feeCheck === true && feeRef.current.value !== "") {
+        // console.log(conType);
+        setDeposit(confeeRef.current.value);
         setMonthlyRent(0);
-      } else {
+        // console.log(feeCheck);
+        setMaintenanceFee(feeRef.current.value);
+        setRoomType(roomtypeRef.current.value);
+        setRoomSize(areaRef.current.value);
+        // console.log(eleChecked);
+        setTotalFloor(buildingRef.current.value);
+        setFloor(floorRef.current.value);
+        getId(id + 1);
+      } else if (conType === "월세" && confeeRef.current.value !== "" && areaRef.current.value !== "" && buildingRef !== "" && floorRef !== "" && monfeeRef.current.value !== "" && feeCheck === true && feeRef.current.value !== "") {
+        setDeposit(confeeRef.current.value);
         setMonthlyRent(monfeeRef.current.value);
+        setMaintenanceFee(feeRef.current.value);
+        setRoomType(roomtypeRef.current.value);
+        setRoomSize(areaRef.current.value);
+        // console.log(eleChecked);
+        setTotalFloor(buildingRef.current.value);
+        setFloor(floorRef.current.value);
+        getId(id + 1);
+      } else if (conType === "전세" && confeeRef.current.value !== "" && areaRef.current.value !== "" && buildingRef !== "" && floorRef !== "" && feeCheck === false) {
+        setDeposit(confeeRef.current.value);
+        setMonthlyRent(0);
+        // console.log(feeCheck);
+        setMaintenanceFee(0);
+        setRoomType(roomtypeRef.current.value);
+        setRoomSize(areaRef.current.value);
+        // console.log(eleChecked);
+        setTotalFloor(buildingRef.current.value);
+        setFloor(floorRef.current.value);
+        getId(id + 1);
+      } else if (conType === "월세" && confeeRef.current.value !== "" && areaRef.current.value !== "" && buildingRef !== "" && floorRef !== "" && monfeeRef.current.value !== "" && feeCheck === false) {
+        setDeposit(confeeRef.current.value);
+        setMonthlyRent(monfeeRef.current.value);
+        setMaintenanceFee(0);
+        setRoomType(roomtypeRef.current.value);
+        setRoomSize(areaRef.current.value);
+        // console.log(eleChecked);
+        setTotalFloor(buildingRef.current.value);
+        setFloor(floorRef.current.value);
+        getId(id + 1);
+      } else {
+        window.alert("내용을 입력해주세요.");
+        // console.log(monfeeRef.current.value);
       }
-      console.log(feeCheck);
-      setMaintenanceFee(feeRef.current.value);
-      setRoomType(roomtypeRef.current.value);
-      setRoomSize(areaRef.current.value);
-      console.log(eleChecked);
-      setTotalFloor(buildingRef.current.value);
-      setFloor(floorRef.current.value);
-      getId(id + 1);
-    } else {
-      setAddress(roughRef.current.value);
-      setDetailAddress(detailRef.current.value);
-      console.log(type);
-      console.log(checked);
-      const sDate = changeFormat(startDate, "yyyy-MM-DD");
-      const eDate = changeFormat(endDate, "yyyy-MM-DD");
-      setStartDate(sDate);
-      setEndDate(eDate);
-      getId(id + 1);
+    } else if (id === 0) {
+      if (roughRef.current.value !== "" && detailRef.current.value !== "" && type !== "") {
+        setAddress(roughRef.current.value);
+        setDetailAddress(detailRef.current.value);
+        // console.log(type);
+        // console.log(checked);
+        const sDate = changeFormat(startDate, "yyyy-MM-DD");
+        const eDate = changeFormat(endDate, "yyyy-MM-DD");
+        setStartDate(sDate);
+        setEndDate(eDate);
+        getId(id + 1);
+      } else {
+        window.alert("내용을 입력해주세요");
+      }
     }
   };
   const onClickBackward = () => {
@@ -570,8 +628,11 @@ function Questions(props) {
               <div className="roomRegister_box_p3_photo_title shBold fs-26">
                 방 사진을 등록해주세요
               </div>
+              {/* <div className="roomRegister_box_p3_photo_desc flex shBold fs-22">
+                가로방향 사진을 등록해주세요
+              </div> */}
               <div className="roomRegister_box_p3_photo_con flex">
-                <input
+                {/* <input
                   type="file"
                   accept=".jpg, .jpeg, .png, .JPG, .JPEG, .PNG"
                   className="roomRegister_box_p3_photo_con_imginput"
@@ -584,7 +645,24 @@ function Questions(props) {
                   onClick={uploadImg}
                 >
                   <AddAPhotoIcon sx={{ fontSize: 80 }} />
-                </button>
+                </button> */}
+                <div className="roomRegister_box_p3_photo_con_upload">
+                  <ImageUploader
+                    withIcon={false}
+                    onChange={onDrop}
+                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                    maxFileSize={5242880}
+                    // accept={image}
+                    buttonText="이미지를 선택해주세요"
+                    withPreview
+                  />
+                </div>
+                <div className="roomRegister_box_p3_photo_con_desc flex shBold fs-20">
+                  가로방향<br/>
+                  이미지로<br/>
+                  등록해<br />
+                  주세요<br/>
+                </div>
               </div>
             </div>
           </div>

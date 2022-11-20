@@ -4,6 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import Pagination from "@mui/material/Pagination";
 import { getRoomList, getRoomListAd } from "../../apis/room";
 import RoomCardList from "@components/room/RoomCardList";
+import { v4 } from "uuid";
+import RoomCard from "@components/room/RoomCard";
 import "./RoomList.scss";
 
 function RoomList() {
@@ -24,10 +26,12 @@ function RoomList() {
   });
   const getList = async () => {
     const res = await getRoomListAd(params);
-    console.log(res.data.articles);
+    // console.log(res.data);
     setSize(Math.ceil(res.data.count / 4));
     setRoomList(res.data.articles);
-    console.log(roomList.length);
+    // console.log(res.data);
+    // console.log(res.data.article);
+    // console.log(roomList.length);
     // console.log(res);
   };
   const handleChange = async (event, value) => {
@@ -136,16 +140,25 @@ function RoomList() {
           )}
         </div>
         <div className="roomList_roomCards">
-          <RoomCardList />
+          {roomList.length !== 0 && 
+            roomList.map(({id, categoryDetail, image }) => (
+              <RoomCard
+                key={v4()}
+                id={id}
+                categoryDetail={categoryDetail}
+                image={image}
+              />
+            ))
+          }
         </div>
         <div className="roomList_page flex justify-center">
           <Pagination
-            count={size}
-            page={page}
-            onChange={handleChange}
-            hidePrevButton
-            hideNextButton
-            size="large"
+          count={size}
+          page={page}
+          onChange={handleChange}
+          hidePrevButton
+          hideNextButton
+          size="large"
           />
         </div>
       </div>

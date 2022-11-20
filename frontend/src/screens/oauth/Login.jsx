@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Link from "@mui/material/Link";
@@ -13,7 +14,7 @@ import HttpsIcon from "@mui/icons-material/Https";
 import "./Login.scss";
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-const REDIRECT_URI = "http://j7c105.p.ssafy.io/oauth/kakao";
+const REDIRECT_URI = "http://k7c109.p.ssafy.io/oauth/kakao";
 // const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 const KAKAO_AUTH_URI = `https://k7c109.p.ssafy.io:8080/auth-service/oauth2/authorization/kakao`;
 
@@ -38,9 +39,30 @@ function Copyright(props) {
 const theme = createTheme();
 
 function Login() {
-  const LoginProceed = `http://localhost:3000/login/joinname`;
+  const navigate = useNavigate();
+  const LoginProceed = `https://k7c109.p.ssafy.io/login/joinname`;
   const { sessionStorage } = window;
-  console.log(sessionStorage);
+  // console.log(sessionStorage);
+  const [at, setAt] = useState(null);
+  const getAt = () => {
+    setAt(sessionStorage.getItem("accessToken"));
+  };
+  console.log(at);
+  const userNickname = sessionStorage.getItem("userNickname");
+  const AT = sessionStorage.getItem("accessToken");
+  const checkAt = () => {
+    if (AT!== null) {
+      navigate("/");
+    }
+  };
+  // console.log(AT);
+  setInterval(() => {
+    getAt();
+  }, 100);
+  useEffect(() => {
+    getAt();
+    checkAt();
+  }, [at]);
   return (
     <div className="container flex">
       <div className="login flex">

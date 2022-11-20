@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import RoomSearch from "@components/room/RoomSearch";
@@ -25,7 +25,16 @@ function Home() {
   const [address, setAddress] = useState("");
   const [popup, setPopup] = useState(false);
   const addRef = useRef();
-
+  const AT = sessionStorage.getItem("accessToken");
+  const checkAt = () => {
+    if (AT === null) {
+      // window.alert("로그인을 진행해주세요");
+      navigate("/login");
+    }
+  };
+  useEffect(() => {
+    checkAt();
+  }, [AT]);
   return (
     <div className="container">
       <div className="home_back  flex">

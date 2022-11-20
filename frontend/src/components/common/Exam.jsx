@@ -40,6 +40,9 @@ export default function TemporaryDrawer() {
   const toRoomList = () => {
     navigate("/room/roomlist");
   };
+  const toMap = () => {
+    navigate("/room/map");
+  };
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
@@ -62,9 +65,9 @@ export default function TemporaryDrawer() {
       </List>
       <Divider />
       <List>
-        {[['지도보기', 0], ['반띵목록' , 1], ['반띵하기' , 2]].map(([text, loc], index) => (
+        {[['지도보기', toMap], ['반띵목록' , 1], ['반띵하기' , 2]].map(([text, loc], index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={loc}>
               <ListItemIcon>
                 {index % 3 === 0 ? <SignpostIcon sx={{ color: "#2C4B48", fontSize: 48}} /> : <PeopleIcon sx={{ color: "#2C4B48", fontSize: 48}} /> }
               </ListItemIcon>

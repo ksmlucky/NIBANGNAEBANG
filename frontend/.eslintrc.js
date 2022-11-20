@@ -63,6 +63,11 @@ module.exports = {
     "no-undef": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/control-has-associated-label": "off",
+    "no-lonely-if": "off",
+    "no-dupe-else-if": "off",
+    // "no-new": "off",
+    // "vars-on-top": "off",
+    // "prefer-arrow-callback": "off",
   },
   settings: {
     "import/resolver": {
