@@ -21,14 +21,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-//@Api(value = "채팅 메시지 API", tags = {"ChatMessage"})
-//@RequestMapping("/api/message")
 public class ChatMessageController {
 
-//    @Autowired
-//    UserRepositorySupport userRepositorySupport;
-
-//    @Autowired
     ChatMessageService chatMessageService;
 
     private final SimpMessageSendingOperations messagingTemplate;

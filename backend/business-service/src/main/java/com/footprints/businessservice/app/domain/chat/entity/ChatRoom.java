@@ -4,10 +4,8 @@ import com.footprints.businessservice.app.domain.chat.dto.ChatRoomReq;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +39,6 @@ public class ChatRoom {
         chatRoom.title = request.getTitle();
         chatRoom.currentMemberCount = 1;
         chatRoom.totalMemberCount = request.getTotalMemberCount();
-//        chatRoom.closingTime = request.getClosingTime();
         chatRoom.fee = request.getFee();
 
 
@@ -65,5 +62,11 @@ public class ChatRoom {
         private Long id;
         // nickname
         private String nickname;
+        // 방장 여부
+        private boolean isBangjang;
+    }
+
+    public void updateMember(List<ChatRoomMember> chatRoomMembers) {
+        this.members = chatRoomMembers;
     }
 }
