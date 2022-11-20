@@ -1,12 +1,12 @@
 spring:
   data:
     mongodb:
-      host: localhost
-#      host: j7c204.p.ssafy.io
+#      host: localhost
+      host: k7c109.p.ssafy.io
       port: 27017
       authentication-database: admin
-#      username: j7c204
-#      password: seveneleven
+      username: k7c109
+      password: k7c109
       database: footprints_business
 #    web:
 #      pageable:
