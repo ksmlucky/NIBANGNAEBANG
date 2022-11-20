@@ -79,13 +79,24 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     }
 
     @Override
-    public Article getArticleWithNickname(String nickname) {
-        return selectFrom(article)
-                .leftJoin(article.images, image)
-                .fetchJoin()
-                .leftJoin(article.transfer, transfer)
-                .where(article.writer.eq(nickname))
-                .fetchOne();
+    public Page<Article> getArticleWithNickname(String nickname, Pageable pageable) {
+        return applyPagination(pageable, contentQuery -> contentQuery
+                        .selectFrom(article)
+                        .leftJoin(article.transfer, transfer)
+                        .fetchJoin()
+                        .leftJoin(article.images, image)
+                        .where(
+                                article.writer.eq(nickname)
+                        ),
+                countQuery -> countQuery
+                        .selectFrom(article)
+                        .leftJoin(article.transfer, transfer)
+                        .fetchJoin()
+                        .leftJoin(article.images, image)
+                        .where(
+                                article.writer.eq(nickname)
+                        )
+        );
     }
 
     @Override
