@@ -90,16 +90,12 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
     /** 채팅방 아이디(roomId)를 이용하여 채팅방 정보를 조회하는 findChatRoomInfoByRoomId 입니다. (채팅방 들어가기) **/
     @Override
+    @Transactional
     public ChatRoomInfoRes enterChatRoom(String memberId, String roomId) {
         ChatRoom chatRoom = mongoTemplate.findOne(
                 Query.query(Criteria.where("_id").is(roomId)),
                 ChatRoom.class
         );
-
-        // 방이 꽉찼으면 입장 불가
-        if (chatRoom.getTotalMemberCount() <= chatRoom.getCurrentMemberCount()) {
-            throw new ChatException(ChatExceptionType.FULL_CHATROOM);
-        }
 
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
 
@@ -108,6 +104,11 @@ public class ChatRoomServiceImpl implements ChatRoomService {
             if (temp.getNickname().equals(nickname)) {
                 throw new ChatException(ChatExceptionType.ALREADY_EXIST_MEMBER);
             }
+        }
+
+        // 방이 꽉찼으면 입장 불가
+        if (chatRoom.getTotalMemberCount() <= chatRoom.getCurrentMemberCount()) {
+            throw new ChatException(ChatExceptionType.FULL_CHATROOM);
         }
 
         // 없으면 입장
