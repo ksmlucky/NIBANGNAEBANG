@@ -61,9 +61,10 @@ spring:
               # - http://localhost
               # - https://k7c109.p.ssafy.io:8080
               # - https://k7c109.p.ssafy.io:8082
-            allowedHeaders: '*'
-            #              - authorization
-            #              - content-type
+            allowedHeaders: 
+              - authorization
+              - X-Authorization-Id
+              - content-type
             allowedMethods:
               - GET
               - POST
