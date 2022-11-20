@@ -1,0 +1,74 @@
+server:
+  # 소셜로그인 redirect uri를 위한 설정
+  use-forward-headers: true
+  port: 8081
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: footprints
+    enabled: true
+#    key-alias: footprints
+
+spring:
+  redis:
+#  host: localhost
+    host: redis
+    port: 6379
+    password: footprints1!
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          "[/**]":
+            allowedOrigins: "http://localhost:3000" #"https://k7c109.p.ssafy.io"
+            allowedHeaders: '*'
+            #              - authorization
+            #              - content-type
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - OPTIONS
+              - HEAD
+              - DELETE
+  application:
+    name: auth-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    enabled: true
+
+logging:
+  level:
+    org.hibernate.sql: debug
+
+eureka:
+  instance:
+    hostname: k7c109.p.ssafy.io
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    securePort: ${server.port}
+    statusPageUrl: https://k7c109.p.ssafy.io:${server.port}/info
+    healthCheckUrl: https://k7c109.p.ssafy.io:${server.port}/health
+    homePageUrl: https://k7c109.p.ssafy.io:${server.port}
+#    statusPageUrl: https://${eureka.hostname}/info
+#    healthCheckUrl: https://${eureka.hostname}/health
+#    homePageUrl: https://${eureka.hostname}/
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+#    securePortEnabled: true
+    service-url:
+      defaultZone: https://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics

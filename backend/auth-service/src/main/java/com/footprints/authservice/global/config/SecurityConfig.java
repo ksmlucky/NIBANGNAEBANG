@@ -7,13 +7,18 @@ import com.footprints.authservice.global.jwt.JwtAccessDeniedHandler;
 import com.footprints.authservice.global.jwt.JwtAuthenticationEntryPoint;
 import com.footprints.authservice.global.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 import javax.ws.rs.HttpMethod;
+
+import org.springframework.web.filter.ForwardedHeaderFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -27,11 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final OAuth2LogoutSuccessHandler oAuth2LogoutSuccessHandler;
 
     private static final String[] PERMIT_URL_ARRAY = {
-            /* swagger v2 */
             "/**"
-
     };
-
 
 
     @Override
@@ -53,20 +55,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(oAuth2LogoutSuccessHandler)
 
                 .and()
-                    .oauth2Login()
-                        .defaultSuccessUrl("/login-success")
-                        .successHandler(oAuth2AuthenticationSuccessHandler)
-                        .userInfoEndpoint() // oauth2 로그인 성공 후 가져올 때의 설정들
-                            // 소셜로그인 성공 시 후속 조치를 진행할 UserService 인터페이스 구현체 등록
-                            .userService(customOAuth2UserService); // 리소스 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
+                .oauth2Login()
+                .defaultSuccessUrl("/login-success")
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+                .userInfoEndpoint() // oauth2 로그인 성공 후 가져올 때의 설정들
+                // 소셜로그인 성공 시 후속 조치를 진행할 UserService 인터페이스 구현체 등록
+                .userService(customOAuth2UserService); // 리소스 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명시
         http
                 .authorizeRequests()// URL별 권한 권리
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll()
                 .anyRequest().authenticated();
-
-//                .and()
+//                .and();
+//                토큰 검증을 위한 jwt filter 추가
 //                .apply(new JwtSecurityConfig(tokenProvider));
+    }
+
+    @Bean
+    FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
+
+        final FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean = new FilterRegistrationBean<ForwardedHeaderFilter>();
+
+        filterRegistrationBean.setFilter(new ForwardedHeaderFilter());
+        filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+
+        return filterRegistrationBean;
     }
 
 }

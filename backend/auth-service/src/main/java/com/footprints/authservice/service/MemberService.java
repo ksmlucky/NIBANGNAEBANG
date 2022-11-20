@@ -29,12 +29,13 @@ public class MemberService {
     private final RedisService redisService;
 
     public void insertNickname(Long memberId, NicknameRequest nicknameRequest) throws MemberException {
-        Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
 
         findMember.updateNickname(nicknameRequest.getNickname());
     }
 
-    public boolean checkNickname(Long memberId, NicknameRequest nicknameRequest) {
+    public boolean checkNickname(NicknameRequest nicknameRequest) {
         Optional<Member> findMember = memberRepository.findByNickname(nicknameRequest.getNickname());
 
         if (findMember.isPresent()) {
@@ -64,25 +65,43 @@ public class MemberService {
 //    }
 
     public void updateNickname(Long memberId, NicknameRequest nicknameRequest) throws MemberException {
-        Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
 
         findMember.updateNickname(nicknameRequest.getNickname());
     }
 
     public String selectNickname(Long memberId) throws MemberException {
-        Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
 
         return findMember.getNickname();
     }
 
-    public String getDi(MemberInfoForDiRequest memberInfoForDiRequest) throws MemberException, NoSuchAlgorithmException {
+    public Map<String, String> getDi(MemberInfoForDiRequest memberInfoForDiRequest)
+            throws MemberException, NoSuchAlgorithmException {
         String name = memberInfoForDiRequest.getName();
         String birth = memberInfoForDiRequest.getBirth();
+        String provider = memberInfoForDiRequest.getProvider();
+        String providerId = memberInfoForDiRequest.getProviderId();
 
         SHA256 sha256 = new SHA256();
         String di = sha256.getDI(name + birth);
 
-        return di;
+        // di로 검색
+        Optional<Member> findMemberByDi = memberRepository.findByDi(di);
+        Map<String, String> result = new HashMap<>();
+
+        if (!findMemberByDi.isEmpty()){
+            findMemberByDi.get().updateProviderAndProviderId(provider, providerId);
+            result.put("diSignIn", "true");
+        }else{
+            result.put("diSignIn", "false");
+        }
+
+        result.put("di", di);
+
+        return result;
 
 //        Member findMember = memberRepository.findByDi(di).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
 
@@ -114,18 +133,18 @@ public class MemberService {
                         .di(di)
                         .build());
             }
-        } else {
-            if ((provider.equals("kakao") && findMemberByDi.get().getKakaoProviderId() == null)
-                    || (provider.equals("google") && findMemberByDi.get().getGoogleProviderId() == null)) {
-                findMemberByDi.get().updateProviderAndProviderId(provider, providerId);
-            }
         }
+//        else {
+//            if ((provider.equals("kakao") && findMemberByDi.get().getKakaoProviderId() == null)
+//                    || (provider.equals("google") && findMemberByDi.get().getGoogleProviderId() == null)) {
+//                findMemberByDi.get().updateProviderAndProviderId(provider, providerId);
+//            }
+//        }
 
         if (!findMemberByDi.isEmpty()) {
             return findMemberByDi.get();
         }
         return SignUpMember;
-
 
 //        Member findMemberByProviderId = null;
 //        // 토큰 발급하기위해서는 memberId를 알아야하지만, 카카오로 로그인했는지, 구글로 로그인했는지 모르기때문에 if문으로 나누기
@@ -157,9 +176,12 @@ public class MemberService {
 
 
     public void memberWithdrawal(Long memberId) {
-        Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
+        memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER));
 
-        memberRepository.deleteById(findMember.getId());
+        memberRepository.deleteById(memberId);
+
+        redisService.deleteValues(String.valueOf(memberId));
     }
 
 

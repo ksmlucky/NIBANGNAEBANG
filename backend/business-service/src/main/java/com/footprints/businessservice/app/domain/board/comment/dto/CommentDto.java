@@ -30,8 +30,6 @@ public class CommentDto {
         this.articleId = comment.getArticle().getId();
         this.isUpdated = comment.isUpdated();
         this.isDeleted = comment.isDeleted();
-        this.createdAt = comment.getCreatedAt();
-        this.updatedAt = comment.getUpdatedAt();
         this.replies = comment.getReplies().stream()
                 .map(reply -> new ReplyDto(reply))
                 .collect(Collectors.toList());

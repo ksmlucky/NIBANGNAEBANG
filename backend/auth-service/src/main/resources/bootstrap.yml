@@ -1,9 +1,9 @@
 spring:
   cloud:
     config:
-      uri: http://127.0.0.1:8888
+      uri: https://127.0.0.1:8888
       name: auth-service
   profiles:
-    active: dev
+    active: prod
     include: oauth
 

@@ -1,6 +1,13 @@
-
 server:
+  # 소셜로그인 redirect uri를 위한 설정
+#  use-forward-headers: true
   port: 8080
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: footprints
+    enabled: true
+#    key-alias: footprints
 
 spring:
   application:
@@ -12,13 +19,19 @@ spring:
       password: guest
   cloud:
     gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
       globalcors:
+        add-to-simple-url-handler-mapping: true
         cors-configurations:
           "[/**]":
-            allowedOrigins: "http://localhost:8080"
-            allowedHeaders:
-              - authorization
-              - content-type
+            allowedOrigins: "http://localhost:3000" #"https://k7c109.p.ssafy.io"
+            allowedHeaders: '*'
+#              - authorization
+#              - content-type
             allowedMethods:
               - GET
               - POST
@@ -38,6 +51,14 @@ spring:
         - id: business-service
           uri: lb://BUSINESS-SERVICE
           predicates:
+            - Path=/business-service/api/*/AT/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/business-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: business-service
+          uri: lb://BUSINESS-SERVICE
+          predicates:
             - Path=/business-service/api/**
           filters:
             - RemoveRequestHeader=Cookie
@@ -53,18 +74,43 @@ spring:
         - id: auth-service
           uri: lb://AUTH-SERVICE
           predicates:
+            - Path=/auth-service/logout/**
+          filters:
+            - RewritePath=/auth-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth-service/api/AT/**
+          filters:
+            - RewritePath=/auth-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
             - Path=/auth-service/**
           filters:
             - RewritePath=/auth-service/(?<segment>.*), /$\{segment}
 
+#            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    securePort: ${server.port}
+    statusPageUrl: https://k7c109.p.ssafy.io:${server.port}/info
+    healthCheckUrl: https://k7c109.p.ssafy.io:${server.port}/health
+    homePageUrl: https://k7c109.p.ssafy.io:${server.port}
+#    statusPageUrl: https://${eureka.hostname}/info
+#    healthCheckUrl: https://${eureka.hostname}/health
+#    homePageUrl: https://${eureka.hostname}/
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: https://127.0.0.1:8761/eureka
 
 logging:
   level:

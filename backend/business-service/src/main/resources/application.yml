@@ -1,4 +1,25 @@
+server:
+  port: 8082
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: footprints
+    enabled: true
+#    key-alias: footprints
 spring:
+
+  application:
+    name: business-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  zipkin:
+    base-url: http://127.0.0.1:9411
+    enabled: true
+
+
   data:
     mongodb:
       host: localhost
@@ -21,10 +42,80 @@ spring:
     host: 127.0.0.1
     port: 6379
     password: redis
+
   servlet:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
+
+
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          "[/**]":
+            allowedOrigins: "http://localhost:3000" #"https://k7c109.p.ssafy.io"
+            allowedHeaders: '*'
+            #              - authorization
+            #              - content-type
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - OPTIONS
+              - HEAD
+              - DELETE
+
+logging:
+  level:
+    org.hibernate.sql: DEBUG
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    securePort: ${server.port}
+    statusPageUrl: https://k7c109.p.ssafy.io:${server.port}/info
+    healthCheckUrl: https://k7c109.p.ssafy.io:${server.port}/health
+    homePageUrl: https://k7c109.p.ssafy.io:${server.port}
+#    statusPageUrl: https://${eureka.hostname}/info
+#    healthCheckUrl: https://${eureka.hostname}/health
+#    homePageUrl: https://${eureka.hostname}/
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: https://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus
+
+jwt:
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  access-token-validity-in-seconds: 1800
+  refresh-token-validity-in-seconds: 86400
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAY2RO5N2ZNMYZLCOZ
+      secret-key: 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
+    s3:
+      bucket: c109-footprints
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+auth_service:
+  url: http://AUTH-SERVICE/api/%d/nickname
+  exception:
+    not_found_member: Member does not exist.
 
 # freemarker
   devtools:
@@ -35,3 +126,4 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+

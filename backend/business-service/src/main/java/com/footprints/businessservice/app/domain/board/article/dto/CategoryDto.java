@@ -9,11 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CategoryDto {
-
     private TransferDto transfer;
-
     public CategoryDto(TransferDto transferDto) {
         this.transfer = transferDto;
     }
-
 }

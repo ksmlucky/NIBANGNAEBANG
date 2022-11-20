@@ -86,7 +86,7 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	implementation 'jakarta.validation:jakarta.validation-api'
-
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.1'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
 	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
@@ -135,14 +135,13 @@ configurations {
 	querydsl.extendsFrom compileClasspath
 }
 // querydsl 추가 끝
-
 subprojects {
 	apply plugin: 'org.sonarqube'
 
 	sonarqube {
 		properties {
-			property 'sonar.host.url', 'http://localhost:9000'
-			property 'sonar.login', 'squ_b53aa1544c2691823bf14a826e7c8759ec0a9e32'
+			property 'sonar.host.url', 'http://k7c109.p.ssafy.io:9000'
+			property 'sonar.login', 'squ_6096025ccd32f010bd71cf1d133cd0aabdf6eb0b'
 			property 'sonar.sources', 'src'
 			property 'sonar.language', 'java'
 			property 'sonar.projectVersion', '1.1.0-SNAPSHOT'
