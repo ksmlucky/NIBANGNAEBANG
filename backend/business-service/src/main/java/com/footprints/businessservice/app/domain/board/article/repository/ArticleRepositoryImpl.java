@@ -29,6 +29,7 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     public Page<Article> getArticleList(SortCondition condition, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(article)
+                        .distinct()
                         .leftJoin(article.transfer, transfer)
                         .fetchJoin()
                         .leftJoin(article.images, image)
@@ -82,6 +83,7 @@ public class ArticleRepositoryImpl extends QuerydslRepositorySupport implements 
     public Page<Article> getArticleWithNickname(String nickname, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                         .selectFrom(article)
+                        .distinct()
                         .leftJoin(article.transfer, transfer)
                         .fetchJoin()
                         .leftJoin(article.images, image)
