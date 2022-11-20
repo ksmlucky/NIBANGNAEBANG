@@ -57,8 +57,8 @@ public class ArticleController {
     @GetMapping("/AT/my-room")
     @Operation(summary = "내 양도 방 조회")
     public ResponseEntity<? extends DataResponse> getMyTransferArticle(
-            @RequestHeader(name = "X-Authorization-Id") String memberId) {
-        ArticleDto response = articleService.getMyTransferArticle(memberId);
+            @RequestHeader(name = "X-Authorization-Id") String memberId, Pageable pageable) {
+        List<ArticleDto> response = articleService.getMyTransferArticle(memberId, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(new DataResponse<>(response));
     }
 

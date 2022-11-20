@@ -30,5 +30,5 @@ public interface ArticleService {
 
     void deleteArticle(String memberId, Long articleId);
 
-    ArticleDto getMyTransferArticle(String memberId);
+    List<ArticleDto> getMyTransferArticle(String memberId, Pageable pageable);
 }

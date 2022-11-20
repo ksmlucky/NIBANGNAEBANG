@@ -16,6 +16,5 @@ public interface ArticleRepositoryCustom {
     Article getArticle(Long articleId);
     Article getArticleAndImageWithNicknameAndArticleId(String nickname, Long articleId);
     Article getArticleWithNicknameAndArticleId(String nickname, Long articleId);
-
-    Article getArticleWithNickname(String nickname);
+    Page<Article> getArticleWithNickname(String nickname, Pageable pageable);
 }

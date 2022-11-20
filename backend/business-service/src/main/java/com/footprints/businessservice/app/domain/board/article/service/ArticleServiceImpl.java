@@ -231,11 +231,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDto getMyTransferArticle(String memberId) {
+    public List<ArticleDto> getMyTransferArticle(String memberId, Pageable pageable) {
         String nickname = memberServiceClient.selectNickname(Long.parseLong(memberId)).getNickname();
-        Article article = articleRepository.getArticleWithNickname(nickname);
+        Page<Article> articles = articleRepository.getArticleWithNickname(nickname, pageable);
 
-        return new ArticleDto(article);
+        return articles.stream()
+                .map(article -> new ArticleDto(article))
+                .collect(Collectors.toList());
     }
 
     private Article updateLikeCount(Long articleId, int count) {
