@@ -1,0 +1,24 @@
+.paper {
+  width: (960px);
+  height: (600px);
+  // &_img {
+  //   width: (800px);
+  //   height: (480px);
+  //   overflow: hidden;
+  //   img {
+  //     width: (100%);
+  //     height: (100%);
+  //     object-fit: cover;
+  //   }
+  // }
+}
+.img {
+  width: (960px);
+  height: (600px);
+  overflow: hidden;
+  img {
+    width: (100%);
+    height: (100%);
+    object-fit: cover;
+  }
+}

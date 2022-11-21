@@ -1,0 +1,26 @@
+.container {
+  justify-content: center;
+}
+.showList {
+  width: (1140px);
+  margin-top: (60px);
+  flex-direction: column;
+  &_title {
+    margin: 0 (10px) 0 (10px);
+    justify-content: space-between;
+    &_btn {
+      align-items: center;
+      margin-top: (16px);
+      background-color: $MAIN;
+      color: $WHITE;
+      height: (48px);
+      border-radius: (4px);
+      &_icon {
+        margin: 0 (12px) 0 0;
+      }
+    }
+  }
+  &_comps {
+    margin: (40px) 0 (60px) 0;
+  }
+}
