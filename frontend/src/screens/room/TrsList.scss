@@ -1,0 +1,64 @@
+.container {
+  height: calc(100vh - (100px));
+  width: 100%;
+  overflow-x: hidden;
+}
+.container::-webkit-scrollbar {
+  display: none;
+}
+// .divide {
+//   width: (300px);
+//   height: (1px);
+//   background-color: $GRAY-DB;
+// }
+.trsList {
+  flex-direction: row;
+  //   height: calc(100vh - (100px));
+  &_map {
+    align-items: center;
+    // width: calc(100vw - (300px));
+    &_title {
+      // width: 100%;
+    }
+  }
+  &_detail {
+    .divide {
+      width: 280px;
+      background-color: $GRAY-DB;
+      height: (1px);
+      margin: (4px) 0 (8px) 0;
+    }
+    flex-direction: column;
+    width: (300px);
+    &_search {
+      // flex-direction: row;
+      // align-items: center;
+      width: (300px);
+      height: (64px);
+      margin-left: (8px);
+      &_box {
+        width: (132px);
+      }
+      &_btn {
+        &_space {
+          height: (20px);
+        }
+      }
+      &_select {
+        &_space {
+          height: (8px);
+        }
+      }
+    }
+    &_rooms {
+      height: calc(100vh - (164px));
+      width: (300px);
+      overflow-y: scroll;
+      padding-left: (20px);
+      padding-top: (8px);
+    }
+    &_rooms::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

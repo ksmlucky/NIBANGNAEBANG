@@ -1,0 +1,46 @@
+.login {
+  margin-top: (10vh);
+  flex-direction: column;
+  align-items: center;
+  color: #2C4B48;
+  &_box {
+    margin-top: (100px);
+    width: (480px);
+    height: (500px);
+    background-color: #ECF2FF;
+    border-radius: (30px);
+    box-shadow: (8px) (8px) (4px) rgba(58, 118, 255, 0.25);
+    flex-direction: column;
+    align-items: center;
+    &_lock {
+      margin: (40px) 0 (20px) 0;
+    }
+    &_logo {
+      color: #2C4B48;
+    }
+    &_kakao1 {
+      width: (240px);
+      height: (60px);
+      border-radius: (6px);
+      overflow: hidden;
+      margin: (30px) 0 (20px) 0;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    &_kakao2 {
+      width: (240px);
+      height: (60px);
+      border-radius: (6px);
+      overflow: hidden;
+      margin-bottom: (64px);
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

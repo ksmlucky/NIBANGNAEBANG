@@ -1,0 +1,232 @@
+.closebtn {
+  position: absolute;
+  top: 23%;
+  left: 30.5%;
+  z-index: 200;
+}
+.fileContainer {
+  // width: (240px);
+  // height: (164px);
+  max-height: (240px);
+  overflow-y: scroll;
+}
+.roomRegister {
+  margin-top: (10vh);
+  flex-direction: column;
+  align-items: center;
+  color: #3061d1;
+  &_title {
+    margin-top: (12px);
+    align-items: center;
+    color: #2c4b48;
+    img {
+      margin-left: (12px);
+      width: (56px);
+      height: (56px);
+    }
+  }
+  &_box {
+    margin-top: (60px);
+    width: (660px);
+    height: (600px);
+    // background-color: #ECF2FF;
+    border-radius: (30px);
+    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.25);
+    flex-direction: column;
+    align-items: center;
+    &_p1,
+    &_p2,
+    &_p3 {
+      width: (400px);
+      height: (520px);
+    }
+    &_p1 {
+      &_address,
+      &_type,
+      &_term {
+        margin-top: (40px);
+      }
+      &_address {
+        // margin-top: (20px);
+        &_input {
+          justify-content: space-between;
+          input {
+            color: #2c4b48;
+            margin-top: (4px);
+            width: (192px);
+            height: (40px);
+            border-bottom: 1px solid rgba(48, 97, 209, 0.5);
+          }
+          input:focus {
+            box-shadow: 0 (2px) 0 rgba(48, 97, 209, 0.2);
+          }
+        }
+      }
+      &_type {
+        &_btns {
+          margin-top: (6px);
+          width: (240px);
+          justify-content: space-between;
+          color: #2c4b48;
+          button {
+            width: (108px);
+            height: (40px);
+            border-radius: (10px);
+            border: 1px solid rgba(48, 97, 209, 0.5);
+          }
+          &_btn_strong {
+            color: $WHITE;
+            background-color: #3061d1;
+          }
+        }
+      }
+      &_term {
+        &_title {
+          &_condition {
+            margin-left: (50px);
+            color: rgba(44, 75, 72, 0.75);
+          }
+        }
+        &_calender {
+          margin-top: (6px);
+          &_cal {
+            width: (130px);
+            border: 1px solid rgba(44, 75, 72, 0.75);
+          }
+        }
+      }
+    }
+    &_p2 {
+      &_cont,
+      &_room,
+      &_floor {
+        margin-top: (40px);
+      }
+      &_cont {
+        &_btns {
+          margin: (6px) 0 (10px) 0;
+          width: (400px);
+          color: #2c4b48;
+          align-items: center;
+          button {
+            width: (80px);
+            height: (40px);
+            border-radius: (10px);
+            border: 1px solid rgba(48, 97, 209, 0.5);
+            margin-right: (16px);
+          }
+          &_btn_strong {
+            color: $WHITE;
+            background-color: #3061d1;
+          }
+          &_fee {
+            &_input {
+              width: (30px);
+              border-bottom: 1px solid rgba(48, 97, 209, 0.5);
+            }
+          }
+        }
+        &_inp {
+          &_input {
+            width: (60px);
+            border-bottom: 1px solid rgba(48, 97, 209, 0.5);
+          }
+          &_conw {
+            &_input {
+              width: (40px);
+              border-bottom: 1px solid rgba(48, 97, 209, 0.5);
+            }
+          }
+        }
+      }
+      &_room {
+        &_opt,
+        &_area {
+          width: (200px);
+        }
+        &_area {
+          &_input {
+            margin-top: (16px);
+            color: #2c4b48;
+            width: (80px);
+            height: (40px);
+            border-bottom: 1px solid rgba(48, 97, 209, 0.5);
+          }
+        }
+      }
+      &_floor {
+        &_ele {
+          margin: (10px) 0 (6px) 0;
+          color: #2c4b48;
+        }
+        &_inps {
+          input {
+            width: (32px);
+            // height: (40px);
+            border-bottom: 1px solid rgba(48, 97, 209, 0.5);
+          }
+        }
+      }
+    }
+    &_p3 {
+      &_extra,
+      &_photo {
+        margin-top: (30px);
+      }
+      &_extra {
+        &_box {
+          margin-top: (8px);
+          width: (400px);
+          height: (100px);
+          color: #2c4b48;
+          border: 1px solid rgba(44, 75, 72, 0.75);
+          border-radius: (12px);
+          resize: none;
+          padding: (10px);
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+      &_photo {
+        &_con {
+          margin: (8px) 0 (8px) 0;
+          &_upload {
+            width: (300px);
+          }
+          // width: (400px);
+          &_desc {
+            width: (90px);
+            margin-left: (10px);
+            justify-content: center;
+            align-items: center;
+            color: #2c4b48;
+            background-color: #ecf2ff;
+            border-radius: (12px);
+          }
+          // height: (140px);
+          // &_imginput {
+          //   display: none;
+          // }
+          // &_img {
+          //   width: (84px);
+          //   height: (80px);
+          //   overflow: hidden;
+          // }
+        }
+        // &_desc {
+        //   color: #2c4b48;
+        //   background-color: #ecf2ff;
+        //   width: (320px);
+        //   height: (36px);
+        //   justify-content: center;
+        //   align-items: center;
+        //   border-radius: (12px);
+        // }
+      }
+    }
+    &_btn {
+      width: (160px);
+    }
+  }
+}

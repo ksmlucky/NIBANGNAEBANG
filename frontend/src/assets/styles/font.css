@@ -1,0 +1,103 @@
+/* NotoSansKR - 한글폰트 */
+
+@font-face {
+  font-family: "NotoSansRegular";
+  font-style: normal;
+  /* font-weight: 400; */
+  src: url("./fonts/NotoSansKR-Regular.woff2") format("woff2"),
+    url("./fonts/NotoSansKR-Regular.woff") format("woff"),
+    url("./fonts//NotoSansKR-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "NotoSansMedium";
+  font-style: normal;
+  /* font-weight: 500; */
+  src: url("./fonts/NotoSansKR-Medium.woff2") format("woff2"),
+    url("./fonts/NotoSansKR-Medium.woff") format("woff"),
+    url("./fonts/NotoSansKR-Medium.otf") format("opentype");
+}
+@font-face {
+  font-family: "NotoSansBold";
+  font-style: normal;
+  /* font-weight: 700; */
+  src: url("./fonts/NotoSansKR-Bold.woff2") format("woff2"),
+    url("./fonts/NotoSansKR-Bold.woff") format("woff"),
+    url("./fonts/NotoSansKR-Bold.otf") format("opentype");
+}
+
+/* 숫자 */
+
+@font-face {
+  font-family: "RobotoRegular";
+  font-style: normal;
+  /* font-weight: 400; */
+  src: url("./fonts/Roboto-Regular.woff2") format("woff2"),
+    url("./fonts/Roboto-Regular.woff") format("woff"),
+    url("./fonts/Roboto-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "RobotoMedium";
+  font-style: normal;
+  /* font-weight: 500; */
+  src: url("./fonts/Roboto-Medium.woff2") format("woff2"),
+    url("./fonts/Roboto-Medium.woff") format("woff"),
+    url("./fonts/Roboto-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "RobotoBold";
+  font-style: normal;
+  /* font-weight: 700; */
+  src: url("./fonts/Roboto-Bold.woff2") format("woff2"),
+    url("./fonts/Roboto-Bold.woff") format("woff"),
+    url("./fonts/Roboto-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "SeoulHangangB";
+  font-style: normal;
+  src: url("./fonts/SeoulHangangB.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulHangangEB";
+  font-style: normal;
+  src: url("./fonts/SeoulHangangEB.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulHangangL";
+  font-style: normal;
+  src: url("./fonts/SeoulHangangL.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulHangangM";
+  font-style: normal;
+  src: url("./fonts/SeoulHangangM.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulNamsanB";
+  font-style: normal;
+  src: url("./fonts/SeoulNamsanB.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulNamsanEB";
+  font-style: normal;
+  src: url("./fonts/SeoulNamsanEB.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulNamsanL";
+  font-style: normal;
+  src: url("./fonts/SeoulNamsanL.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SeoulNamsanM";
+  font-style: normal;
+  src: url("./fonts/SeoulNamsanM.ttf") format("truetype");
+}

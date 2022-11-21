@@ -1,0 +1,94 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^35.3.0",
+    "@ckeditor/ckeditor5-build-inline": "^35.2.1",
+    "@ckeditor/ckeditor5-easy-image": "^35.2.1",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
+    "@craco/craco": "^6.4.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/lab": "^5.0.0-alpha.106",
+    "@mui/material": "^5.10.12",
+    "@reduxjs/toolkit": "^1.8.6",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@toast-ui/react-editor": "^3.2.2",
+    "axios": "^0.27.2",
+    "browser-image-compression": "^2.0.0",
+    "ckbox": "^1.1.1",
+    "ckeditor4-react": "^4.1.0",
+    "craco-alias": "^3.0.1",
+    "firebase": "^9.14.0",
+    "moment": "^2.29.4",
+    "prop-types": "^15.8.1",
+    "query-string": "^7.1.1",
+    "react": "^18.1.0",
+    "react-beforeunload": "^2.5.3",
+    "react-datepicker": "^4.8.0",
+    "react-daum-postcode": "^3.1.1",
+    "react-dom": "^18.1.0",
+    "react-geocode": "^0.2.3",
+    "react-icons": "^4.6.0",
+    "react-image-file-resizer": "^0.4.8",
+    "react-images-upload": "^1.2.8",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-intersection-observer": "^9.4.0",
+    "react-kakao-maps-sdk": "^1.1.5",
+    "react-material-ui-carousel": "^3.4.2",
+    "react-moment": "^1.1.2",
+    "react-redux": "^8.0.4",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "5.0.1",
+    "react-tooltip": "^4.4.3",
+    "recoil": "^0.7.6",
+    "redux": "^4.2.0",
+    "socket-io": "^1.0.0",
+    "socket.io": "^4.5.3",
+    "styled-components": "^5.3.6",
+    "uuid": "^8.3.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@ckeditor/ckeditor5-alignment": "^35.3.0",
+    "eslint": "^8.26.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "node-sass": "^7.0.3"
+  }
+}
