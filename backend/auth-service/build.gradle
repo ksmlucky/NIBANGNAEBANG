@@ -74,8 +74,8 @@ subprojects {
 
     sonarqube {
         properties {
-            property 'sonar.host.url', 'http://k7c109.p.ssafy.io:9000'
-            property 'sonar.login', 'squ_6096025ccd32f010bd71cf1d133cd0aabdf6eb0b'
+            property 'sonar.host.url', 'http://deployment.example.invalid:9000'
+            property 'sonar.login', (System.getenv('SONAR_TOKEN') ?: '')
             property 'sonar.sources', 'src'
             property 'sonar.language', 'java'
             property 'sonar.projectVersion', '1.1.0-SNAPSHOT'

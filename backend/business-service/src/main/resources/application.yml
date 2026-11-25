@@ -3,7 +3,7 @@ server:
   ssl:
     key-store: classpath:keystore.p12
     key-store-type: PKCS12
-    key-store-password: footprints
+    key-store-password: "${SERVER_SSL_KEY_STORE_PASSWORD}"
     enabled: true
 #    key-alias: footprints
 spring:
@@ -14,7 +14,7 @@ spring:
     host: 127.0.0.1
     port: 5672
     username: guest
-    password: guest
+    password: "${SPRING_RABBITMQ_PASSWORD}"
   zipkin:
     base-url: http://127.0.0.1:9411
     enabled: true
@@ -23,11 +23,11 @@ spring:
   data:
     mongodb:
 #      host: localhost
-      host: k7c109.p.ssafy.io
+      host: deployment.example.invalid
       port: 27017
       authentication-database: admin
       username: k7c109
-      password: k7c109
+      password: "${SPRING_DATA_MONGODB_PASSWORD}"
       database: footprints_business
 #    web:
 #      pageable:
@@ -41,7 +41,7 @@ spring:
         min-idle: 2
     host: 127.0.0.1
     port: 6379
-    password: redis
+    password: "${SPRING_REDIS_PASSWORD}"
 
   servlet:
     multipart:
@@ -56,11 +56,11 @@ spring:
         cors-configurations:
           "[/**]":
             allowedOrigins: '*'
-              # - http://localhost:3000 #"https://k7c109.p.ssafy.io"
-              # - https://k7c109.p.ssafy.io
+              # - http://localhost:3000 #"https://deployment.example.invalid"
+              # - https://deployment.example.invalid
               # - http://localhost
-              # - https://k7c109.p.ssafy.io:8080
-              # - https://k7c109.p.ssafy.io:8082
+              # - https://deployment.example.invalid:8080
+              # - https://deployment.example.invalid:8082
             allowedHeaders: 
               - Authorization
               - X-Authorization-Id
@@ -83,9 +83,9 @@ eureka:
     non-secure-port-enabled: false
     secure-port-enabled: true
     securePort: ${server.port}
-    statusPageUrl: https://k7c109.p.ssafy.io:${server.port}/info
-    healthCheckUrl: https://k7c109.p.ssafy.io:${server.port}/health
-    homePageUrl: https://k7c109.p.ssafy.io:${server.port}
+    statusPageUrl: https://deployment.example.invalid:${server.port}/info
+    healthCheckUrl: https://deployment.example.invalid:${server.port}/health
+    homePageUrl: https://deployment.example.invalid:${server.port}
 #    statusPageUrl: https://${eureka.hostname}/info
 #    healthCheckUrl: https://${eureka.hostname}/health
 #    homePageUrl: https://${eureka.hostname}/
@@ -102,15 +102,15 @@ management:
         include: refresh, health, beans, busrefresh, info, metrics, prometheus
 
 jwt:
-  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  secret: "${JWT_SECRET}"
   access-token-validity-in-seconds: 1800
   refresh-token-validity-in-seconds: 86400
 
 cloud:
   aws:
     credentials:
-      access-key: AKIAY2RO5N2ZNMYZLCOZ
-      secret-key: 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
+      access-key: "${CLOUD_AWS_CREDENTIALS_ACCESS_KEY}"
+      secret-key: "${CLOUD_AWS_CREDENTIALS_SECRET_KEY}"
     s3:
       bucket: c109-footprints
     region:

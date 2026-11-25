@@ -14,9 +14,9 @@ import HttpsIcon from "@mui/icons-material/Https";
 import "./Login.scss";
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-const REDIRECT_URI = "http://k7c109.p.ssafy.io/oauth/kakao";
+const REDIRECT_URI = "http://deployment.example.invalid/oauth/kakao";
 // const KAKAO_AUTH_URI = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-const KAKAO_AUTH_URI = `https://k7c109.p.ssafy.io:8080/auth-service/oauth2/authorization/kakao`;
+const KAKAO_AUTH_URI = `https://deployment.example.invalid:8080/auth-service/oauth2/authorization/kakao`;
 
 function Copyright(props) {
   return (
@@ -40,7 +40,7 @@ const theme = createTheme();
 
 function Login() {
   const navigate = useNavigate();
-  const LoginProceed = `https://k7c109.p.ssafy.io/login/joinname`;
+  const LoginProceed = `https://deployment.example.invalid/login/joinname`;
   const { sessionStorage } = window;
   // console.log(sessionStorage);
   const [at, setAt] = useState(null);

@@ -3,11 +3,11 @@ server:
   ssl:
     key-store: classpath:keystore.p12
     key-store-type: PKCS12
-    key-store-password: footprints
+    key-store-password: "${SERVER_SSL_KEY_STORE_PASSWORD}"
     enabled: true
 #    key-alias: footprints
 #    trust-store: classpath:keystore.p12
-#    trust-store-password: footprints
+#    trust-store-password: "${CONFIGURE_IN_ENVIRONMENT}"
 
 spring:
   application:
@@ -20,9 +20,9 @@ eureka:
     #  https://github.com/piomin/sample-secure-eureka-discovery/blob/master/secure-discovery/src/main/resources/application.yml
     #  참고하여 추가
 #    securePort: ${server.port}
-#    statusPageUrl: https://k7c109.p.ssafy.io:${server.port}/info
-#    healthCheckUrl: https://k7c109.p.ssafy.io:${server.port}/health
-#    homePageUrl: https://k7c109.p.ssafy.io:${server.port}
+#    statusPageUrl: https://deployment.example.invalid:${server.port}/info
+#    healthCheckUrl: https://deployment.example.invalid:${server.port}/health
+#    homePageUrl: https://deployment.example.invalid:${server.port}
   client:
     register-with-eureka: false
     fetch-registry: false

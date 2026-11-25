@@ -12,7 +12,7 @@ import Profile from "@images/extra/profile.png";
 import "./ChangeNickname.scss";
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-const REDIRECT_URI = "http://j7c105.p.ssafy.io/oauth/kakao";
+const REDIRECT_URI = "http://deployment.example.invalid/oauth/kakao";
 
 function ChangeNickname() {
   const dispatch = useDispatch();

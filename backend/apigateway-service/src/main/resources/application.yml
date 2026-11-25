@@ -5,7 +5,7 @@ server:
   ssl:
     key-store: classpath:keystore.p12
     key-store-type: PKCS12
-    key-store-password: footprints
+    key-store-password: "${SERVER_SSL_KEY_STORE_PASSWORD}"
     enabled: true
 #    key-alias: footprints
 
@@ -16,7 +16,7 @@ spring:
       host: 127.0.0.1
       port: 5672
       username: guest
-      password: guest
+      password: "${SPRING_APPLICATION_RABBITMQ_PASSWORD}"
   cloud:
     gateway:
       httpclient:
@@ -28,7 +28,7 @@ spring:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           "[/**]":
-            allowedOrigins: "http://localhost:3000" #"https://k7c109.p.ssafy.io"
+            allowedOrigins: "http://localhost:3000" #"https://deployment.example.invalid"
             allowedHeaders: '*'
 #              - authorization
 #              - content-type
@@ -100,9 +100,9 @@ eureka:
     non-secure-port-enabled: false
     secure-port-enabled: true
     securePort: ${server.port}
-    statusPageUrl: https://k7c109.p.ssafy.io:${server.port}/info
-    healthCheckUrl: https://k7c109.p.ssafy.io:${server.port}/health
-    homePageUrl: https://k7c109.p.ssafy.io:${server.port}
+    statusPageUrl: https://deployment.example.invalid:${server.port}/info
+    healthCheckUrl: https://deployment.example.invalid:${server.port}/health
+    homePageUrl: https://deployment.example.invalid:${server.port}
 #    statusPageUrl: https://${eureka.hostname}/info
 #    healthCheckUrl: https://${eureka.hostname}/health
 #    homePageUrl: https://${eureka.hostname}/

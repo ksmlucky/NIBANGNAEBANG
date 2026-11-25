@@ -6,7 +6,7 @@ function Test(){
     const test = () =>{
         axios({
             method : "GET",
-            url : `http://k7c109.p.ssafy.io:8080/auth-service/api/test`
+            url : `http://deployment.example.invalid:8080/auth-service/api/test`
         })
             .then((res) =>{
                 concole.log("API Test");
