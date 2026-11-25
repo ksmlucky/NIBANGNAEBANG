@@ -1,8 +1,29 @@
 # 니방내방
 
-방 양도 정보를 등록하고, 주소·계약 조건과 지도를 통해 방을 살펴보는 웹 서비스 프로젝트입니다.
+**내놓을 방을 등록하고, 조건과 지도로 살펴봅니다.**
 
-현재 기본 브랜치인 `BE/address`에는 **백엔드 코드**가 있습니다. React 화면은 [frontend 브랜치](https://github.com/ksmlucky/NIBANGNAEBANG/tree/frontend/frontend)에 있으며, 아래에 브랜치별 구현 범위를 구분했습니다.
+방 양도 정보를 등록하고 주소·계약 조건·지도로 방을 찾아보는 웹 서비스 프로젝트입니다. 게시판과 쪽지 기능도 구현했습니다.
+
+![니방내방 핵심 흐름: 방 등록 → 조건과 지도 → 게시판·쪽지](docs/diagrams/readme-overview.png)
+
+**팀 프로젝트 · 기본 브랜치는 백엔드, 화면은 별도 frontend 브랜치**
+
+### 핵심 기능
+
+- **단계별 방 등록** — 계약 기간·보증금·집세·주소·옵션·사진을 입력합니다.
+- **주소와 지도 탐색** — 주소로 목록을 찾고 지도에서 매물과 상세 정보를 확인합니다.
+- **커뮤니티와 쪽지** — 게시글·댓글·스크랩, 쪽지의 읽음·삭제 상태를 관리합니다.
+
+**기술:** React · Spring Boot · Spring Cloud · JPA
+
+[서비스 구성](#서비스-구성) · [핵심 코드](#코드-살펴보기)
+
+> 기본 브랜치 `BE/address`는 백엔드, [frontend 브랜치](https://github.com/ksmlucky/NIBANGNAEBANG/tree/frontend/frontend)는 화면입니다. 경로·요청 형식 차이가 있어 두 브랜치의 통합 실행은 별도 확인이 필요합니다.
+
+---
+
+<details>
+<summary>상세 기능 펼쳐 보기</summary>
 
 ## 주요 기능
 
@@ -13,6 +34,9 @@
 - **회원 인증**: Kakao·Google OAuth2 연동 코드와 JWT·회원 정보 관리
 
 등록·지도 화면은 `frontend`, 커뮤니티·쪽지는 `BE/address`의 백엔드 API 범위로 설명합니다.
+
+
+</details>
 
 ## 서비스 구성
 
